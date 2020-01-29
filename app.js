@@ -3,9 +3,13 @@ const app = express();
 const path = require('path');
 const router = express.Router();
 const SRC_PATH = '/src';
-const HTML_PATH = __dirname + SRC_PATH;
+const HTML_PATH = __dirname + SRC_PATH + '/html';
+const BDD_PATH = __dirname + SRC_PATH + '/data';
+var bddService = require('./src/services/bdd.service');
 
 router.get('/',function(req,res){
+  bddService.appendData(BDD_PATH + '/oracle_low_cost.bdd',  'oook');
+
   res.sendFile(path.join(HTML_PATH + '/index.html'));
 });
 
