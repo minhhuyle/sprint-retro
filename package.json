@@ -1,0 +1,23 @@
+{
+  "name": "sprint-retro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minhhuyle/sprint-retro.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minhhuyle/sprint-retro/issues"
+  },
+  "homepage": "https://github.com/minhhuyle/sprint-retro#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
