@@ -1,0 +1,20 @@
+<h3 align="center">Point Of View (Not visible)</h3>
+<div class="row">
+  <div class="col-sm alert alert-primary" role="alert">
+    <h5 class="card-title">Good <button type="button" class="btn btn-light" (click)="addPostIt('GOOD')">+</button></h5>
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let postIt of getPostIts('GOOD')">
+        <textarea class="border-less" ngModel="postIt.comment"></textarea></li>
+    </ul>
+  </div>
+
+  <div class="col-sm alert alert-dark" role="alert">
+    <h5 class="card-title">Keep <button type="button" class="btn btn-light" >+</button></h5>
+
+  </div>
+
+  <div class="col-sm alert alert-warning" role="alert">
+    <h5 class="card-title">Bad <button type="button" class="btn btn-light">+</button></h5>
+  </div>
+</div>
