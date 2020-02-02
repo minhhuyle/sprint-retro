@@ -2,11 +2,20 @@
   "name": "sprint-retro",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ng": "ng",
+    "startAngular": "ng serve",
+    "build": "ng build",
+    "buildProd": "ng build --prod --output-path dist",
+    "buildDev": "ng build --watch --output-path dist",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "start": "npm run buildProd && node app.js",
+    "startDev": "npm run buildDev && node app.js",
+    "startServer": "node app.js",
+    "test": "ng test"
   },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/minhhuyle/sprint-retro.git"
@@ -18,6 +27,39 @@
   },
   "homepage": "https://github.com/minhhuyle/sprint-retro#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "@angular/animations": "~8.2.14",
+    "@angular/common": "~8.2.14",
+    "@angular/compiler": "~8.2.14",
+    "@angular/core": "~8.2.14",
+    "@angular/forms": "~8.2.14",
+    "@angular/platform-browser": "~8.2.14",
+    "@angular/platform-browser-dynamic": "~8.2.14",
+    "@angular/router": "~8.2.14",
+    "express": "^4.17.1",
+    "mime": "^2.4.4",
+    "rxjs": "~6.4.0",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.9.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.803.23",
+    "@angular/cli": "~8.3.23",
+    "@angular/compiler-cli": "~8.2.14",
+    "@angular/language-service": "~8.2.14",
+    "@types/node": "~8.9.4",
+    "@types/jasmine": "~3.3.8",
+    "@types/jasminewd2": "~2.0.3",
+    "codelyzer": "^5.0.0",
+    "jasmine-core": "~3.4.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.1.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "protractor": "~5.4.0",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.15.0",
+    "typescript": "~3.5.3"
   }
 }
