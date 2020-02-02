@@ -3,7 +3,6 @@ const app = express();
 const path = require('path');
 const router = express.Router();
 const serveStatic = require('serve-static')
-const mime = require('mime');
 const SRC_PATH = '/src';
 const HTML_PATH = __dirname + '/dist';
 const BDD_PATH = __dirname + SRC_PATH + '/data';
