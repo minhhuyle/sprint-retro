@@ -3,15 +3,31 @@
   <div class="col-sm alert alert-primary" role="alert">
     <h5 class="card-title">Good</h5>
 
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let postItComment of getPostItComments('GOOD'); index as i;">
+        {{postItComment.comment}}
+      </li>
+    </ul>
   </div>
 
 
   <div class="col-sm alert alert-dark" role="alert">
     <h5 class="card-title">Keep</h5>
 
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let postItComment of getPostItComments('KEEP'); index as i;">
+        {{postItComment.comment}}
+      </li>
+    </ul>
   </div>
 
   <div class="col-sm alert alert-warning" role="alert">
     <h5 class="card-title">Bad</h5>
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let postItComment of getPostItComments('BAD'); index as i;">
+        {{postItComment.comment}}
+      </li>
+    </ul>
   </div>
 </div>

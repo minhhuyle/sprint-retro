@@ -4,7 +4,7 @@
     <h5 class="card-title">Good <button type="button" class="btn btn-light" (click)="addPostItComment('GOOD')">+</button></h5>
 
     <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let postItComment of getPostItComments('GOOD')">
+      <li class="list-group-item" *ngFor="let postItComment of getPostItComments('GOOD'); index as i;">
         <textarea class="border-less" [(ngModel)]="postItComment.comment"></textarea>
         <button (click)="showPostItComment('GOOD', postItComment)">Show</button>
       </li>
@@ -15,9 +15,9 @@
     <h5 class="card-title">Keep <button type="button" class="btn btn-light" (click)="addPostItComment('KEEP')">+</button></h5>
 
     <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let postItComment of getPostItComments('KEEP')">
+      <li class="list-group-item" *ngFor="let postItComment of getPostItComments('KEEP'); index as i;">
         <textarea class="border-less" [(ngModel)]="postItComment.comment"></textarea>
-        <button (click)="showPostItComment('KEEP', postItComment)">Show</button>
+        <button (click)="showPostItComment('KEEP', postItComment, i)">Show</button>
       </li>
     </ul>
   </div>
@@ -26,7 +26,7 @@
     <h5 class="card-title">Bad <button type="button" class="btn btn-light" (click)="addPostItComment('BAD')">+</button></h5>
 
     <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let postItComment of getPostItComments('BAD')">
+      <li class="list-group-item" *ngFor="let postItComment of getPostItComments('BAD'); index as i;">
         <textarea class="border-less" [(ngModel)]="postItComment.comment"></textarea>
         <button (click)="showPostItComment('BAD', postItComment)">Show</button>
       </li>

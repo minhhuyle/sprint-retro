@@ -20,7 +20,13 @@ app.get('/',function(req,res){
 
 app.get('/reset',function(req,res){
   bddService.clearData(BDD_PATH);
-  res.status(200).send('OK');
+  res.status(200).send({response : 'OK'});
+});
+
+app.get('/post-its',function(req,res){
+  const bdd = bddService.readData(BDD_PATH);
+  bddService.writeData(BDD_PATH, bdd);
+  res.status(200).send(bdd);
 });
 
 app.post('/add-post-it',function(req,res){
@@ -29,7 +35,7 @@ app.post('/add-post-it',function(req,res){
   bdd[rawMessage.type].push(rawMessage.data);
 
   bddService.writeData(BDD_PATH, bdd);
-  res.status(200);
+  res.status(200).send({response : 'OK'});
 });
 
 

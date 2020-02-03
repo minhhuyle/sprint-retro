@@ -32,12 +32,14 @@ export class PointOfViewComponent implements OnInit {
     return this.postItComments[type];
   }
 
-  showPostItComment(type: PostItType, postItComment) {
+  showPostItComment(type: PostItType, postItComment, index: number) {
+    console.log(index);
     this.http.post('/add-post-it', {
       type: type,
       data: postItComment
     }).subscribe(response => {
       console.log(response);
+      this.getPostItComments(type).splice(index, 1);
     });
   }
 }
