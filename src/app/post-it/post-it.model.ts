@@ -7,6 +7,10 @@ enum PostItType {
 class PostIt {
   vote: number;
   comment: string;
+
+  constructor() {
+    this.vote = 0;
+  }
 }
 
 export {

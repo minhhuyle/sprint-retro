@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostIt, PostItType } from '../post-it/post-it.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'mle-point-of-view',
@@ -8,9 +9,9 @@ import { PostIt, PostItType } from '../post-it/post-it.model';
 })
 export class PointOfViewComponent implements OnInit {
 
-  private postIts;
+  private postItComments;
 
-  constructor() {
+  constructor(private http: HttpClient) {
 
   }
 
@@ -19,15 +20,24 @@ export class PointOfViewComponent implements OnInit {
   }
 
   private initData() {
-    this.postIts = {};
-    Object.values(PostItType).forEach(ele => this.postIts[ele] = [])
+    this.postItComments = {};
+    Object.values(PostItType).forEach(ele => this.postItComments[ele] = [])
   }
 
-  addPostIt(type: PostItType) {
-    this.postIts[type].push(new PostIt());
+  addPostItComment(type: PostItType) {
+    this.postItComments[type].push(new PostIt());
   }
 
-  getPostIts(type: PostItType) {
-    return this.postIts[type];
+  getPostItComments(type: PostItType) {
+    return this.postItComments[type];
+  }
+
+  showPostItComment(type: PostItType, postItComment) {
+    this.http.post('/add-post-it', {
+      type: type,
+      data: postItComment
+    }).subscribe(response => {
+      console.log(response);
+    });
   }
 }
