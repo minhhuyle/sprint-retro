@@ -28,4 +28,16 @@ export class RetroBoardComponent implements OnInit {
   getPostItComments(type: PostItType) {
     return this.postIts && this.postIts[type] ? this.postIts[type] : [];
   }
+
+  refresh() {
+    this.loadPostIts();
+  }
+
+  voteUpPostIt(id: string) {
+
+  }
+
+  removeVotePostIt(id: string) {
+
+  }
 }

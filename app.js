@@ -6,7 +6,8 @@ const bodyParser = require("body-parser");
 const SRC_PATH = '/src';
 const HTML_PATH = __dirname + '/dist';
 const BDD_PATH = __dirname + SRC_PATH + '/data/oracle_low_cost.bdd';
-var bddService = require('./src/services/bdd.service');
+const uuidv4 = require('uuid/v4');
+const bddService = require('./src/services/bdd.service');
 
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,6 +33,7 @@ app.get('/post-its',function(req,res){
 app.post('/add-post-it',function(req,res){
   const rawMessage = req.body;
   const bdd = bddService.readData(BDD_PATH);
+  rawMessage.data.id = uuidv4();
   bdd[rawMessage.type].push(rawMessage.data);
 
   bddService.writeData(BDD_PATH, bdd);
