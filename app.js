@@ -55,7 +55,11 @@ app.post('/vote',function(req,res){
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-  res.sendFile(path.join(HTML_PATH+req.url));
+  let file = req.url;
+  if(req.url=== '/fontawesome-webfont.woff2?v=4.7.0') {
+    file = '/fontawesome-webfont.woff2';
+  }
+  res.sendFile(path.join(HTML_PATH+file));
 });
 
 app.use('/', router);

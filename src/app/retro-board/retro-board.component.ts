@@ -11,6 +11,7 @@ export class RetroBoardComponent implements OnInit {
 
   private postIts;
   private maxVote = 3;
+  private export :boolean = false;
 
   constructor(private http: HttpClient) {
 
@@ -40,5 +41,9 @@ export class RetroBoardComponent implements OnInit {
       this.maxVote--;
       this.http.post('/vote', {type, id}).subscribe(() => {});
     }
+  }
+
+  exportLowCost() {
+    this.export = !this.export;
   }
 }
