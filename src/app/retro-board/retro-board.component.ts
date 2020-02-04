@@ -10,6 +10,7 @@ import { PostItType } from '../post-it/post-it.model';
 export class RetroBoardComponent implements OnInit {
 
   private postIts;
+  private maxVote = 3;
 
   constructor(private http: HttpClient) {
 
@@ -26,18 +27,18 @@ export class RetroBoardComponent implements OnInit {
   }
 
   getPostItComments(type: PostItType) {
-    return this.postIts && this.postIts[type] ? this.postIts[type] : [];
+    let result = this.postIts && this.postIts[type] ? this.postIts[type] : [];
+    return result.sort((postItA, postItB) => {return postItB.vote - postItA.vote});
   }
 
   refresh() {
     this.loadPostIts();
   }
 
-  voteUpPostIt(id: string) {
-
-  }
-
-  removeVotePostIt(id: string) {
-
+  voteUpPostIt(type: PostItType, id: string) {
+    if(this.maxVote) {
+      this.maxVote--;
+      this.http.post('/vote', {type, id}).subscribe(() => {});
+    }
   }
 }

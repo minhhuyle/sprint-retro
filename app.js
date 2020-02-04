@@ -40,6 +40,18 @@ app.post('/add-post-it',function(req,res){
   res.status(200).send({response : 'OK'});
 });
 
+app.post('/vote',function(req,res){
+  const rawMessage = req.body;
+  const bdd = bddService.readData(BDD_PATH);
+  for (let postIt of bdd[rawMessage.type]) {
+    if(postIt.id === rawMessage.id) {
+      postIt.vote++;
+      break;
+    }
+  }
+  bddService.writeData(BDD_PATH, bdd);
+  res.status(200).send({response : 'OK'});
+});
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {

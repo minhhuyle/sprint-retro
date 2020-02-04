@@ -6,12 +6,10 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item" *ngFor="let postIt of getPostItComments('GOOD'); index as i;">
         {{postIt.comment}}
-        <button (click)="voteUpPostIt(postIt.id)">Like # {{postIt.vote}}</button>
-        <button (click)="removeVotePostIt(postIt.id)">Remove Like</button>
+        <button (click)="voteUpPostIt('GOOD', postIt.id)">Like # {{postIt.vote}}</button>
       </li>
     </ul>
   </div>
-
 
   <div class="col-sm alert alert-dark" role="alert">
     <h5 class="card-title">Keep</h5>
