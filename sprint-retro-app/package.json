@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "ng": "ng",
-    "startAngular": "ng serve",
+    "startAngularDev": "ng serve --proxy-config proxy.conf.json",
+    "startAngularDemo": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.json",
     "build": "ng build",
     "buildProd": "ng build --prod --output-path dist",
     "buildDev": "ng build --watch --output-path dist",

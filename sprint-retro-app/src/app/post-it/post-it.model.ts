@@ -5,7 +5,7 @@ enum PostItType {
 }
 
 class PostIt {
-  id: string;
+  id: number;
   vote: number;
   comment: string;
 

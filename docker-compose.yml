@@ -1,0 +1,11 @@
+version: "3"
+services:
+  sprint-retro-bdd:
+    image: "mysql"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "sprint-retro"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"

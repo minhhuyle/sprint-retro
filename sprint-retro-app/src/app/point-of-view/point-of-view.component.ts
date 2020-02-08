@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostIt, PostItType } from '../post-it/post-it.model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'mle-point-of-view',
@@ -33,9 +34,9 @@ export class PointOfViewComponent implements OnInit {
   }
 
   showPostItComment(type: PostItType, postItComment, index: number) {
-    this.http.post('/add-post-it', {
+    this.http.post(environment.apiUrl +  '/add-post-it', {
       type: type,
-      data: postItComment
+      ...postItComment
     }).subscribe(response => {
       this.getPostItComments(type).splice(index, 1);
     });

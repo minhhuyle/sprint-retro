@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PostItType } from '../post-it/post-it.model';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'mle-retro-board',
@@ -22,7 +23,7 @@ export class RetroBoardComponent implements OnInit {
   }
 
   loadPostIts() {
-    this.http.get('/post-its').subscribe(response => {
+    this.http.get(environment.apiUrl + '/post-its').subscribe(response => {
       this.postIts = response;
     });
   }
@@ -39,7 +40,7 @@ export class RetroBoardComponent implements OnInit {
   voteUpPostIt(type: PostItType, id: string) {
     if(this.maxVote) {
       this.maxVote--;
-      this.http.post('/vote', {type, id}).subscribe(() => {});
+      this.http.post(environment.apiUrl + '/vote', {type, id}).subscribe(() => {});
     }
   }
 
