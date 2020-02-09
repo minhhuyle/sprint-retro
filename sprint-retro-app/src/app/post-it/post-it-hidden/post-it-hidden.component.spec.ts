@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostItComponent } from './post-it.component';
+import { PostItHiddenComponent } from './post-it-hidden.component';
 
-describe('PostItComponent', () => {
-  let component: PostItComponent;
-  let fixture: ComponentFixture<PostItComponent>;
+describe('PostItHiddenComponent', () => {
+  let component: PostItHiddenComponent;
+  let fixture: ComponentFixture<PostItHiddenComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostItComponent ]
+      declarations: [ PostItHiddenComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostItComponent);
+    fixture = TestBed.createComponent(PostItHiddenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

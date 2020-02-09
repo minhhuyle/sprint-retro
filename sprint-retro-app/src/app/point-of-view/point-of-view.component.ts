@@ -26,19 +26,18 @@ export class PointOfViewComponent implements OnInit {
   }
 
   addPostItComment(type: PostItType) {
-    this.postItComments[type].push(new PostIt());
+    this.postItComments[type].push(new PostIt(type));
   }
 
-  getPostItComments(type: PostItType) {
+  getPostItComments(type: PostItType): [PostIt] {
     return this.postItComments[type];
   }
 
-  showPostItComment(type: PostItType, postItComment, index: number) {
-    this.http.post(environment.apiUrl +  '/add-post-it', {
-      type: type,
-      ...postItComment
-    }).subscribe(response => {
-      this.getPostItComments(type).splice(index, 1);
-    });
+  removePostIt(postIt: PostIt) {
+    const type = postIt.type;
+    const findIndex = this.getPostItComments(type).findIndex(val => val == postIt);
+    if(findIndex != -1) {
+      this.getPostItComments(type).splice(findIndex, 1);
+    }
   }
 }

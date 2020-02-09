@@ -8,9 +8,11 @@ class PostIt {
   id: number;
   vote: number;
   comment: string;
+  type: PostItType;
 
-  constructor() {
+  constructor(type: PostItType) {
     this.vote = 0;
+    this.type = type;
   }
 }
 
