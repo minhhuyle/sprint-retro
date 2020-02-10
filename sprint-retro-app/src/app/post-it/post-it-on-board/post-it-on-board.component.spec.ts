@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DrawerBoardComponent } from './drawer-board.component';
+import { PostItOnBoardComponent } from './post-it-on-board.component';
 
-describe('DrawerBoardComponent', () => {
-  let component: DrawerBoardComponent;
-  let fixture: ComponentFixture<DrawerBoardComponent>;
+describe('PostItOnBoardComponent', () => {
+  let component: PostItOnBoardComponent;
+  let fixture: ComponentFixture<PostItOnBoardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DrawerBoardComponent ]
+      declarations: [ PostItOnBoardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DrawerBoardComponent);
+    fixture = TestBed.createComponent(PostItOnBoardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

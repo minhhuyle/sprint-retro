@@ -1,25 +1,41 @@
 <h1 align="center">
-  <fa name="refresh" (click)="refresh()" class="btn btn-success"></fa>
+  <span (click)="refresh()" class="btn btn-success fa fa-refresh"></span>
   Retro
-  <fa name="file" (click)="exportLowCost()" class="btn btn-secondary"></fa>
+  <span (click)="exportLowCost()" class="btn btn-secondary fa fa-file"></span>
 </h1>
 <div class="row">
-  <mle-drawer-board class="col-sm alert alert-primary"
-                    [type]="'GOOD'" [postIts]="getPostItComments('GOOD')">
-  </mle-drawer-board>
+  <div class="col-sm alert alert-primary">
+    <h5 class="card-title">GOOD</h5>
 
-  <mle-drawer-board class="col-sm alert alert-dark"
-                    [type]="'KEEP'" [postIts]="getPostItComments('KEEP')">
-  </mle-drawer-board>
+    <ul class="list-group list-group-flush">
+      <mle-post-it-on-board *ngFor="let postIt of getPostItComments('GOOD'); index as i;"
+                            [postIt]="postIt">
+      </mle-post-it-on-board>
+    </ul>
+  </div>
+
+
+  <div class="col-sm alert alert-dark">
+    <h5 class="card-title">GOOD</h5>
+
+    <ul class="list-group list-group-flush">
+      <mle-post-it-on-board *ngFor="let postIt of getPostItComments('KEEP'); index as i;"
+                            [postIt]="postIt">
+      </mle-post-it-on-board>
+    </ul>
+  </div>
 
   <div class="col-sm alert alert-warning" role="alert">
     <h5 class="card-title">Bad</h5>
-
     <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let postIt of getPostItComments('BAD'); index as i;">
-        {{postIt.comment}}
-        <button *ngIf="!this.export" (click)="voteUpPostIt('BAD', postIt.id)">Like # {{postIt.vote}}</button>
-      </li>
+      <mle-post-it-on-board *ngFor="let postIt of getPostItComments('BAD'); index as i;"
+                            [postIt]="postIt">
+        <ng-container *ngIf="!this.export">
+          <span (click)="voteUpPostIt('BAD', postIt.id)"
+                class="btn badge badge-primary fa fa-thumbs-up"> {{postIt.vote}}</span>
+          <span class="btn fa fa-thumbs-down"></span>
+        </ng-container>
+      </mle-post-it-on-board>
     </ul>
   </div>
 </div>
