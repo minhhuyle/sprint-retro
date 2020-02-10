@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PostItType } from '../post-it/post-it.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'mle-retro-board',

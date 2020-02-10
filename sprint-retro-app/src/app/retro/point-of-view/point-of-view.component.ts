@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostIt, PostItType } from '../post-it/post-it.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'mle-point-of-view',

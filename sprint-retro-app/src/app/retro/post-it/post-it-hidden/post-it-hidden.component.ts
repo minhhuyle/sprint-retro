@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PostIt } from '../post-it.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'mle-post-it-hidden',
