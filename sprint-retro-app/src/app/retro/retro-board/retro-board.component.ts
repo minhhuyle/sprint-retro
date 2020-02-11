@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PostItType } from '../post-it/post-it.model';
+import { PostIt, PostItType } from '../post-it/post-it.model';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -46,5 +46,18 @@ export class RetroBoardComponent implements OnInit {
 
   exportLowCost() {
     this.export = !this.export;
+  }
+
+  notifyPostItOnBoard(postIt: PostIt) {
+    if(this.postIts) {
+      const findIndex = this.postIts[postIt.type].findIndex(val => val.id == postIt.id);
+      if(findIndex != -1) {
+        this.postIts[postIt.type][findIndex] = postIt;
+      } else {
+        this.postIts[postIt.type].unshift(postIt);
+      }
+    }else {
+      this.loadPostIts();
+    }
   }
 }
