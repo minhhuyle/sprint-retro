@@ -1,0 +1,9 @@
+{
+  "/sprint-retro-api": {
+    "target": "192.168.0.78:3000",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {"^/sprint-retro-api" : ""}
+  }
+}

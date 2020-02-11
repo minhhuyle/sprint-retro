@@ -1,10 +1,10 @@
 <li class="list-group-item">
-  <div class="form-group row">
+  <div class="row">
     <div class="col-10">
       <textarea class="form-control " [(ngModel)]="postIt.comment"></textarea>
     </div>
     <div class="col-1">
-      <fa name="upload" (click)="showPostItComment(postIt)" class="btn btn-secondary"></fa>
+      <i (click)="showPostItComment(postIt)" class="fa fa-upload btn btn-secondary"></i>
     </div>
   </div>
 </li>

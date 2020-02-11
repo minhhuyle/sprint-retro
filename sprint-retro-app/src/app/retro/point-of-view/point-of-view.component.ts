@@ -26,7 +26,7 @@ export class PointOfViewComponent implements OnInit {
   }
 
   addPostItComment(type: PostItType) {
-    this.postItComments[type].push(new PostIt(type));
+    this.postItComments[type].unshift(new PostIt(type));
   }
 
   getPostItComments(type: PostItType): [PostIt] {
