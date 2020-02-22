@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'mle-navigation',
@@ -8,16 +8,29 @@ import { Router } from '@angular/router';
 })
 export class NavigationComponent implements OnInit {
 
-  private _navLinks: string[] = ["View board", "Write board"];
+  private _navLinks: any[] = [{
+    title: "View board",
+    url: '/'
+  }, {
+    title: "Write board",
+    url: '/retro'
+  }, {
+    title: "Config board",
+    url: '/config'
+  }];
   private selectedNavLink : string;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.selectedNavLink = "View board";
+    this.router.events.subscribe( (event: RouterEvent) => {
+      if(event instanceof NavigationEnd) {
+        if(this.selectedNavLink !== event.url) {
+          this.selectedNavLink = event.url;
+        }
+      }
+    })
   }
-
-
   get navLinks(): string[] {
     return this._navLinks;
   }
@@ -29,14 +42,7 @@ export class NavigationComponent implements OnInit {
   selectNavLink(navLink: string) {
     if(this.selectedNavLink !== navLink) {
       this.selectedNavLink = navLink;
-      switch (this.selectedNavLink) {
-        case "View board":
-          this.router.navigateByUrl('/');
-          break;
-        case "Write board":
-          this.router.navigateByUrl('/retro');
-          break;
-      }
+      this.router.navigateByUrl(this.selectedNavLink);
     }
   }
 

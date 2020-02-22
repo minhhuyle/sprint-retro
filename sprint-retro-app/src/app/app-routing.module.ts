@@ -3,9 +3,11 @@ import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/c
 import { RouterModule, Routes } from '@angular/router';
 import { RetroComponent } from './retro/retro.component';
 import { ViewBoardComponent } from './view-board/view-board.component';
+import { ConfigComponent } from './config/config.component';
 
 const routes: Routes = [
   { path: 'retro', component: RetroComponent },
+  { path: 'config', component: ConfigComponent },
   { path: '', component: ViewBoardComponent },
   { path: '**', component: RetroComponent },
 ];

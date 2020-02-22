@@ -12,6 +12,9 @@ export class PostItHiddenComponent implements OnInit {
   @Input()
   postIt: PostIt;
 
+  @Input()
+  lockPostIt: boolean = true;
+
   @Output()
   completeOnShowAction : EventEmitter<PostIt>= new EventEmitter();
 

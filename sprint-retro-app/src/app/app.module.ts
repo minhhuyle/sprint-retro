@@ -14,6 +14,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ViewBoardComponent } from './view-board/view-board.component';
+import { ConfigComponent } from './config/config.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ViewBoardComponent } from './view-board/view-board.component';
     LoginComponent,
     RetroComponent,
     NavigationComponent,
-    ViewBoardComponent
+    ViewBoardComponent,
+    ConfigComponent
   ],
   imports: [
     BrowserModule,

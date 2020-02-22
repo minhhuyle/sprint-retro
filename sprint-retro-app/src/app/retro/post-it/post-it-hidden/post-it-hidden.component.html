@@ -1,9 +1,9 @@
 <li class="list-group-item">
   <div class="row">
     <div class="col-10">
-      <textarea class="form-control " [(ngModel)]="postIt.comment"></textarea>
+      <textarea class="form-control" [(ngModel)]="postIt.comment"></textarea>
     </div>
-    <div class="col-1">
+    <div *ngIf="!lockPostIt" class="col-1">
       <i (click)="showPostItComment(postIt)" class="fa fa-upload btn btn-secondary"></i>
     </div>
   </div>
