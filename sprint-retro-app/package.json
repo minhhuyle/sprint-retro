@@ -5,8 +5,9 @@
   "scripts": {
     "ng": "ng",
     "startAngularDev": "ng serve --proxy-config proxy.conf.json",
-    "startAngularDemo": "ng serve --host \"0.0.0.0\" --proxy-config proxy.conf.json --disableHostCheck=true",
+    "startAngularDemo": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.demo.json --disableHostCheck",
     "build": "ng build",
+    "buildDemo": "ng build --configuration=demo",
     "buildProd": "ng build --prod --output-path dist",
     "buildDev": "ng build --watch --output-path dist",
     "lint": "ng lint",

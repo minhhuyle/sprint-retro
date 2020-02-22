@@ -15,6 +15,12 @@ public class MainController {
         this.postItService = postItService;
     }
 
+    @GetMapping(value = "/")
+    @ResponseStatus(HttpStatus.OK)
+    public String welcome() {
+        return "index.html";
+    }
+
     @GetMapping(value = "/reset")
     @ResponseStatus(HttpStatus.OK)
     public void resetRetro() {

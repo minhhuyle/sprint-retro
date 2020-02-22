@@ -4,6 +4,9 @@
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
+    "headers": {
+      "Connection": "keep-alive"
+    },
     "pathRewrite": {"^/sprint-retro-api" : ""}
   }
 }

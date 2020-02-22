@@ -6,8 +6,8 @@ import { RetroComponent } from './retro/retro.component';
 
 const routes: Routes = [
   { path: 'retro', component: RetroComponent },
-  { path: '', component: LoginComponent},
-  { path: '**', component: LoginComponent },
+  { path: '', component: RetroComponent},
+  { path: '**', component: RetroComponent },
 ];
 
 @NgModule({
