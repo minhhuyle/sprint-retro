@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './user/login/login.component';
 import { RetroComponent } from './retro/retro.component';
+import { ViewBoardComponent } from './view-board/view-board.component';
 
 const routes: Routes = [
   { path: 'retro', component: RetroComponent },
-  { path: '', component: RetroComponent},
+  { path: '', component: ViewBoardComponent },
   { path: '**', component: RetroComponent },
 ];
 

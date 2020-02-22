@@ -1,0 +1,8 @@
+<div class="container">
+  <ul class="nav nav-pills nav-fill">
+    <li class="nav-item" *ngFor="let navLink of navLinks" (click)="selectNavLink(navLink)">
+      <a class="nav-link" [ngClass]="isSelected(navLink)">{{navLink}}</a>
+    </li>
+  </ul>
+  <router-outlet></router-outlet>
+</div>

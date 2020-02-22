@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PostIt, PostItType } from '../post-it/post-it.model';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../environments/environment';
+import { PostIt, PostItType } from '../retro/post-it/post-it.model';
+import { SocketService } from '../socket/socket.service';
 
 @Component({
-  selector: 'mle-retro-board',
-  templateUrl: './retro-board.component.html',
-  styleUrls: ['./retro-board.component.scss']
+  selector: 'mle-view-board',
+  templateUrl: './view-board.component.html',
+  styleUrls: ['./view-board.component.scss']
 })
-export class RetroBoardComponent implements OnInit {
-
+export class ViewBoardComponent implements OnInit {
   private postIts;
   private maxVote = 3;
   private export :boolean = false;
 
-  constructor(private http: HttpClient) {
-
+  constructor(private http: HttpClient, private socketService: SocketService) {
   }
 
   ngOnInit() {
+    this.socketService.initializeWebSocketConnection(message => this.handleResult(message));
     this.loadPostIts();
   }
 
@@ -48,6 +48,13 @@ export class RetroBoardComponent implements OnInit {
     this.export = !this.export;
   }
 
+  handleResult(message) : void{
+    if (message.body) {
+      let postIt = JSON.parse(message.body);
+      this.notifyPostItOnBoard(postIt);
+    }
+  }
+
   notifyPostItOnBoard(postIt: PostIt) {
     if(this.postIts) {
       const findIndex = this.postIts[postIt.type].findIndex(val => val.id == postIt.id);
@@ -56,8 +63,9 @@ export class RetroBoardComponent implements OnInit {
       } else {
         this.postIts[postIt.type].unshift(postIt);
       }
-    }else {
+    } else {
       this.loadPostIts();
     }
   }
+
 }
