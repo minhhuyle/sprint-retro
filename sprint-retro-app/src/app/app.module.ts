@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { PointOfViewComponent } from './retro/point-of-view/point-of-view.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostItHiddenComponent } from './retro/post-it/post-it-hidden/post-it-hidden.component';
@@ -19,7 +18,6 @@ import { ViewBoardComponent } from './view-board/view-board.component';
 @NgModule({
   declarations: [
     AppComponent,
-    PointOfViewComponent,
     PostItHiddenComponent,
     PostItOnBoardComponent,
     LoginComponent,
