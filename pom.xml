@@ -16,7 +16,7 @@
     </properties>
 
     <modules>
-        <module>sprint-retro-api</module>
         <module>sprint-retro-app</module>
+        <module>sprint-retro-api</module>
     </modules>
 </project>
