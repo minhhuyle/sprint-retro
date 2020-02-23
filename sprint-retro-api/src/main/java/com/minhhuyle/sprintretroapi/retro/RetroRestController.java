@@ -1,5 +1,6 @@
 package com.minhhuyle.sprintretroapi.retro;
 
+import com.minhhuyle.sprintretroapi.retro.model.LinkPost;
 import com.minhhuyle.sprintretroapi.retro.model.PostIt;
 import com.minhhuyle.sprintretroapi.retro.model.PostItType;
 import com.minhhuyle.sprintretroapi.retro.service.PostItService;
@@ -33,5 +34,11 @@ public class RetroRestController {
     @ResponseStatus(HttpStatus.OK)
     public void votePostIt(@RequestBody PostIt postIt) {
         postItService.vote(postIt);
+    }
+
+    @PostMapping(value = "/link-post")
+    @ResponseStatus(HttpStatus.OK)
+    public void linkPost(@RequestBody LinkPost linkPost) {
+        postItService.linkPost(linkPost);
     }
 }

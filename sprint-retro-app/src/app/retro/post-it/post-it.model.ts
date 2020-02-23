@@ -9,6 +9,7 @@ class PostIt {
   vote: number;
   comment: string;
   type: PostItType;
+  linkedPostIts: PostIt [];
 
   constructor(type: PostItType) {
     this.vote = 0;

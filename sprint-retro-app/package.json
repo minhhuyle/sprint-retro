@@ -27,6 +27,7 @@
   "homepage": "https://github.com/minhhuyle/sprint-retro#readme",
   "dependencies": {
     "@angular/animations": "~9.0.0",
+    "@angular/cdk": "^9.0.1",
     "@angular/common": "~9.0.0",
     "@angular/compiler": "~9.0.0",
     "@angular/core": "~9.0.0",

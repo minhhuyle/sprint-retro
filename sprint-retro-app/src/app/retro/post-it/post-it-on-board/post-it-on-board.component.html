@@ -1,7 +1,16 @@
 <li class="list-group-item">
   <div class="row">
     <div class="col-12">
-      <ng-content></ng-content> {{postIt.comment}}
+      <ng-content></ng-content>
+      <ng-container *ngIf="postIt.linkedPostIts.length == 0">
+        {{postIt.comment}}
+      </ng-container>
+      <ng-container *ngIf="postIt.linkedPostIts.length > 0">
+        {{postIt.comment}}
+          <div *ngFor="let linkPost of postIt.linkedPostIts">
+            - {{linkPost.comment}}
+          </div>
+      </ng-container>
     </div>
   </div>
 </li>

@@ -1,10 +1,13 @@
 package com.minhhuyle.sprintretroapi.retro.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +16,14 @@ public class PostIt {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @JsonIgnore
+    @ManyToOne(cascade={CascadeType.ALL})
+    @JoinColumn(name = "parent_id")
+    private PostIt parent;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
+    private List<PostIt> linkedPostIts = new ArrayList<>();
 
     private long vote;
 
@@ -63,6 +74,25 @@ public class PostIt {
         this.type = type;
     }
 
+    public List<PostIt> getLinkedPostIts() {
+        return linkedPostIts;
+    }
+
+    public void addChildPostIt(PostIt childPostIt) {
+        linkedPostIts.add(childPostIt);
+    }
+
+    public void setLinkedPostIts(final List<PostIt> linkedPostIts) {
+        this.linkedPostIts = linkedPostIts;
+    }
+
+    public PostIt getParent() {
+        return parent;
+    }
+
+    public void setParent(final PostIt parent) {
+        this.parent = parent;
+    }
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

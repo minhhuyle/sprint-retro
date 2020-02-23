@@ -4,12 +4,13 @@
   <span (click)="exportLowCost()" class="btn btn-secondary fa fa-file"></span>
 </h1>
 <div class="row">
-  <div class="col-sm alert alert-primary card">
+  <div class="col-sm alert alert-primary">
     <h5 class="card-title">GOOD</h5>
 
     <ul class="rack-board list-group list-group-flush">
       <mle-post-it-on-board *ngFor="let postIt of getPostItComments('GOOD'); index as i;"
                             [postIt]="postIt">
+        <mle-link *ngIf="postIt.linkedPostIts.length === 0" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
       </mle-post-it-on-board>
     </ul>
   </div>
@@ -20,6 +21,7 @@
     <ul class="rack-board list-group list-group-flush">
       <mle-post-it-on-board *ngFor="let postIt of getPostItComments('KEEP'); index as i;"
                             [postIt]="postIt">
+        <mle-link *ngIf="postIt.linkedPostIts.length === 0" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
       </mle-post-it-on-board>
     </ul>
   </div>
@@ -34,7 +36,36 @@
                 class="btn badge badge-primary fa fa-thumbs-up"> {{postIt.vote}}</span>
           <!--<span class="btn fa fa-thumbs-down"></span>-->
         </ng-container>
+        <mle-link *ngIf="postIt.linkedPostIts.length === 0" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
       </mle-post-it-on-board>
     </ul>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="linkModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="linkModalLabel">Choose post type {{getPostItLinkType()}} to link</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="rack-board list-group list-group-flush">
+          <ng-container *ngFor="let postIt of getPostItToLink(); index as i;">
+            <li class="list-group-item" *ngIf="postIt != this.getSelectedPostItWantedToLink()">
+              <span (click)="linkToParent(postIt)" data-dismiss="modal" class="btn btn-success fa fa-link"></span> {{postIt.comment}}
+            </li>
+          </ng-container>
+
+        </ul>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
   </div>
 </div>

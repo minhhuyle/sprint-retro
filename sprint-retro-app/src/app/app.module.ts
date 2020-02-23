@@ -15,6 +15,8 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { NavigationComponent } from './navigation/navigation.component';
 import { ViewBoardComponent } from './view-board/view-board.component';
 import { ConfigComponent } from './config/config.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LinkComponent } from './view-board/link/link.component';
 
 @NgModule({
   declarations: [
@@ -25,11 +27,13 @@ import { ConfigComponent } from './config/config.component';
     RetroComponent,
     NavigationComponent,
     ViewBoardComponent,
-    ConfigComponent
+    ConfigComponent,
+    LinkComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    DragDropModule,
     FormsModule,
     FontAwesomeModule,
     BrowserAnimationsModule,

@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment';
 export class SocketService {
   private serverUrl = environment.apiUrl + '/socket';
   private stompClient;
+  private handleMessage: (message) => void;
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +21,8 @@ export class SocketService {
     );
   }
 
-  initializeWebSocketConnection(handleMessage: (message) => void) {
+  initializeWebSocketConnection(handleMessage: (response) => void) {
+    this.handleMessage = handleMessage;
     if(this.stompClient) {
       return;
     }
@@ -29,14 +31,17 @@ export class SocketService {
     this.stompClient = Stomp.over(ws);
     let that = this;
     this.stompClient.connect({}, function (frame) {
-      that.openGlobalSocket(handleMessage)
+      that.openGlobalSocket()
     });
   }
 
-  private openGlobalSocket(handleMessage: (message) => void) {
-    this.stompClient.subscribe("/socket-publisher", (message) => {
-      console.log(message);
-      handleMessage(message);
+  private openGlobalSocket() {
+    this.stompClient.subscribe("/socket-publisher", (response) => {
+      this.handleMessage && this.handleMessage(response);
     });
+  }
+
+  cancelHandleMessage() {
+    this.handleMessage = null;
   }
 }
