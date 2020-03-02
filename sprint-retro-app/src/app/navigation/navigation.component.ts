@@ -17,6 +17,9 @@ export class NavigationComponent implements OnInit {
   }, {
     title: "Config board",
     url: '/config'
+  }, {
+    title: "Admin board",
+    url: '/admin'
   }];
   private selectedNavLink : string;
 

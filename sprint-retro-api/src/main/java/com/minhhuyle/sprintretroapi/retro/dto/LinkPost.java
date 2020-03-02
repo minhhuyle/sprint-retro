@@ -1,4 +1,4 @@
-package com.minhhuyle.sprintretroapi.retro.model;
+package com.minhhuyle.sprintretroapi.retro.dto;
 
 public class LinkPost {
     private Long childId;

@@ -1,0 +1,11 @@
+<form [hidden]="isLogged" [formGroup]="adminForm" (ngSubmit)="onAuthentication()" class="form-inline">
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="adminPassword" class="sr-only">Password</label>
+    <input type="password" formControlName="password" class="form-control" id="adminPassword" placeholder="Password">
+  </div>
+  <button [disabled]="!adminForm.valid" type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+</form>
+
+<div [hidden]="!isLogged">
+  <span (click)="reset()" class="btn btn-danger fa fa-trash"> RESET </span>
+</div>

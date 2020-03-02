@@ -17,6 +17,7 @@ import { ViewBoardComponent } from './view-board/view-board.component';
 import { ConfigComponent } from './config/config.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LinkComponent } from './view-board/link/link.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +29,11 @@ import { LinkComponent } from './view-board/link/link.component';
     NavigationComponent,
     ViewBoardComponent,
     ConfigComponent,
-    LinkComponent
+    LinkComponent,
+    AdminViewComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     HttpClientModule,
     DragDropModule,

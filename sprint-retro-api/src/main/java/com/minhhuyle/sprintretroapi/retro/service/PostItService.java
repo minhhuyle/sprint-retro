@@ -1,6 +1,6 @@
 package com.minhhuyle.sprintretroapi.retro.service;
 
-import com.minhhuyle.sprintretroapi.retro.model.LinkPost;
+import com.minhhuyle.sprintretroapi.retro.dto.LinkPost;
 import com.minhhuyle.sprintretroapi.retro.model.PostItType;
 import com.minhhuyle.sprintretroapi.retro.service.dao.PostItDao;
 import com.minhhuyle.sprintretroapi.retro.model.PostIt;
