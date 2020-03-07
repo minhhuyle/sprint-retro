@@ -22,4 +22,12 @@ export class AdminViewService {
   reset(authenticationForm) : Observable<any> {
     return this.http.post(this.serverUrl + '/reset', authenticationForm);
   }
+
+  saveBoard(adminBoardsFrom) : Observable<any> {
+    return this.http.post(this.serverUrl + '/save-boards', adminBoardsFrom);
+  }
+
+  deleteBoard(adminDeleteBoard) : Observable<any> {
+    return this.http.post(this.serverUrl + '/delete-board', adminDeleteBoard);
+  }
 }

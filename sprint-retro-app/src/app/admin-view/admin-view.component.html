@@ -1,11 +1,42 @@
 <form [hidden]="isLogged" [formGroup]="adminForm" (ngSubmit)="onAuthentication()" class="form-inline">
-  <div class="form-group mx-sm-3 mb-2">
+  <div class="form-group mx-sm-3">
     <label for="adminPassword" class="sr-only">Password</label>
     <input type="password" formControlName="password" class="form-control" id="adminPassword" placeholder="Password">
   </div>
-  <button [disabled]="!adminForm.valid" type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+  <button [disabled]="!adminForm.valid" type="submit" class="btn btn-primary">Confirm identity</button>
 </form>
 
 <div [hidden]="!isLogged">
+  <div class="col-sm alert alert-secondary" role="alert">
+    <h5 class="card-title">Board Management <button type="button" class="btn btn-light" (click)="addBoard()">+</button></h5>
+
+    <ul class="rack-board list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let board of boards; index as i">
+        <div class="row">
+          <div class="col-sm-4">
+            <input type="input" class="form-control" [(ngModel)]="board.type" placeholder="Name"/>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" class="btn btn-info" (click)="disableActiveLikable(board)">
+              <span class="fa" [ngClass]="getClassOfLikable(board.likable)"></span>
+            </button>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" class="btn btn-danger" (click)="deleteBoard(board.id, i)">
+              <span class="fa fa-trash"></span>
+            </button>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+
+    <br/>
+    <button type="button" class="btn btn-info" (click)="saveBoards()">
+      <span class="fa fa-save"></span>
+    </button>
+
+  </div>
+  <hr/>
   <span (click)="reset()" class="btn btn-danger fa fa-trash"> RESET </span>
 </div>
