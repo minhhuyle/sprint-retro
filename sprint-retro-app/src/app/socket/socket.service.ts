@@ -30,7 +30,7 @@ export class SocketService {
     let ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
     let that = this;
-    this.stompClient.connect({}, function (frame) {
+    this.stompClient.connect({}, (frame) => {
       that.openGlobalSocket()
     });
   }

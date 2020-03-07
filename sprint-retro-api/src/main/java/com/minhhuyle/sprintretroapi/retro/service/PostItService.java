@@ -8,10 +8,7 @@ import com.minhhuyle.sprintretroapi.socket.service.SocketService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,13 +37,18 @@ public class PostItService {
         return (List<PostIt>) postItDao.findAllByParentIsNull();
     }
 
-    public Map<PostItType, List<PostIt>> getAllByType() {
-        List<PostIt> postItServiceAll = getAllParent();
+    public Map<String, List<PostIt>> getAllByType() {
+        List<PostIt> postIts = getAllParent();
 
-        Map<PostItType, List<PostIt>> result = new HashMap<>();
-        for (PostItType postItType : PostItType.values()) {
-            List<PostIt> postItListByType = postItServiceAll.stream().filter(postIt -> postItType.equals(postIt.getType())).collect(Collectors.toList());
-            result.put(postItType, postItListByType);
+        Map<String, List<PostIt>> result = new HashMap<>();
+        for (PostIt postIt : postIts) {
+            String postItType = postIt.getType();
+
+            if(!result.containsKey(postItType)) {
+                result.put(postItType, new ArrayList<>());
+            }
+
+            result.get(postItType).add(postIt);
         }
 
         return result;

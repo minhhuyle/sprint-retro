@@ -3,7 +3,7 @@ package com.minhhuyle.sprintretroapi.admin;
 import com.minhhuyle.sprintretroapi.admin.dto.AdminAuthentication;
 import com.minhhuyle.sprintretroapi.admin.dto.AdminDeleteBoard;
 import com.minhhuyle.sprintretroapi.admin.dto.AdminSaveBoard;
-import com.minhhuyle.sprintretroapi.admin.model.Board;
+import com.minhhuyle.sprintretroapi.board.model.Board;
 import com.minhhuyle.sprintretroapi.admin.service.AdminViewService;
 import com.minhhuyle.sprintretroapi.retro.service.PostItService;
 import org.springframework.http.HttpStatus;

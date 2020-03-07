@@ -8,10 +8,10 @@ class PostIt {
   id: number;
   vote: number;
   comment: string;
-  type: PostItType;
+  type: string;
   linkedPostIts: PostIt [];
 
-  constructor(type: PostItType) {
+  constructor(type: string) {
     this.vote = 0;
     this.type = type;
   }

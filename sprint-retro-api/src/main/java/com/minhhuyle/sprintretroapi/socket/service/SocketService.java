@@ -21,7 +21,7 @@ public class SocketService {
         this.simpMessagingTemplate.convertAndSend(SOCKET_DESTINATION, SocketMessage.createDataMessage(postIt));
     }
 
-    public void notifyAllSocketsToRefresh(PostItType postItType) {
+    public void notifyAllSocketsToRefresh(String postItType) {
         this.simpMessagingTemplate.convertAndSend(SOCKET_DESTINATION, SocketMessage.createRefreshMessage(postItType));
     }
 

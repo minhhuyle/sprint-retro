@@ -1,4 +1,4 @@
-package com.minhhuyle.sprintretroapi.admin.model;
+package com.minhhuyle.sprintretroapi.board.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,6 +1,6 @@
 package com.minhhuyle.sprintretroapi.admin.dto;
 
-import com.minhhuyle.sprintretroapi.admin.model.Board;
+import com.minhhuyle.sprintretroapi.board.model.Board;
 
 import java.util.List;
 

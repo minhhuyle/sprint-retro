@@ -2,8 +2,6 @@ package com.minhhuyle.sprintretroapi.retro.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class PostIt {
 
     private String comment;
 
-    private PostItType type;
+    private String type;
 
     public PostIt() {
     }
@@ -66,11 +64,11 @@ public class PostIt {
         this.comment = comment;
     }
 
-    public PostItType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(final PostItType type) {
+    public void setType(final String type) {
         this.type = type;
     }
 

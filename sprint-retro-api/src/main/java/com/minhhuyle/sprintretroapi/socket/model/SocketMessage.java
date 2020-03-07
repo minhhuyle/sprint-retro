@@ -35,7 +35,7 @@ public class SocketMessage {
         return new SocketMessage(SocketMessageType.DATA, postIt);
     }
 
-    public static SocketMessage createRefreshMessage(PostItType postItType) {
+    public static SocketMessage createRefreshMessage(String postItType) {
         return new SocketMessage(SocketMessageType.REFRESH, postItType);
     }
 

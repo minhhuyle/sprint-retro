@@ -1,9 +1,5 @@
 package com.minhhuyle.sprintretroapi.admin.dto;
 
-import com.minhhuyle.sprintretroapi.admin.model.Board;
-
-import java.util.List;
-
 public class AdminDeleteBoard {
     private String password;
 

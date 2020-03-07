@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RetroComponent } from './retro.component';
+import { WriteBoardComponent } from './write-board.component';
 
-describe('RetroComponent', () => {
-  let component: RetroComponent;
-  let fixture: ComponentFixture<RetroComponent>;
+describe('WriteBoardComponent', () => {
+  let component: WriteBoardComponent;
+  let fixture: ComponentFixture<WriteBoardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RetroComponent ]
+      declarations: [ WriteBoardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RetroComponent);
+    fixture = TestBed.createComponent(WriteBoardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

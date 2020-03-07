@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { RetroComponent } from './retro/retro.component';
-import { ViewBoardComponent } from './view-board/view-board.component';
+import { ViewBoardComponent } from './board/view-board/view-board.component';
 import { ConfigComponent } from './config/config.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
+import { WriteBoardComponent } from './board/write-board/write-board.component';
 
 const routes: Routes = [
-  { path: 'retro', component: RetroComponent },
+  { path: 'write', component: WriteBoardComponent },
   { path: 'config', component: ConfigComponent },
   { path: 'admin', component: AdminViewComponent },
   { path: '', component: ViewBoardComponent },
-  { path: '**', component: RetroComponent },
+  { path: '**', component: ViewBoardComponent },
 ];
 
 @NgModule({

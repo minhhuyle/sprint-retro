@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { PostIt, PostItType } from '../retro/post-it/post-it.model';
-import { SocketService } from '../socket/socket.service';
-import { SocketMessageType } from '../socket/socket.model';
+import { PostIt, PostItType } from '../model/post-it.model';
+import { SocketService } from '../../socket/socket.service';
+import { SocketMessageType } from '../../socket/socket.model';
+import { environment } from '../../../environments/environment';
+import { BoardService } from '../board.service';
+import { Board } from '../model/board.model';
 
 @Component({
   selector: 'mle-view-board',
@@ -15,13 +17,24 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   private maxVote = 3;
   private export: boolean = false;
   private selectedPostItWantedToLink: PostIt;
+  boards: Board[];
 
-  constructor(private http: HttpClient, private socketService: SocketService) {
+  constructor(private http: HttpClient,
+              private boardService: BoardService,
+              private socketService: SocketService) {
   }
 
   ngOnInit() {
     this.socketService.initializeWebSocketConnection(response => this.handleResult(this, response));
+    this.initData();
     this.loadPostIts(this);
+  }
+
+  private initData() {
+    this.boardService.getAllBoards().subscribe(boardsRes => {
+      this.boards = boardsRes;
+      this.loadPostIts(this);
+    });
   }
 
   ngOnDestroy(): void {
@@ -38,7 +51,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     });
   }
 
-  getPostItComments(type: PostItType) : PostIt[] {
+  getPostItComments(type: string) : PostIt[] {
     let result = this.postIts && this.postIts[type] ? this.postIts[type] : [];
     return result.sort((postItA, postItB) => {
       return postItB.vote - postItA.vote;
@@ -50,7 +63,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     this.loadPostIts(this, postItType);
   }
 
-  voteUpPostIt(type: PostItType, id: string) {
+  voteUpPostIt(type: string, id: number) {
     if (this.maxVote) {
       this.maxVote--;
       this.http.post(environment.apiUrl + '/vote', {type, id}).subscribe(() => {
@@ -106,7 +119,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     return this.getPostItComments(this.getPostItLinkType());
   }
 
-  getPostItLinkType(): PostItType {
+  getPostItLinkType(): string {
     return this.selectedPostItWantedToLink?.type;
   }
 

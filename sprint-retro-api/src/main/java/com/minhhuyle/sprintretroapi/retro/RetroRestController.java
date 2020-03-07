@@ -2,7 +2,6 @@ package com.minhhuyle.sprintretroapi.retro;
 
 import com.minhhuyle.sprintretroapi.retro.dto.LinkPost;
 import com.minhhuyle.sprintretroapi.retro.model.PostIt;
-import com.minhhuyle.sprintretroapi.retro.model.PostItType;
 import com.minhhuyle.sprintretroapi.retro.service.PostItService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,7 @@ public class RetroRestController {
     }
 
     @GetMapping(value = "/post-its")
-    public Map<PostItType, List<PostIt>> getPostIts() {
+    public Map<String, List<PostIt>> getPostIts() {
         return postItService.getAllByType();
     }
 

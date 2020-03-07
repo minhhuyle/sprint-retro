@@ -13,7 +13,7 @@ export class NavigationComponent implements OnInit {
     url: '/'
   }, {
     title: "Write board",
-    url: '/retro'
+    url: '/write'
   }, {
     title: "Config board",
     url: '/config'
