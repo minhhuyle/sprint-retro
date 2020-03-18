@@ -5,13 +5,15 @@ import { ViewBoardComponent } from './board/view-board/view-board.component';
 import { ConfigComponent } from './config/config.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { WriteBoardComponent } from './board/write-board/write-board.component';
+import { LoginComponent } from './user/login/login.component';
 
 const routes: Routes = [
   { path: 'write', component: WriteBoardComponent },
+  { path: 'view', component: ViewBoardComponent },
   { path: 'config', component: ConfigComponent },
   { path: 'admin', component: AdminViewComponent },
-  { path: '', component: ViewBoardComponent },
-  { path: '**', component: ViewBoardComponent },
+  { path: '', component: LoginComponent },
+  { path: '**', component: LoginComponent },
 ];
 
 @NgModule({

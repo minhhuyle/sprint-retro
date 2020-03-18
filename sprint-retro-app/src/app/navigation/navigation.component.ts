@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { UserService } from '../user/login/user.service';
 
 @Component({
   selector: 'mle-navigation',
@@ -10,7 +11,7 @@ export class NavigationComponent implements OnInit {
 
   private _navLinks: any[] = [{
     title: "View board",
-    url: '/'
+    url: '/view'
   }, {
     title: "Write board",
     url: '/write'
@@ -23,7 +24,7 @@ export class NavigationComponent implements OnInit {
   }];
   private selectedNavLink : string;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
     this.router.events.subscribe( (event: RouterEvent) => {
@@ -47,6 +48,10 @@ export class NavigationComponent implements OnInit {
       this.selectedNavLink = navLink;
       this.router.navigateByUrl(this.selectedNavLink);
     }
+  }
+
+  isVisbleNavBar() {
+    return !!this.userService.getUser();
   }
 
 }

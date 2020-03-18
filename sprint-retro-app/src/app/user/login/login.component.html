@@ -1,26 +1,26 @@
 <div class="card col-md-6 offset-md-3">
-  <form class="card-body form-horizontal">
+  <form class="card-body form-horizontal" [formGroup]="logInForm" >
     <h3 class="card-title">Log in</h3>
     <div class="form-group row">
       <div class="col-md-11">
         <label for="inputEmail4">UserName</label>
-        <input type="text" class="form-control" id="inputEmail4" placeholder="UserName">
+        <input type="text" formControlName="userName" class="form-control" id="inputEmail4" placeholder="UserName">
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-md-11">
         <label for="inputPassword4">Password</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" formControlName="password" class="form-control" id="inputPassword4" placeholder="Password">
       </div>
     </div>
     <div class="form-group row">
       <div class="col-5" (click)="logIn()">
-        <button type="submit" class="btn btn-primary col-md-11">Log in</button>
+        <button type="submit" [disabled]="!logInForm.valid" class="btn btn-primary col-md-11">Log in</button>
       </div>
 
-      <div class="col-5">
-        <button type="submit" class="btn btn-secondary col-md-11">Sign up</button>
+      <div class="col-5" (click)="signUp()">
+        <button type="submit" [disabled]="!logInForm.valid" class="btn btn-secondary col-md-11">Sign up</button>
       </div>
 
     </div>

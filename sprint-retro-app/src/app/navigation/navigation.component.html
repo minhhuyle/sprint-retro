@@ -1,9 +1,8 @@
-<div class="container">
+<div class="container" *ngIf="isVisbleNavBar()">
   <ul class="nav nav-pills nav-fill">
     <li class="nav-item btn" *ngFor="let navLink of navLinks" (click)="selectNavLink(navLink.url)">
       <a class="nav-link" [ngClass]="isSelected(navLink.url)">{{navLink.title}}</a>
     </li>
   </ul>
   <hr/>
-  <router-outlet></router-outlet>
 </div>

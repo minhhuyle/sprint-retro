@@ -34,6 +34,7 @@ export class BrowserStorageServiceService {
   }
 
   getLocal(): any {
+    //todo should refactor
     const data = window.localStorage.getItem("MLE_RETRO");
     if (data) {
       return JSON.parse(data);
