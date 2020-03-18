@@ -1,4 +1,4 @@
-<div class="container" *ngIf="isVisbleNavBar()">
+<div class="container" *ngIf="isVisibleNavBar()">
   <ul class="nav nav-pills nav-fill">
     <li class="nav-item btn" *ngFor="let navLink of navLinks" (click)="selectNavLink(navLink.url)">
       <a class="nav-link" [ngClass]="isSelected(navLink.url)">{{navLink.title}}</a>

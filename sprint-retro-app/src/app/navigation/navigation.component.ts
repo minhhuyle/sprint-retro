@@ -50,8 +50,8 @@ export class NavigationComponent implements OnInit {
     }
   }
 
-  isVisbleNavBar() {
-    return !!this.userService.getUser();
+  isVisibleNavBar() {
+    return this.userService.isLogged();
   }
 
 }

@@ -6,12 +6,29 @@ import { ConfigComponent } from './config/config.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { WriteBoardComponent } from './board/write-board/write-board.component';
 import { LoginComponent } from './user/login/login.component';
+import { UserService } from './user/login/user.service';
 
 const routes: Routes = [
-  { path: 'write', component: WriteBoardComponent },
-  { path: 'view', component: ViewBoardComponent },
-  { path: 'config', component: ConfigComponent },
-  { path: 'admin', component: AdminViewComponent },
+  {
+    path: 'write',
+    component: WriteBoardComponent,
+    canActivate: [UserService],
+  },
+  {
+    path: 'view',
+    component: ViewBoardComponent,
+    canActivate: [UserService]
+  },
+  {
+    path: 'config',
+    component: ConfigComponent,
+    canActivate: [UserService]
+  },
+  {
+    path: 'admin',
+    component: AdminViewComponent,
+    canActivate: [UserService]
+  },
   { path: '', component: LoginComponent },
   { path: '**', component: LoginComponent },
 ];

@@ -20,7 +20,7 @@ public class UserViewController {
     @PostMapping(value = "/user/log-in")
     @ResponseStatus(HttpStatus.OK)
     public UserView logIn(@RequestBody UserView userView) {
-        return userViewService.createSimpleUser(userView);
+        return userViewService.logIn(userView);
     }
 
     @PostMapping(value = "/user/sign-up")
