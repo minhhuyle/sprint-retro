@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BrowserStorageServiceService } from '../storage/browser-storage-service.service';
+import { BrowserStorageService } from '../storage/browser-storage.service';
 
 @Component({
   selector: 'mle-config',
@@ -8,7 +8,7 @@ import { BrowserStorageServiceService } from '../storage/browser-storage-service
 })
 export class ConfigComponent implements OnInit {
 
-  constructor(private browserStorageServiceService: BrowserStorageServiceService) {
+  constructor(private browserStorageServiceService: BrowserStorageService) {
 
   }
 

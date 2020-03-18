@@ -39,6 +39,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "font-awesome": "^4.7.0",
+    "moment": "^2.24.0",
     "net": "^1.0.2",
     "ngx-lib-ivy-bug": "0.0.11",
     "ngx-toastr": "^12.0.0",
