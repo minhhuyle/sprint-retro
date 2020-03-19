@@ -20,7 +20,8 @@ export class NavigationComponent implements OnInit {
     url: '/config'
   }, {
     title: "Admin board",
-    url: '/admin'
+    url: '/admin',
+    access: 'ADMIN'
   }];
   private selectedNavLink : string;
 
@@ -35,6 +36,7 @@ export class NavigationComponent implements OnInit {
       }
     })
   }
+
   get navLinks(): string[] {
     return this._navLinks;
   }
@@ -54,4 +56,11 @@ export class NavigationComponent implements OnInit {
     return this.userService.isLogged();
   }
 
+  canAccess(navLink) {
+    if(navLink.access) {
+      return this.userService.getUser().role === navLink.access
+    }
+
+    return true
+  }
 }
