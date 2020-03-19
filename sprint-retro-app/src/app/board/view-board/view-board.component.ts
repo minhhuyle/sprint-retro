@@ -77,7 +77,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
 
   handleResult(component: ViewBoardComponent, response): void {
     const rawMessage = response.body;
-    if(rawMessage) {
+    if(!!rawMessage) {
       const message = JSON.parse(rawMessage);
       switch (message.type as SocketMessageType) {
         case SocketMessageType.REFRESH:

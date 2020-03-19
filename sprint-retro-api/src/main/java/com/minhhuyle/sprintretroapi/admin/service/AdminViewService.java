@@ -1,19 +1,20 @@
 package com.minhhuyle.sprintretroapi.admin.service;
 
 import com.minhhuyle.sprintretroapi.admin.model.AdminView;
-import com.minhhuyle.sprintretroapi.board.model.Board;
 import com.minhhuyle.sprintretroapi.admin.service.dao.AdminViewDao;
+import com.minhhuyle.sprintretroapi.board.model.Board;
 import com.minhhuyle.sprintretroapi.board.service.dao.BoardDao;
 import com.minhhuyle.sprintretroapi.user.model.Role;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import com.minhhuyle.sprintretroapi.user.service.UserViewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminViewService {

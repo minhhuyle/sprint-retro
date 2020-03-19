@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,6 +29,8 @@ public class PostIt {
     private String comment;
 
     private String type;
+
+    private Date creationDate;
 
     public PostIt() {
     }
@@ -86,6 +89,14 @@ public class PostIt {
 
     public PostIt getParent() {
         return parent;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(final Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public void setParent(final PostIt parent) {

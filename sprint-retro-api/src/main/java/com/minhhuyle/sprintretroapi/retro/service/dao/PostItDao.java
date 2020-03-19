@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PostItDao extends CrudRepository<PostIt, Long> {
-    List<PostIt> findAllByParentIsNull();
+    List<PostIt> findAllByParentIsNullOrderByCreationDateDesc();
 }
