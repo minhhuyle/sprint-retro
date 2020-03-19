@@ -1,16 +1,18 @@
 package com.minhhuyle.sprintretroapi.admin.dto;
 
+import com.minhhuyle.sprintretroapi.user.model.UserView;
+
 public class AdminDeleteBoard {
-    private String password;
+    private UserView user;
 
     private long boardId;
 
-    public String getPassword() {
-        return password;
+    public UserView getUser() {
+        return user;
     }
 
-    public void setPassword(final String password) {
-        this.password = password;
+    public void setUser(final UserView user) {
+        this.user = user;
     }
 
     public long getBoardId() {

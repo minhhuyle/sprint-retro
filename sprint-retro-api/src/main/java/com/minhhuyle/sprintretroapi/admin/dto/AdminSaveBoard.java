@@ -1,20 +1,21 @@
 package com.minhhuyle.sprintretroapi.admin.dto;
 
 import com.minhhuyle.sprintretroapi.board.model.Board;
+import com.minhhuyle.sprintretroapi.user.model.UserView;
 
 import java.util.List;
 
 public class AdminSaveBoard {
-    private String password;
+    private UserView user;
 
     private List<Board> boards;
 
-    public String getPassword() {
-        return password;
+    public UserView getUser() {
+        return user;
     }
 
-    public void setPassword(final String password) {
-        this.password = password;
+    public void setUser(final UserView user) {
+        this.user = user;
     }
 
     public List<Board> getBoards() {

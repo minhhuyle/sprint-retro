@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminViewService } from './admin-view.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Board } from './model/board.model';
+import { UserService } from '../user/login/user.service';
 
 @Component({
   selector: 'mle-admin-view',
@@ -9,29 +10,29 @@ import { Board } from './model/board.model';
   styleUrls: ['./admin-view.component.scss']
 })
 export class AdminViewComponent implements OnInit {
-  isLogged: boolean = false;
-  adminForm: FormGroup;
   boards: Board[] = [];
 
-  constructor(private adminViewService: AdminViewService, private formBuilder: FormBuilder) {
-    this.adminForm =  this.formBuilder.group({
-      "password": ['', Validators.required]
-    });
+  constructor(private adminViewService: AdminViewService, private userService: UserService) {
+
   }
 
   ngOnInit(): void {
-    this.adminViewService.connect().subscribe(value => {});
+    this.getBoards();
   }
 
-  onAuthentication() {
-    this.adminViewService.authentication(this.adminForm.value).subscribe(boardsResponse => {
+  private getAdminAuth() {
+     const {userName, password} = this.userService.getUser();
+    return {userName, password};
+  }
+
+  getBoards() {
+    this.adminViewService.authentication(this.getAdminAuth()).subscribe(boardsResponse => {
       this.boards = boardsResponse;
-      this.isLogged = true;
     })
   }
 
   reset() {
-    this.adminViewService.reset(this.adminForm.value).subscribe(() => {})
+    this.adminViewService.reset(this.getAdminAuth()).subscribe(() => {})
   }
 
   addBoard() {
@@ -48,7 +49,7 @@ export class AdminViewComponent implements OnInit {
 
   saveBoards() {
     this.adminViewService.saveBoard({
-      password: this.adminForm.value.password,
+      user: this.getAdminAuth(),
       boards: this.boards
     }).subscribe(boardsResponse => {
       this.boards = boardsResponse;
@@ -59,7 +60,7 @@ export class AdminViewComponent implements OnInit {
     this.boards.splice(index, 1);
     if(boardId >= 0) {
       this.adminViewService.deleteBoard({
-        password: this.adminForm.value.password,
+        user: this.getAdminAuth(),
         boardId
       }).subscribe(() => {});
     }

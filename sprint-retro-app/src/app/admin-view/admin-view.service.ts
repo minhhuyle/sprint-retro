@@ -11,10 +11,6 @@ export class AdminViewService {
 
   constructor(private http: HttpClient) { }
 
-  connect() : Observable<any> {
-    return this.http.get(this.serverUrl);
-  }
-
   authentication(authenticationForm) : Observable<any> {
     return this.http.post(this.serverUrl, authenticationForm);
   }

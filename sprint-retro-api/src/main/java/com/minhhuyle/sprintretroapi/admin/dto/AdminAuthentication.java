@@ -1,13 +1,15 @@
 package com.minhhuyle.sprintretroapi.admin.dto;
 
-public class AdminAuthentication {
-    private String password;
+import com.minhhuyle.sprintretroapi.user.model.UserView;
 
-    public String getPassword() {
-        return password;
+public class AdminAuthentication {
+    private UserView user;
+
+    public UserView getUser() {
+        return user;
     }
 
-    public void setPassword(final String password) {
-        this.password = password;
+    public void setUser(final UserView user) {
+        this.user = user;
     }
 }
