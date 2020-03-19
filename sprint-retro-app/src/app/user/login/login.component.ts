@@ -25,6 +25,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    const user = this.browserStorageService.getUser();
+    if(user) {
+      this.logInForm.patchValue({
+        userName: user.userName,
+        password: user.password
+      });
+      this.logIn();
+    }
   }
 
   private getUserForm() {

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from './user.model';
 import { CanActivate, Router } from '@angular/router';
+import { BrowserStorageService } from '../../storage/browser-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService implements CanActivate {
   private serverUrl = environment.apiUrl + '/user';
   private user: User;
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private browserStorageService: BrowserStorageService) { }
 
   logIn(user: User) : Observable<any> {
     return this.http.post(this.serverUrl+ '/log-in', user);
@@ -24,6 +25,10 @@ export class UserService implements CanActivate {
 
   setUser(user: User) {
     this.user = user;
+    this.browserStorageService.setUser({
+      userName: user.userName,
+      password: user.password
+    })
   }
 
   getUser() {

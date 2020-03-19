@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { BrowserStorage } from './browser-storage.model';
+import { User } from '../user/login/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -73,14 +74,34 @@ export class BrowserStorageService {
       browserStorage = new BrowserStorage();
     }
 
-    browserStorage.dateRecorded = moment();
     browserStorage.postItsContainer = postItsContainer;
     this.setLocal(browserStorage);
   }
 
-  private setLocal(value: any): void {
-    if(value) {
-      const data = JSON.stringify(value);
+  setUser(user: User) {
+    let browserStorage = this.getLocal();
+
+    if(!browserStorage) {
+      browserStorage = new BrowserStorage();
+    }
+
+    browserStorage.user = user;
+    this.setLocal(browserStorage);
+  }
+
+  getUser(): User {
+    const browserStorage = this.getLocal();
+    if(browserStorage) {
+      return browserStorage.user;
+    }
+
+    return null;
+  }
+
+  private setLocal(browserStorage: BrowserStorage): void {
+    if(browserStorage) {
+      browserStorage.dateRecorded = moment();
+      const data = JSON.stringify(browserStorage);
       window.localStorage.setItem("MLE_RETRO", data);
     }
   }
