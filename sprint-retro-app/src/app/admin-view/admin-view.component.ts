@@ -94,4 +94,12 @@ export class AdminViewComponent implements OnInit {
     }).subscribe( () => {
     })
   }
+
+  selectThemeForRetro(themeId: number) {
+    this.adminViewService.selectRetroTheme({
+      user: this.getAdminAuth(),
+      themeId: themeId
+    }).subscribe( () => {
+    })
+  }
 }

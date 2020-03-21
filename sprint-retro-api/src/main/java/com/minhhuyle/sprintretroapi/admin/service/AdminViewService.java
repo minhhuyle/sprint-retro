@@ -87,8 +87,8 @@ public class AdminViewService {
         return themeService.getAllThemes();
     }
 
-    public void selectThemeForRetro(final Theme theme) {
-        themeService.selectThemeForRetro(theme);
+    public void selectThemeForRetro(final long themeId) {
+        themeService.selectThemeForRetro(themeId);
     }
 
     public void startWriteBoard(final long themeId) {

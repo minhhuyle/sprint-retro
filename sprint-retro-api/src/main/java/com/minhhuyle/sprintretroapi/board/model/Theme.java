@@ -1,9 +1,8 @@
 package com.minhhuyle.sprintretroapi.board.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -19,8 +18,10 @@ public class Theme {
 
     private int limitTimeToWrite;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date writeTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date selectedTheme;
 
     private int maxPostIt;

@@ -6,6 +6,7 @@ import com.minhhuyle.sprintretroapi.socket.service.SocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +29,8 @@ public class ThemeService {
         return (List<Theme>) themeDao.findAll();
     }
 
-    public void selectThemeForRetro(final Theme theme) {
+    public void selectThemeForRetro(final long themeId) {
+        Theme theme = themeDao.findById(themeId).orElseThrow(() -> new IllegalStateException("Cannot Select Theme"));
         theme.setSelectedTheme(new Date());
         themeDao.save(theme);
     }
@@ -49,5 +51,9 @@ public class ThemeService {
         themeDao.save(theme);
 
         socketService.notifySocketWriteBoardEnabled(theme);
+    }
+
+    public Optional<Theme> getActivatedTheme() {
+        return themeDao.findTopBySelectedThemeIsNotNullOrderBySelectedThemeDesc();
     }
 }

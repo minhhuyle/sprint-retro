@@ -1,9 +1,14 @@
 package com.minhhuyle.sprintretroapi.retro;
 
+import com.minhhuyle.sprintretroapi.board.model.Board;
+import com.minhhuyle.sprintretroapi.board.model.Theme;
+import com.minhhuyle.sprintretroapi.board.service.ThemeService;
 import com.minhhuyle.sprintretroapi.retro.dto.LinkPost;
 import com.minhhuyle.sprintretroapi.retro.model.PostIt;
 import com.minhhuyle.sprintretroapi.retro.service.PostItService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +18,11 @@ import java.util.Map;
 @RestController
 public class RetroRestController {
     private final PostItService postItService;
+    private final ThemeService themeService;
 
-    public RetroRestController(final PostItService postItService) {
+    public RetroRestController(final PostItService postItService, final ThemeService themeService) {
         this.postItService = postItService;
+        this.themeService = themeService;
     }
 
     @GetMapping(value = "/post-its")
@@ -39,5 +46,10 @@ public class RetroRestController {
     @ResponseStatus(HttpStatus.OK)
     public void linkPost(@RequestBody LinkPost linkPost) {
         postItService.linkPost(linkPost);
+    }
+
+    @GetMapping(value = "/theme/active")
+    public Theme getActivatedTheme() {
+        return themeService.getActivatedTheme().orElse(null);
     }
 }

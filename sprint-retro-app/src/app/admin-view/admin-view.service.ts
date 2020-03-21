@@ -40,4 +40,8 @@ export class AdminViewService {
   startWriteBoardTheme(themeForm: { themeId: number; user: { password: string; userName: string } }) {
     return this.http.post(this.serverUrl + '/theme/start-write-board', themeForm);
   }
+
+  selectRetroTheme(themeForm: { themeId: number; user: { password: string; userName: string } }) {
+    return this.http.post(this.serverUrl + '/theme/select', themeForm);
+  }
 }

@@ -91,10 +91,10 @@ public class AdminViewController {
     }
 
     @PostMapping(value = "/admin/theme/select")
-    public ResponseEntity<List<Board>> selectTheme(@RequestBody AdminSelectTheme adminSelectTheme) {
-        boolean isOk = adminViewService.authentication(adminSelectTheme.getUser());
+    public ResponseEntity selectTheme(@RequestBody AdminStartWriteBoardTheme adminStartWriteBoardTheme) {
+        boolean isOk = adminViewService.authentication(adminStartWriteBoardTheme.getUser());
         if(isOk) {
-            adminViewService.selectThemeForRetro(adminSelectTheme.getTheme());
+            adminViewService.selectThemeForRetro(adminStartWriteBoardTheme.getThemeId());
             return new ResponseEntity(HttpStatus.OK);
         }
 
