@@ -1,3 +1,37 @@
+<div class="col-sm alert alert-primary" role="alert">
+  <h5 class="card-title">Theme Management
+    <button type="button" class="btn btn-light" (click)="addTheme()">+</button>
+  </h5>
+
+  <ul class="rack-board list-group list-group-flush">
+    <li class="list-group-item" *ngFor="let theme of themes; index as i">
+      <div class="row">
+        <div class="col-sm-3">
+          <input type="input" class="form-control" [(ngModel)]="theme.name" placeholder="Name"/>
+        </div>
+
+        <div class="col-sm-2">
+          <input type="number" class="form-control" [(ngModel)]="theme.limitTimeToWrite" placeholder="TimeLimit ToWrite (min)"/>
+        </div>
+
+        <div class="col-sm-2">
+          <input type="number" class="form-control" [(ngModel)]="theme.maxPostIt" placeholder="Max postIt/person"/>
+        </div>
+
+        <div class="col-sm-2">
+          <button (click)="startWriteBoard(theme.id)" class="btn btn-info">Start Write Board</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <br/>
+  <button type="button" class="btn btn-info" (click)="saveThemes()">
+    <span class="fa fa-save"></span>
+  </button>
+
+</div>
+
 <div class="col-sm alert alert-secondary" role="alert">
   <h5 class="card-title">Board Management
     <button type="button" class="btn btn-light" (click)="addBoard()">+</button>

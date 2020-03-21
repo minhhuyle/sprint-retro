@@ -1,7 +1,6 @@
 package com.minhhuyle.sprintretroapi.socket.model;
 
 import com.minhhuyle.sprintretroapi.retro.model.PostIt;
-import com.minhhuyle.sprintretroapi.retro.model.PostItType;
 
 public class SocketMessage {
     private SocketMessageType type;
@@ -43,5 +42,9 @@ public class SocketMessage {
         SocketMessage socketMessage = new SocketMessage();
         socketMessage.setType(SocketMessageType.RESET);
         return socketMessage;
+    }
+
+    public static SocketMessage createSimpleMessage(SocketMessageType type, Object message) {
+        return new SocketMessage(type, message);
     }
 }

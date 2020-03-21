@@ -1,10 +1,9 @@
 package com.minhhuyle.sprintretroapi.admin;
 
-import com.minhhuyle.sprintretroapi.admin.dto.AdminAuthentication;
-import com.minhhuyle.sprintretroapi.admin.dto.AdminDeleteBoard;
-import com.minhhuyle.sprintretroapi.admin.dto.AdminSaveBoard;
+import com.minhhuyle.sprintretroapi.admin.dto.*;
 import com.minhhuyle.sprintretroapi.board.model.Board;
 import com.minhhuyle.sprintretroapi.admin.service.AdminViewService;
+import com.minhhuyle.sprintretroapi.board.model.Theme;
 import com.minhhuyle.sprintretroapi.retro.service.PostItService;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import org.springframework.http.HttpStatus;
@@ -68,4 +67,48 @@ public class AdminViewController {
         }
         return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
+
+
+    @PostMapping(value = "/admin/save-themes")
+    public ResponseEntity<List<Theme>> saveTheme(@RequestBody AdminSaveTheme adminSaveTheme) {
+        boolean isOk = adminViewService.authentication(adminSaveTheme.getUser());
+        if(isOk) {
+            return new ResponseEntity(adminViewService.saveThemes(adminSaveTheme.getThemes()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.FORBIDDEN);
+    }
+
+    @PostMapping(value = "/admin/theme/start-write-board")
+    public ResponseEntity<List<Board>> startWriteBoard(@RequestBody AdminStartWriteBoardTheme adminStartWriteBoardTheme) {
+        boolean isOk = adminViewService.authentication(adminStartWriteBoardTheme.getUser());
+        if(isOk) {
+            adminViewService.startWriteBoard(adminStartWriteBoardTheme.getThemeId());
+            return new ResponseEntity(HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.FORBIDDEN);
+    }
+
+    @PostMapping(value = "/admin/theme/select")
+    public ResponseEntity<List<Board>> selectTheme(@RequestBody AdminSelectTheme adminSelectTheme) {
+        boolean isOk = adminViewService.authentication(adminSelectTheme.getUser());
+        if(isOk) {
+            adminViewService.selectThemeForRetro(adminSelectTheme.getTheme());
+            return new ResponseEntity(HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.FORBIDDEN);
+    }
+
+    @PostMapping(value = "/admin/themes")
+    public ResponseEntity<List<Board>> getThemes(@RequestBody UserView userView) {
+        boolean isOk = adminViewService.authentication(userView);
+        if(isOk) {
+            return new ResponseEntity(adminViewService.getAllThemes(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.FORBIDDEN);
+    }
+
 }

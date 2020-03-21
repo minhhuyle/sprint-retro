@@ -3,12 +3,15 @@ package com.minhhuyle.sprintretroapi.admin.service;
 import com.minhhuyle.sprintretroapi.admin.model.AdminView;
 import com.minhhuyle.sprintretroapi.admin.service.dao.AdminViewDao;
 import com.minhhuyle.sprintretroapi.board.model.Board;
+import com.minhhuyle.sprintretroapi.board.model.Theme;
+import com.minhhuyle.sprintretroapi.board.service.ThemeService;
 import com.minhhuyle.sprintretroapi.board.service.dao.BoardDao;
 import com.minhhuyle.sprintretroapi.user.model.Role;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import com.minhhuyle.sprintretroapi.user.service.UserViewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +26,13 @@ public class AdminViewService {
     private final AdminViewDao adminViewDao;
     private final BoardDao boardDao;
     private final UserViewService userViewService;
+    private final ThemeService themeService;
 
-    public AdminViewService(final AdminViewDao adminViewDao, final BoardDao boardDao, final UserViewService userViewService) {
+    public AdminViewService(final AdminViewDao adminViewDao, final BoardDao boardDao, final UserViewService userViewService, final ThemeService themeService) {
         this.adminViewDao = adminViewDao;
         this.boardDao = boardDao;
         this.userViewService = userViewService;
+        this.themeService = themeService;
     }
 
     @Transactional
@@ -72,5 +77,21 @@ public class AdminViewService {
 
     public void deleteBoard(final long boardId) {
         boardDao.deleteById(boardId);
+    }
+
+    public List<Theme> saveThemes(final List<Theme> themes) {
+        return themeService.save(themes);
+    }
+
+    public List<Theme> getAllThemes() {
+        return themeService.getAllThemes();
+    }
+
+    public void selectThemeForRetro(final Theme theme) {
+        themeService.selectThemeForRetro(theme);
+    }
+
+    public void startWriteBoard(final long themeId) {
+        themeService.startWriteBoard(themeId);
     }
 }

@@ -1,7 +1,7 @@
 package com.minhhuyle.sprintretroapi.socket.service;
 
+import com.minhhuyle.sprintretroapi.board.model.Theme;
 import com.minhhuyle.sprintretroapi.retro.model.PostIt;
-import com.minhhuyle.sprintretroapi.retro.model.PostItType;
 import com.minhhuyle.sprintretroapi.socket.model.SocketMessage;
 import com.minhhuyle.sprintretroapi.socket.model.SocketMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -27,5 +27,9 @@ public class SocketService {
 
     public void notifyAllSocketsToReset() {
         this.simpMessagingTemplate.convertAndSend(SOCKET_DESTINATION, SocketMessage.createResetMessage());
+    }
+
+    public void notifySocketWriteBoardEnabled(Theme theme) {
+        this.simpMessagingTemplate.convertAndSend(SOCKET_DESTINATION, SocketMessage.createSimpleMessage(SocketMessageType.WRITE_BOARD, theme));
     }
 }

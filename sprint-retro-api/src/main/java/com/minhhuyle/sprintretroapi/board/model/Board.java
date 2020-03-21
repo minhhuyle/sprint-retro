@@ -1,9 +1,8 @@
 package com.minhhuyle.sprintretroapi.board.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +14,12 @@ public class Board {
     private String type;
 
     private boolean likable;
+
+   /* @JsonIgnore
+    @ManyToOne(cascade={CascadeType.ALL})
+    @JoinColumn(name = "theme_id")
+    private Theme theme;
+    */
 
     public Long getId() {
         return id;

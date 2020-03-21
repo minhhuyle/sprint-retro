@@ -25,15 +25,15 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.socketService.initializeWebSocketConnection(response => this.handleResult(this, response));
+    this.socketService.initializeWebSocketConnection(response => this.handleResult(response));
     this.initData();
-    this.loadPostIts(this);
+    this.loadPostIts();
   }
 
   private initData() {
     this.boardService.getAllBoards().subscribe(boardsRes => {
       this.boards = boardsRes;
-      this.loadPostIts(this);
+      this.loadPostIts();
     });
   }
 
@@ -41,12 +41,12 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     this.socketService.cancelHandleMessage();
   }
 
-  loadPostIts(component: ViewBoardComponent, postItType ?: PostItType) {
+  loadPostIts( postItType ?: PostItType) {
     this.http.get(environment.apiUrl + '/post-its').subscribe((response) => {
-      if(!component.postIts || !postItType) {
-        component.postIts = response;
+      if(!this.postIts || !postItType) {
+        this.postIts = response;
       } else {
-        component.postIts[postItType].length = 0;
+        this.postIts[postItType].length = 0;
       }
     });
   }
@@ -60,7 +60,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
 
   refresh(postItType?: PostItType) {
     this.selectedPostItWantedToLink = null;
-    this.loadPostIts(this, postItType);
+    this.loadPostIts(postItType);
   }
 
   voteUpPostIt(type: string, id: number) {
@@ -75,7 +75,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     this.export = !this.export;
   }
 
-  handleResult(component: ViewBoardComponent, response): void {
+  handleResult(response): void {
     const rawMessage = response.body;
     if(!!rawMessage) {
       const message = JSON.parse(rawMessage);
@@ -103,7 +103,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
         this.postIts[postIt.type].unshift(postIt);
       }
     } else {
-      this.loadPostIts(this);
+      this.loadPostIts();
     }
   }
 

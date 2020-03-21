@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminViewService } from './admin-view.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Board } from './model/board.model';
 import { UserService } from '../user/login/user.service';
+import { Theme } from './model/theme.model';
 
 @Component({
   selector: 'mle-admin-view',
@@ -11,6 +11,7 @@ import { UserService } from '../user/login/user.service';
 })
 export class AdminViewComponent implements OnInit {
   boards: Board[] = [];
+  themes: Theme[] = [];
 
   constructor(private adminViewService: AdminViewService, private userService: UserService) {
 
@@ -18,6 +19,7 @@ export class AdminViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBoards();
+    this.getThemes();
   }
 
   private getAdminAuth() {
@@ -28,6 +30,12 @@ export class AdminViewComponent implements OnInit {
   getBoards() {
     this.adminViewService.authentication(this.getAdminAuth()).subscribe(boardsResponse => {
       this.boards = boardsResponse;
+    })
+  }
+
+  getThemes() {
+    this.adminViewService.getThemes(this.getAdminAuth()).subscribe(themes => {
+      this.themes = themes;
     })
   }
 
@@ -64,5 +72,26 @@ export class AdminViewComponent implements OnInit {
         boardId
       }).subscribe(() => {});
     }
+  }
+
+  addTheme() {
+    this.themes.push(new Theme());
+  }
+
+  saveThemes() {
+    this.adminViewService.saveThemes({
+      user: this.getAdminAuth(),
+      themes: this.themes
+    }).subscribe(themes => {
+      this.themes = themes;
+    })
+  }
+
+  startWriteBoard(themeId: number) {
+    this.adminViewService.startWriteBoardTheme({
+      user: this.getAdminAuth(),
+      themeId: themeId
+    }).subscribe( () => {
+    })
   }
 }

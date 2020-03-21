@@ -2,7 +2,6 @@ package com.minhhuyle.sprintretroapi.board.service;
 
 import com.minhhuyle.sprintretroapi.board.model.Board;
 import com.minhhuyle.sprintretroapi.board.service.dao.BoardDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
