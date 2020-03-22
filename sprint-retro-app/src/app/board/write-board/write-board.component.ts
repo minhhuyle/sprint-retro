@@ -147,7 +147,21 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
     return " -- ";
   }
 
-  isCanWriteInLimitTime() {
+  canAddNewPostIt(): boolean {
+    const numberOfPostIts = this.getNumberOfPostIts();
+    return this.theme ? this.theme.maxPostIt > numberOfPostIts : false;
+  }
+
+  private getNumberOfPostIts() {
+    let result = 0;
+    if(this.postItComments && this.boards) {
+      this.boards.forEach(board => result += this.postItComments[board.type].length);
+    }
+
+    return result;
+  }
+
+  canWriteInLimitTime() {
     return (this.timeToDisplay > 0);
   }
 }

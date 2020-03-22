@@ -5,7 +5,7 @@
 </h1>
 <div class="row" *ngIf="boards">
 
-  <div *ngFor="let board of boards" class="col-sm-6 alert alert-primary">
+  <div *ngFor="let board of boards" class="col-sm-6 alert alert-primary" [ngClass]="board.likable ? 'alert-danger' : 'alert-primary'">
     <h5 class="card-title">{{board.type}}</h5>
 
     <ul class="rack-board list-group list-group-flush">

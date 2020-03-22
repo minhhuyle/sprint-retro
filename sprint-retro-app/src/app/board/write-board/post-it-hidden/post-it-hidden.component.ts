@@ -21,6 +21,9 @@ export class PostItHiddenComponent implements OnInit {
   @Output()
   completeOnShowAction : EventEmitter<PostIt>= new EventEmitter();
 
+  @Output()
+  closeOnAction : EventEmitter<any> = new EventEmitter();
+
   constructor(private http: HttpClient) {
 
   }
@@ -34,5 +37,13 @@ export class PostItHiddenComponent implements OnInit {
     }).subscribe(() => {
       this.completeOnShowAction.emit(postItComment);
     });
+  }
+
+  closeAction() {
+    this.closeOnAction.emit();
+  }
+
+  notBlank(postIt: PostIt): boolean {
+    return postIt.comment?.length > 0;
   }
 }

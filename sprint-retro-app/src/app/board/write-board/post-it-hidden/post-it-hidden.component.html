@@ -3,8 +3,9 @@
     <div class="col-10">
       <textarea class="form-control" [(ngModel)]="postIt.comment" [disabled]="!writeable"></textarea>
     </div>
-    <div *ngIf="!lockPostIt" class="col-1">
+    <div *ngIf="!lockPostIt && notBlank(postIt)" class="col-1">
       <i (click)="showPostItComment(postIt)" class="fa fa-upload btn btn-secondary"></i>
     </div>
   </div>
+  <span *ngIf="writeable" class="close fa fa-times" (click)="closeAction()"></span>
 </li>

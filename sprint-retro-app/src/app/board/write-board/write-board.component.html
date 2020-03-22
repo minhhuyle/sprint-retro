@@ -7,14 +7,20 @@
 
     <div class="col-sm-6 alert" [ngClass]="[board.likable ? 'alert-danger' : 'alert-primary', i == boards.length - 1 && i%2==0 ? 'col-sm-12': 'col-sm-6']"
          role="alert" *ngFor="let board of boards, index as i">
-      <h5 class="card-title">{{board.type}} <button type="button" *ngIf="isCanWriteInLimitTime()" class="btn btn-light" (click)="addPostItComment(board.type)">+</button></h5>
+      <h5 class="card-title">{{board.type}}
+        <button type="button" *ngIf="canAddNewPostIt()" class="btn btn-light" (click)="addPostItComment(board.type)">+</button>
+      </h5>
       <ul class="rack-board list-group list-group-flush">
-        <mle-post-it-hidden *ngFor="let postItComment of getPostItComments(board.type);"
-                            (completeOnShowAction)="removePostIt($event)"
-                            [lockPostIt]="lockBoard"
-                            [postIt]="postItComment"
-                            [writeable]="isCanWriteInLimitTime()">
-        </mle-post-it-hidden>
+        <ng-container *ngFor="let postItComment of getPostItComments(board.type);">
+          <mle-post-it-hidden (completeOnShowAction)="removePostIt($event)"
+                              (closeOnAction)="removePostIt(postItComment)"
+                              [lockPostIt]="lockBoard"
+                              [postIt]="postItComment"
+                              [writeable]="canWriteInLimitTime()">
+          </mle-post-it-hidden>
+          <a href="#" class="close"></a>
+        </ng-container>
+
       </ul>
     </div>
   </div>
