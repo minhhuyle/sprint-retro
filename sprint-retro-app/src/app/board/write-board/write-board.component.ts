@@ -72,7 +72,7 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
 
   addPostItComment(type) {
     this.postItComments[type].unshift(new PostIt(type));
-    this.browserStorageService.setPostItsContainer(this.postItComments);
+    this.saveLocalPostIt();
   }
 
   getPostItComments(type: string): PostIt[] {
@@ -163,5 +163,9 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
 
   canWriteInLimitTime() {
     return (this.timeToDisplay > 0);
+  }
+
+  saveLocalPostIt() {
+    this.browserStorageService.setPostItsContainer(this.postItComments);
   }
 }
