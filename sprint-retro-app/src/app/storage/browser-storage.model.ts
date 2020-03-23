@@ -1,7 +1,7 @@
-import { User } from '../user/login/user.model';
+import { UserLocal } from '../user/login/user.model';
 
 class BrowserStorage {
-  user: User;
+  user: UserLocal;
   postItsContainer: any;
   dateRecorded;
 }

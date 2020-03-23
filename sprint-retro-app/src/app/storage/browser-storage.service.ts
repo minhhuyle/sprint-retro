@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { BrowserStorage } from './browser-storage.model';
-import { User } from '../user/login/user.model';
+import { User, UserLocal } from '../user/login/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +78,7 @@ export class BrowserStorageService {
     this.setLocal(browserStorage);
   }
 
-  setUser(user: User) {
+  setUser(user: UserLocal) {
     let browserStorage = this.getLocal();
 
     if(!browserStorage) {
@@ -89,7 +89,7 @@ export class BrowserStorageService {
     this.setLocal(browserStorage);
   }
 
-  getUser(): User {
+  getUser(): UserLocal {
     const browserStorage = this.getLocal();
     if(browserStorage) {
       return browserStorage.user;

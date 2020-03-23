@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from './user.model';
+import { User, UserLocal } from './user.model';
 import { CanActivate, Router } from '@angular/router';
 import { BrowserStorageService } from '../../storage/browser-storage.service';
 
@@ -11,7 +11,7 @@ import { BrowserStorageService } from '../../storage/browser-storage.service';
 })
 export class UserService implements CanActivate {
   private serverUrl = environment.apiUrl + '/user';
-  private user: User;
+  private user: UserLocal;
 
   constructor(private router: Router, private http: HttpClient, private browserStorageService: BrowserStorageService) { }
 
@@ -23,11 +23,12 @@ export class UserService implements CanActivate {
     return this.http.post(this.serverUrl+ '/sign-up', user);
   }
 
-  setUser(user: User) {
+  setLoggedUser(user: UserLocal) {
     this.user = user;
     this.browserStorageService.setUser({
       userName: user.userName,
-      password: user.password
+      password: user.password,
+      isLogged: true
     })
   }
 
@@ -46,5 +47,15 @@ export class UserService implements CanActivate {
       this.router.navigateByUrl('');
       return false;
     }
+  }
+
+  logOut() {
+    this.browserStorageService.setUser({
+      userName: this.user.userName,
+      password: this.user.password,
+      isLogged: false
+    });
+    this.user = null;
+    this.canActivate();
   }
 }

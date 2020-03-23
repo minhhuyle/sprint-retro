@@ -1,11 +1,21 @@
-<div class="container" *ngIf="isVisibleNavBar()">
-  <ul class="nav nav-pills nav-fill">
-    <ng-container *ngFor="let navLink of navLinks">
-      <li class="nav-item btn" *ngIf="canAccess(navLink)" (click)="selectNavLink(navLink.url)">
-        <a class="nav-link" [ngClass]="isSelected(navLink.url)">{{navLink.title}}</a>
-      </li>
-    </ng-container>
-
-  </ul>
-  <hr/>
+<div *ngIf="isVisibleNavBar()" class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto nav nav-pills nav-fill">
+        <ng-container *ngFor="let navLink of navLinks">
+          <li class="nav-item btn" *ngIf="canAccess(navLink)" (click)="selectNavLink(navLink.url)">
+            <a class="nav-link" [ngClass]="isSelected(navLink.url)">{{navLink.title}}</a>
+          </li>
+        </ng-container>
+      </ul>
+      <div>
+        <button class="btn btn-secondary" (click)="logOut()">
+          LOG OUT
+        </button>
+      </div>
+    </div>
+  </nav>
 </div>

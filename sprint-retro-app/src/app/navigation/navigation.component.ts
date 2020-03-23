@@ -63,4 +63,8 @@ export class NavigationComponent implements OnInit {
 
     return true
   }
+
+  logOut() {
+    this.userService.logOut();
+  }
 }

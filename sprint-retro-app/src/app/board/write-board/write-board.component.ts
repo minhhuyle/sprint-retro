@@ -8,7 +8,7 @@ import { SocketMessageType } from '../../socket/socket.model';
 import { Theme } from '../../admin-view/model/theme.model';
 import { ThemeService } from '../theme.service';
 import * as moment from 'moment';
-import { Observable, Subscription, timer } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'mle-write-board',

@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
         userName: user.userName,
         password: user.password
       });
-      this.logIn();
+      if(user.isLogged) {
+        this.logIn();
+      }
     }
   }
 
@@ -42,14 +44,14 @@ export class LoginComponent implements OnInit {
 
   logIn() {
     this.userService.logIn(this.getUserForm()).subscribe(res => {
-      this.userService.setUser(res);
+      this.userService.setLoggedUser(res);
       this.router.navigateByUrl('/view');
     });
   }
 
   signUp() {
     this.userService.signUp(this.getUserForm()).subscribe(res => {
-      this.userService.setUser(res);
+      this.userService.setLoggedUser(res);
       this.router.navigateByUrl('/view');
     });
   }

@@ -5,6 +5,11 @@ class User {
   role?: string;
 }
 
+class UserLocal extends User{
+  isLogged: boolean;
+}
+
 export {
-  User
+  User,
+  UserLocal
 }

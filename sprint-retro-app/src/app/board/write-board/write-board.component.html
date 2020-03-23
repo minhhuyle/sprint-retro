@@ -1,14 +1,15 @@
 <div *ngIf="theme">
   <h3 align="center">
-    <span (click)="lockUnLockBoard()" class="btn fa" [ngClass]="getLockClass()"> Board</span> Point Of View (Not visible)
-    <span class="fa fa-hourglass">{{displayTimer()}}</span>
+    <span *ngIf="!canWriteInLimitTime()" (click)="lockUnLockBoard()" class="btn fa" [ngClass]="getLockClass()"> Board</span>
+    <span *ngIf="canWriteInLimitTime()" class="fa fa-hourglass">{{displayTimer()}}</span>
+    Point Of View (Not visible)
   </h3>
   <div class="row" *ngIf="boards">
 
     <div class="col-sm-6 alert" [ngClass]="[board.likable ? 'alert-danger' : 'alert-primary', i == boards.length - 1 && i%2==0 ? 'col-sm-12': 'col-sm-6']"
          role="alert" *ngFor="let board of boards, index as i">
       <h5 class="card-title">{{board.type}}
-        <button type="button" *ngIf="canAddNewPostIt()" class="btn btn-light" (click)="addPostItComment(board.type)">+</button>
+        <button type="button" *ngIf="canAddNewPostIt() && canWriteInLimitTime()" class="btn btn-light" (click)="addPostItComment(board.type)">+</button>
       </h5>
       <ul class="rack-board list-group list-group-flush">
         <ng-container *ngFor="let postItComment of getPostItComments(board.type);">
