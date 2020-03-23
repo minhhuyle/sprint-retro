@@ -14,14 +14,16 @@ export class NavigationComponent implements OnInit {
     url: '/view'
   }, {
     title: "Write board",
-    url: '/write'
+    url: '/write',
+    access: ['USER', 'ADMIN']
   }, {
     title: "Config board",
-    url: '/config'
+    url: '/config',
+    access: ['USER', 'ADMIN']
   }, {
     title: "Admin board",
     url: '/admin',
-    access: 'ADMIN'
+    access: ['ADMIN']
   }];
   private selectedNavLink : string;
 
@@ -57,8 +59,8 @@ export class NavigationComponent implements OnInit {
   }
 
   canAccess(navLink) {
-    if(navLink.access) {
-      return this.userService.getUser().role === navLink.access
+    if(navLink.access?.length > 0) {
+      return navLink.access.some(val => val === this.userService.getUser().role)
     }
 
     return true
@@ -66,5 +68,9 @@ export class NavigationComponent implements OnInit {
 
   logOut() {
     this.userService.logOut();
+  }
+
+  getUserName(): string {
+    return this.userService.getUser().userName;
   }
 }

@@ -5,13 +5,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto nav nav-pills nav-fill">
-        <ng-container *ngFor="let navLink of navLinks">
+        <ng-container *ngFor="let navLink of navLinks;">
           <li class="nav-item btn" *ngIf="canAccess(navLink)" (click)="selectNavLink(navLink.url)">
             <a class="nav-link" [ngClass]="isSelected(navLink.url)">{{navLink.title}}</a>
           </li>
         </ng-container>
       </ul>
       <div>
+        {{getUserName()}}
         <button class="btn btn-secondary" (click)="logOut()">
           LOG OUT
         </button>

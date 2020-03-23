@@ -15,7 +15,7 @@
              <span (click)="voteUpPostIt(board.type, postIt.id)"
                    class="btn badge badge-primary fa fa-thumbs-up"> {{postIt.vote}}</span>
           </ng-container>
-        <mle-link *ngIf="postIt.linkedPostIts.length === 0" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
+        <mle-link *ngIf="postIt.linkedPostIts.length === 0 && isAllowedToLinkPostIt()" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
       </mle-post-it-on-board>
     </ul>
   </div>

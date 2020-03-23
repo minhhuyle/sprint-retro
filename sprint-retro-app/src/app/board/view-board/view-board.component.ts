@@ -6,6 +6,7 @@ import { SocketMessageType } from '../../socket/socket.model';
 import { environment } from '../../../environments/environment';
 import { BoardService } from '../board.service';
 import { Board } from '../model/board.model';
+import { UserService } from '../../user/login/user.service';
 
 @Component({
   selector: 'mle-view-board',
@@ -21,7 +22,8 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient,
               private boardService: BoardService,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -130,5 +132,9 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     }).subscribe(response => {
       this.postIts = response;
     });
+  }
+
+  isAllowedToLinkPostIt() {
+    return this.userService.getUser().role === 'ADMIN';
   }
 }
