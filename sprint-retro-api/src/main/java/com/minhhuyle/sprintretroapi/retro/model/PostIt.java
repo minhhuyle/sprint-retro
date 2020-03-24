@@ -4,10 +4,7 @@ package com.minhhuyle.sprintretroapi.retro.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class PostIt {
@@ -23,6 +20,10 @@ public class PostIt {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
     private List<PostIt> linkedPostIts = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "postIt")
+    private Set<VotedPostItUser> votedLink = new HashSet<>();
 
     private long vote;
 
@@ -44,7 +45,7 @@ public class PostIt {
     }
 
     public long getVote() {
-        return vote;
+        return votedLink.size();
     }
 
     public void voteUp() {
@@ -97,6 +98,14 @@ public class PostIt {
 
     public void setCreationDate(final Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Set<VotedPostItUser> getVotedLink() {
+        return votedLink;
+    }
+
+    public void setVotedLink(final Set<VotedPostItUser> votedLink) {
+        this.votedLink = votedLink;
     }
 
     public void setParent(final PostIt parent) {

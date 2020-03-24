@@ -65,10 +65,13 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     this.loadPostIts(postItType);
   }
 
-  voteUpPostIt(type: string, id: number) {
+  voteUpPostIt(type: string, postItId: number) {
     if (this.maxVote) {
       this.maxVote--;
-      this.http.post(environment.apiUrl + '/vote', {type, id}).subscribe(() => {
+      this.http.post(environment.apiUrl + '/vote', {user: {
+        userName: this.userService.getUser().userName,
+        password: this.userService.getUser().password,
+        }, postItId}).subscribe(() => {
       });
     }
   }

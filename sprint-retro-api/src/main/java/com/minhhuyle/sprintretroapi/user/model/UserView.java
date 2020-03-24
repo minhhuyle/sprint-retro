@@ -1,6 +1,12 @@
 package com.minhhuyle.sprintretroapi.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.minhhuyle.sprintretroapi.retro.model.PostIt;
+import com.minhhuyle.sprintretroapi.retro.model.VotedPostItUser;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class UserView {
@@ -13,6 +19,10 @@ public class UserView {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<VotedPostItUser> votedLink = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -44,5 +54,17 @@ public class UserView {
 
     public void setRole(final Role role) {
         this.role = role;
+    }
+
+    public Set<VotedPostItUser> getVotedLink() {
+        return votedLink;
+    }
+
+    public void setVotedLink(final Set<VotedPostItUser> votedLink) {
+        this.votedLink = votedLink;
+    }
+
+    public long getTotalVotedPostIts() {
+        return votedLink.size();
     }
 }

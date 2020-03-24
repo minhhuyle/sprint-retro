@@ -2,11 +2,14 @@ package com.minhhuyle.sprintretroapi.retro.service;
 
 import com.minhhuyle.sprintretroapi.admin.service.AdminViewService;
 import com.minhhuyle.sprintretroapi.board.model.Board;
+import com.minhhuyle.sprintretroapi.board.model.Theme;
+import com.minhhuyle.sprintretroapi.board.service.ThemeService;
 import com.minhhuyle.sprintretroapi.retro.dto.LinkPost;
 import com.minhhuyle.sprintretroapi.retro.model.PostIt;
 import com.minhhuyle.sprintretroapi.retro.service.dao.PostItDao;
 import com.minhhuyle.sprintretroapi.socket.service.SocketService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.minhhuyle.sprintretroapi.user.model.UserView;
+import com.minhhuyle.sprintretroapi.user.service.UserViewService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +20,17 @@ public class PostItService {
     private final PostItDao postItDao;
     private final SocketService socketService;
     private final AdminViewService adminViewService;
+    private final UserViewService userViewService;
+    private final ThemeService themeService;
+    private final VotedPostItUserService votedPostItUserService;
 
-    public PostItService(final PostItDao postItDao, final SocketService socketService, final AdminViewService adminViewService) {
+    public PostItService(final PostItDao postItDao, final SocketService socketService, final AdminViewService adminViewService, final UserViewService userViewService, final ThemeService themeService, final VotedPostItUserService votedPostItUserService) {
         this.postItDao = postItDao;
         this.socketService = socketService;
         this.adminViewService = adminViewService;
+        this.userViewService = userViewService;
+        this.themeService = themeService;
+        this.votedPostItUserService = votedPostItUserService;
     }
 
     public void add(final PostIt postIt) {
@@ -57,18 +66,28 @@ public class PostItService {
         return result;
     }
 
-    public void vote(final PostIt postIt) {
-        Optional<PostIt> postItOpt = postItDao.findById(postIt.getId());
-        if(postItOpt.isPresent()) {
+    @Transactional
+    public UserView vote(final UserView userView, final Long postItId) {
+        UserView userLogged = userViewService.logIn(userView);
+        Optional<PostIt> postItOpt = postItDao.findById(postItId);
+        Optional<Theme> activatedThemeOpt = themeService.getActivatedTheme();
+
+        if(postItOpt.isPresent() && activatedThemeOpt.isPresent()) {
+            Theme theme = activatedThemeOpt.get();
+
             PostIt postItLoaded = postItOpt.get();
-            if(postIt.getVote() > 0) {
+            votedPostItUserService.saveNewVotedPostItUser(postItLoaded, userLogged);
+            socketService.notifyAllSockets(postItLoaded);
+         /*   if(postIt.getVote() > 0) {
                 postItLoaded.voteUp();
             } else {
                 postItLoaded.voteDown();
-            }
-            PostIt postItSaved = this.postItDao.save(postItLoaded);
-            socketService.notifyAllSockets(postItSaved);
+            }*/
+            // PostIt postItSaved = this.postItDao.save(postItLoaded);
+            // socketService.notifyAllSockets(postItSaved);
         }
+
+        return userLogged;
     }
 
     public void reset() {

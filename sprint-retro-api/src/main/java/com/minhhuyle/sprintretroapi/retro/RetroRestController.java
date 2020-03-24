@@ -1,14 +1,13 @@
 package com.minhhuyle.sprintretroapi.retro;
 
-import com.minhhuyle.sprintretroapi.board.model.Board;
 import com.minhhuyle.sprintretroapi.board.model.Theme;
 import com.minhhuyle.sprintretroapi.board.service.ThemeService;
 import com.minhhuyle.sprintretroapi.retro.dto.LinkPost;
+import com.minhhuyle.sprintretroapi.retro.dto.VoteForm;
 import com.minhhuyle.sprintretroapi.retro.model.PostIt;
 import com.minhhuyle.sprintretroapi.retro.service.PostItService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.minhhuyle.sprintretroapi.user.model.UserView;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,8 +37,8 @@ public class RetroRestController {
 
     @PostMapping(value = "/vote")
     @ResponseStatus(HttpStatus.OK)
-    public void votePostIt(@RequestBody PostIt postIt) {
-        postItService.vote(postIt);
+    public UserView votePostIt(@RequestBody VoteForm voteForm) {
+        return postItService.vote(voteForm.getUser(), voteForm.getPostItId());
     }
 
     @PostMapping(value = "/link-post")
