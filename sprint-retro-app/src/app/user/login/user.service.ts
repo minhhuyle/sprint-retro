@@ -23,7 +23,7 @@ export class UserService implements CanActivate {
     return this.http.post(this.serverUrl+ '/sign-up', user);
   }
 
-  setLoggedUser(user: UserLocal) {
+  setLoggedUser(user) {
     this.user = user;
     this.browserStorageService.setUser({
       userName: user.userName,
@@ -32,7 +32,7 @@ export class UserService implements CanActivate {
     })
   }
 
-  getUser() {
+  getUser(): UserLocal {
     return this.user;
   }
 

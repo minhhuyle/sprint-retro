@@ -7,6 +7,8 @@ import { environment } from '../../../environments/environment';
 import { BoardService } from '../board.service';
 import { Board } from '../model/board.model';
 import { UserService } from '../../user/login/user.service';
+import { Theme } from '../../admin-view/model/theme.model';
+import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'mle-view-board',
@@ -15,15 +17,17 @@ import { UserService } from '../../user/login/user.service';
 })
 export class ViewBoardComponent implements OnInit, OnDestroy {
   public postIts;
-  private maxVote = 3;
   private export: boolean = false;
   private selectedPostItWantedToLink: PostIt;
   boards: Board[];
+  private theme: Theme;
+  voteRemaining: number[] = [];
 
   constructor(private http: HttpClient,
               private boardService: BoardService,
               private socketService: SocketService,
-              private userService: UserService) {
+              private userService: UserService,
+              private themeService: ThemeService) {
   }
 
   ngOnInit() {
@@ -33,6 +37,10 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   }
 
   private initData() {
+    this.themeService.getActivatedTheme().subscribe(theme => {
+      this.theme = theme;
+      this.computeVoteRemaining();
+    });
     this.boardService.getAllBoards().subscribe(boardsRes => {
       this.boards = boardsRes;
       this.loadPostIts();
@@ -66,12 +74,13 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   }
 
   voteUpPostIt(type: string, postItId: number) {
-    if (this.maxVote) {
-      this.maxVote--;
+    if (this.voteRemaining?.length > 0) {
       this.http.post(environment.apiUrl + '/vote', {user: {
         userName: this.userService.getUser().userName,
         password: this.userService.getUser().password,
-        }, postItId}).subscribe(() => {
+        }, postItId}).subscribe(user => {
+          this.userService.setLoggedUser(user);
+          this.computeVoteRemaining();
       });
     }
   }
@@ -139,5 +148,16 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
 
   isAllowedToLinkPostIt() {
     return this.userService.getUser().role === 'ADMIN';
+  }
+
+  computeVoteRemaining() {
+    if(this.theme) {
+      const remaining = this.theme.maxVote - this.userService.getUser().totalVotedPostIts;
+      this.voteRemaining = Array.from(Array(remaining).keys());
+    }
+  }
+
+  isNotViewer() {
+    return this.userService.getUser().role !== 'VIEWER';
   }
 }

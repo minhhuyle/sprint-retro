@@ -7,6 +7,7 @@ class User {
 
 class UserLocal extends User{
   isLogged: boolean;
+  totalVotedPostIts?: number;
 }
 
 export {

@@ -19,6 +19,12 @@
         </div>
 
         <div class="col-sm-2">
+          <input type="number" class="form-control" [(ngModel)]="theme.maxVote" placeholder="Max vote/person"/>
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-sm-2">
           <button (click)="startWriteBoard(theme.id)" class="btn btn-info">Start Write Board</button>
         </div>
 

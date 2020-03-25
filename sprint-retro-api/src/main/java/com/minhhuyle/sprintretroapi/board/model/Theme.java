@@ -26,6 +26,8 @@ public class Theme {
 
     private int maxPostIt;
 
+    private int maxVote;
+
     public Long getId() {
         return id;
     }
@@ -72,5 +74,13 @@ public class Theme {
 
     public void setMaxPostIt(final int maxPostIt) {
         this.maxPostIt = maxPostIt;
+    }
+
+    public int getMaxVote() {
+        return maxVote;
+    }
+
+    public void setMaxVote(final int maxVote) {
+        this.maxVote = maxVote;
     }
 }

@@ -5,6 +5,7 @@ class Theme {
   writeTime: Date;
   selectedTheme: Date;
   maxPostIt: number;
+  maxVote: number;
 }
 
 export {

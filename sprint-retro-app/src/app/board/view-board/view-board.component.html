@@ -1,8 +1,21 @@
-<h1 align="center">
-  <span (click)="refresh()" class="btn btn-success fa fa-refresh"></span>
-  Retro
-  <span (click)="exportLowCost()" class="btn btn-secondary fa fa-file"></span>
-</h1>
+<div class="row">
+  <div class="col-sm-3">
+    <h3 *ngIf="isNotViewer()">
+      <ng-container *ngFor="let heart of voteRemaining">
+        <span class="fa fa-heart"></span>
+      </ng-container>
+    </h3>
+  </div>
+  <div class="col-sm-6">
+    <h1 align="center">
+      <span (click)="refresh()" class="btn btn-success fa fa-refresh"></span>
+      Retro
+      <span (click)="exportLowCost()" class="btn btn-secondary fa fa-file"></span>
+    </h1>
+  </div>
+</div>
+
+
 <div class="row" *ngIf="boards">
 
   <div *ngFor="let board of boards" class="col-sm-6 alert alert-primary" [ngClass]="board.likable ? 'alert-danger' : 'alert-primary'">
