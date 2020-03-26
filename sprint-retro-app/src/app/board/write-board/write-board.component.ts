@@ -18,9 +18,9 @@ import { Subscription, timer } from 'rxjs';
 export class WriteBoardComponent implements OnInit, OnDestroy {
 
   private postItComments;
-  private lockBoard :boolean = true;
-  private boards: Board[];
-  private theme: Theme;
+  lockBoard :boolean = true;
+  boards: Board[];
+   theme: Theme;
   private timeToDisplay;
   timerSub: Subscription;
 
