@@ -22,4 +22,8 @@ public class VotedPostItUserService {
         userLogged.getVotedLink().add(votedLinkSaved);
         postItLoaded.getVotedLink().add(votedLinkSaved);
     }
+
+    public void deleteAll() {
+        votedPostItUserDao.deleteAll();
+    }
 }

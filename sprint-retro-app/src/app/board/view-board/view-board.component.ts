@@ -22,6 +22,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   boards: Board[];
   private theme: Theme;
   voteRemaining: number[] = [];
+  searchValue: string;
 
   constructor(private http: HttpClient,
               private boardService: BoardService,
@@ -53,11 +54,10 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
 
   loadPostIts( postItType ?: PostItType) {
     this.http.get(environment.apiUrl + '/post-its').subscribe((response) => {
-      if(!this.postIts || !postItType) {
-        this.postIts = response;
-      } else {
+      if(postItType && this.postIts) {
         this.postIts[postItType].length = 0;
       }
+      this.postIts = response;
     });
   }
 
@@ -141,8 +141,8 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     this.http.post(environment.apiUrl + '/link-post', {
       childId: this.selectedPostItWantedToLink.id,
       parentId: parentPostIt.id
-    }).subscribe(response => {
-      this.postIts = response;
+    }).subscribe(() => {
+      //this.postIts = response;
     });
   }
 

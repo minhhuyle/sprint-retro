@@ -45,6 +45,10 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="content">
+          <input type="input" [(ngModel)]="searchValue" class="form-control" placeholder="Search"/>
+        </div>
+
         <ul class="rack-board list-group list-group-flush">
           <ng-container *ngFor="let postIt of getPostItToLink(); index as i;">
             <li class="list-group-item" *ngIf="postIt != this.getSelectedPostItWantedToLink()">
@@ -54,10 +58,6 @@
 
         </ul>
       </div>
-      <!--<div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>-->
     </div>
   </div>
 </div>

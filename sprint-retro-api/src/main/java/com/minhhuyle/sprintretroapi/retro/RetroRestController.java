@@ -6,7 +6,9 @@ import com.minhhuyle.sprintretroapi.retro.dto.LinkPost;
 import com.minhhuyle.sprintretroapi.retro.dto.VoteForm;
 import com.minhhuyle.sprintretroapi.retro.model.PostIt;
 import com.minhhuyle.sprintretroapi.retro.service.PostItService;
+import com.minhhuyle.sprintretroapi.socket.service.SocketService;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +20,12 @@ import java.util.Map;
 public class RetroRestController {
     private final PostItService postItService;
     private final ThemeService themeService;
+    private final SocketService socketService;
 
-    public RetroRestController(final PostItService postItService, final ThemeService themeService) {
+    public RetroRestController(final PostItService postItService, final ThemeService themeService, final SocketService socketService) {
         this.postItService = postItService;
         this.themeService = themeService;
+        this.socketService = socketService;
     }
 
     @GetMapping(value = "/post-its")
@@ -44,7 +48,8 @@ public class RetroRestController {
     @PostMapping(value = "/link-post")
     @ResponseStatus(HttpStatus.OK)
     public void linkPost(@RequestBody LinkPost linkPost) {
-        postItService.linkPost(linkPost);
+        PostIt postIt = postItService.linkPost(linkPost);
+        socketService.notifyAllSocketsToRefresh(postIt.getType());
     }
 
     @GetMapping(value = "/theme/active")

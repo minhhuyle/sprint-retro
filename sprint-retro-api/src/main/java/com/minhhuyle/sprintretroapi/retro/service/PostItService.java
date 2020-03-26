@@ -91,17 +91,17 @@ public class PostItService {
     }
 
     public void reset() {
+        votedPostItUserService.deleteAll();
         postItDao.deleteAll();
         socketService.notifyAllSocketsToReset();
     }
 
     @Transactional
-    public void linkPost(final LinkPost linkPost) {
+    public PostIt linkPost(final LinkPost linkPost) {
         PostIt childPostIt = postItDao.findById(linkPost.getChildId()).orElseThrow(IllegalArgumentException::new);
         PostIt parentPostIt = postItDao.findById(linkPost.getParentId()).orElseThrow(IllegalArgumentException::new);
         childPostIt.setParent(parentPostIt);
         parentPostIt.addChildPostIt(childPostIt);
-        postItDao.save(parentPostIt);
-        socketService.notifyAllSocketsToRefresh(parentPostIt.getType());
+        return postItDao.save(parentPostIt);
     }
 }
