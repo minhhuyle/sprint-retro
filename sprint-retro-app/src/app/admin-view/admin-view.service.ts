@@ -14,6 +14,30 @@ export class AdminViewService {
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
+  saveTheme(theme: Theme): Observable<Theme> {
+    return this.http.post<Theme>(this.serverUrl + "/theme", {
+      theme,
+      user: this.getAdminAuth()
+    });
+  }
+
+  selectThemeForRetro(themeId: number) {
+    return this.http.post(this.serverUrl + '/theme/select', {
+      themeId,
+      user: this.getAdminAuth()
+    });
+  }
+
+  startWriteBoardTheme(themeId: number) {
+    return this.http.post(this.serverUrl + '/theme/start-write-board',
+      { themeId, user: this.getAdminAuth()});
+  }
+
+  getThemes() : Observable<any> {
+    return this.http.post(this.serverUrl + '/themes', this.getAdminAuth());
+  }
+
+
   authentication(authenticationForm) : Observable<any> {
     return this.http.post(this.serverUrl, authenticationForm);
   }
@@ -22,27 +46,8 @@ export class AdminViewService {
     return this.http.post(this.serverUrl + '/reset', authenticationForm);
   }
 
-  saveBoard(adminBoardsFrom) : Observable<any> {
-    return this.http.post(this.serverUrl + '/save-boards', adminBoardsFrom);
-  }
-
-  deleteBoard(adminDeleteBoard) : Observable<any> {
-    return this.http.post(this.serverUrl + '/delete-board', adminDeleteBoard);
-  }
-
-  getThemes(authenticationForm) : Observable<any> {
-    return this.http.post(this.serverUrl + '/themes', authenticationForm);
-  }
-
-  saveThemes(themesForm: { themes: Theme[]; user: User }): Observable<any> {
-    return this.http.post(this.serverUrl + '/save-themes', themesForm);
-  }
-
-  startWriteBoardTheme(themeForm: { themeId: number; user: { password: string; userName: string } }) {
-    return this.http.post(this.serverUrl + '/theme/start-write-board', themeForm);
-  }
-
-  selectRetroTheme(themeForm: { themeId: number; user: { password: string; userName: string } }) {
-    return this.http.post(this.serverUrl + '/theme/select', themeForm);
+  private getAdminAuth() {
+    const {userName, password} = this.userService.getUser();
+    return {userName, password};
   }
 }

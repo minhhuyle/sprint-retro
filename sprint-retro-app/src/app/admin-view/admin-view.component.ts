@@ -33,7 +33,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   getThemes() {
-    this.adminViewService.getThemes(this.getAdminAuth()).subscribe(themes => {
+    this.adminViewService.getThemes().subscribe(themes => {
       this.themes = themes;
     })
   }
@@ -42,47 +42,7 @@ export class AdminViewComponent implements OnInit {
     this.adminViewService.reset(this.getAdminAuth()).subscribe(() => {})
   }
 
-  addBoard() {
-    this.boards.push(new Board());
-  }
-
-  disableActiveLikable(board: Board) {
-    board.likable = !board.likable;
-  }
-
-  getClassOfLikable(likable: boolean) {
-    return likable ? 'fa-thumbs-up' : 'fa-thumbs-down';
-  }
-
-  saveBoards() {
-    this.adminViewService.saveBoard({
-      user: this.getAdminAuth(),
-      boards: this.boards
-    }).subscribe(boardsResponse => {
-      this.boards = boardsResponse;
-    })
-  }
-
-  deleteBoard(boardId: number, index: number) {
-    this.boards.splice(index, 1);
-    if(boardId >= 0) {
-      this.adminViewService.deleteBoard({
-        user: this.getAdminAuth(),
-        boardId
-      }).subscribe(() => {});
-    }
-  }
-
   addTheme() {
     this.themes.push(new Theme());
-  }
-
-  saveThemes() {
-    this.adminViewService.saveThemes({
-      user: this.getAdminAuth(),
-      themes: this.themes
-    }).subscribe(themes => {
-      this.themes = themes;
-    })
   }
 }

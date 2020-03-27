@@ -1,0 +1,20 @@
+<div class="col-sm alert" role="alert">
+  <h5 class="card-title">Board Management
+    <button type="button" class="btn btn-light" (click)="addBoard()">+</button>
+  </h5>
+
+  <ul class="rack-board list-group list-group-flush">
+    <li class="list-group-item" *ngFor="let board of theme.boards; index as i">
+      <div class="row">
+        <div class="col-sm-4">
+          <input type="input" class="form-control" [(ngModel)]="board.type" placeholder="Name"/>
+        </div>
+        <div class="col-sm-3">
+          <button type="button" class="btn btn-info" (click)="disableActiveLikable(board)">
+            <span class="fa" [ngClass]="getClassOfLikable(board.likable)"></span>
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

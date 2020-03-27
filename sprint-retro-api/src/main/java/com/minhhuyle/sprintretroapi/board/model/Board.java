@@ -16,7 +16,7 @@ public class Board {
     private boolean likable;
 
     @JsonIgnore
-    @ManyToOne(cascade={CascadeType.ALL})
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "theme_id")
     private Theme theme;
 

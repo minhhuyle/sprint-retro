@@ -78,13 +78,6 @@ public class PostItService {
             PostIt postItLoaded = postItOpt.get();
             votedPostItUserService.saveNewVotedPostItUser(postItLoaded, userLogged);
             socketService.notifyAllSockets(postItLoaded);
-         /*   if(postIt.getVote() > 0) {
-                postItLoaded.voteUp();
-            } else {
-                postItLoaded.voteDown();
-            }*/
-            // PostIt postItSaved = this.postItDao.save(postItLoaded);
-            // socketService.notifyAllSockets(postItSaved);
         }
 
         return userLogged;

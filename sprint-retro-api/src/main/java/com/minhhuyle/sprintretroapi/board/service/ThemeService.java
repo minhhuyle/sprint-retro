@@ -3,10 +3,8 @@ package com.minhhuyle.sprintretroapi.board.service;
 import com.minhhuyle.sprintretroapi.board.model.Theme;
 import com.minhhuyle.sprintretroapi.board.service.dao.ThemeDao;
 import com.minhhuyle.sprintretroapi.socket.service.SocketService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +20,11 @@ public class ThemeService {
     }
 
     public Theme save(final Theme theme) {
+        theme.getBoards().forEach(board -> {
+            if(board.getId() == null || board.getTheme() == null) {
+                board.setTheme(theme);
+            }
+        });
         return themeDao.save(theme);
     }
 

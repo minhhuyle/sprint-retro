@@ -1,11 +1,15 @@
 <div class="row">
   <div class="col-sm-10 form-group row">
-    <label class="col-sm-2 col-form-label">Name</label>
+    <label class="col-sm-2 col-form-label"><strong>Name</strong></label>
     <div class="col-sm-6">
       <input type="input" class="form-control" [(ngModel)]="theme.name"/>
     </div>
+  </div>
 
-
+  <div class="col-sm-2">
+    <button type="button" class="btn btn-info" (click)="saveTheme()">
+      <span class="fa fa-save"></span> Save
+    </button>
   </div>
 
   <div class="col-sm-10 row">
@@ -42,5 +46,7 @@
       </h1>
     </div>
   </div>
+
+  <mle-boards-form class="col-sm-12" [theme]="theme"></mle-boards-form>
 
 </div>

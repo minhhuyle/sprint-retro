@@ -19,6 +19,7 @@ import { LinkComponent } from './board/view-board/link/link.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { WriteBoardComponent } from './board/write-board/write-board.component';
 import { ThemeFormComponent } from './admin-view/theme-form/theme-form.component';
+import { BoardsFormComponent } from './admin-view/boards-form/boards-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ThemeFormComponent } from './admin-view/theme-form/theme-form.component
     LinkComponent,
     AdminViewComponent,
     WriteBoardComponent,
-    ThemeFormComponent
+    ThemeFormComponent,
+    BoardsFormComponent
   ],
   imports: [
     ReactiveFormsModule,

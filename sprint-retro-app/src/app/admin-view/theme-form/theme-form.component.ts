@@ -11,7 +11,6 @@ import { UserService } from '../../user/login/user.service';
   styleUrls: ['./theme-form.component.scss']
 })
 export class ThemeFormComponent implements OnInit {
-
   @Input()
   theme: Theme;
 
@@ -22,19 +21,18 @@ export class ThemeFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  saveTheme() {
+    this.adminViewService.saveTheme(this.theme).subscribe((theme) => {
+      this.theme = {...theme};
+    });
+  }
+
   startWriteBoard(themeId: number) {
-    this.adminViewService.startWriteBoardTheme({
-      user: this.getAdminAuth(),
-      themeId: themeId
-    }).subscribe( () => {
-    })
+    this.adminViewService.startWriteBoardTheme(themeId).subscribe( () => {})
   }
 
   selectThemeForRetro(themeId: number) {
-    this.adminViewService.selectRetroTheme({
-      user: this.getAdminAuth(),
-      themeId: themeId
-    }).subscribe( () => {
+    this.adminViewService.selectThemeForRetro(themeId).subscribe( () => {
     })
   }
 
@@ -42,4 +40,6 @@ export class ThemeFormComponent implements OnInit {
     const {userName, password} = this.userService.getUser();
     return {userName, password};
   }
+
+
 }

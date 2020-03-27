@@ -3,6 +3,7 @@ package com.minhhuyle.sprintretroapi.board.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class Theme {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "theme")
-    private List<Board> boards;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "theme", cascade = CascadeType.ALL)
+    private List<Board> boards = new ArrayList<>();
 
     private int limitTimeToWrite;
 
