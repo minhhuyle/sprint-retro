@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostIt } from '../../model/post-it.model';
+import { PostIt } from '../../model/theme.model';
 
 @Component({
   selector: 'mle-post-it-on-board',

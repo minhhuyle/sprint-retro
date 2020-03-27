@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PostIt, PostItType } from '../model/post-it.model';
 import { SocketService } from '../../socket/socket.service';
 import { SocketMessageType } from '../../socket/socket.model';
 import { environment } from '../../../environments/environment';
 import { BoardService } from '../board.service';
-import { Board } from '../model/board.model';
 import { UserService } from '../../user/login/user.service';
-import { Theme } from '../../admin-view/model/theme.model';
+import { Board, PostIt, Theme } from '../model/theme.model';
 import { ThemeService } from '../theme.service';
 import { debounceTime } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
@@ -79,7 +77,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadPostIts( postItType ?: PostItType) {
+  loadPostIts( postItType ?: string) {
     this.http.get(environment.apiUrl + '/post-its').subscribe((response) => {
       if(postItType && this.postIts) {
         this.postIts[postItType].length = 0;
@@ -95,7 +93,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     });
   }
 
-  refresh(postItType?: PostItType) {
+  refresh(postItType?: string) {
     this.selectedPostItWantedToLink = null;
     this.loadPostIts(postItType);
   }

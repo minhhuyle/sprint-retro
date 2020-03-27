@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Board } from '../../admin-view/model/board.model';
-import { AdminViewService } from '../../admin-view/admin-view.service';
 import { UserService } from './user.service';
 import { BrowserStorageService } from '../../storage/browser-storage.service';
 

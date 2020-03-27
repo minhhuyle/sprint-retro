@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminViewService } from './admin-view.service';
-import { Board } from './model/board.model';
 import { UserService } from '../user/login/user.service';
-import { Theme } from './model/theme.model';
+import { Board, Theme } from '../board/model/theme.model';
 
 @Component({
   selector: 'mle-admin-view',

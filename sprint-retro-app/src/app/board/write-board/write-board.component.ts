@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BrowserStorageService } from '../../storage/browser-storage.service';
-import { PostIt } from '../model/post-it.model';
 import { BoardService } from '../board.service';
-import { Board } from '../model/board.model';
 import { SocketService } from '../../socket/socket.service';
 import { SocketMessageType } from '../../socket/socket.model';
-import { Theme } from '../../admin-view/model/theme.model';
+import { Board, PostIt, Theme } from '../model/theme.model';
 import { ThemeService } from '../theme.service';
 import * as moment from 'moment';
 import { Subscription, timer } from 'rxjs';
