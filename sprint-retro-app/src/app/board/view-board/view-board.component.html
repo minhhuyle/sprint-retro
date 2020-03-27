@@ -46,17 +46,24 @@
       </div>
       <div class="modal-body">
         <div class="content">
-          <input type="input" [(ngModel)]="searchValue" class="form-control" placeholder="Search"/>
+          <input type="input" [(ngModel)]="searchValue" (ngModelChange)="searchForLink()" class="form-control" placeholder="Search"/>
         </div>
 
         <ul class="rack-board list-group list-group-flush">
           <ng-container *ngFor="let postIt of getPostItToLink(); index as i;">
             <li class="list-group-item" *ngIf="postIt != this.getSelectedPostItWantedToLink()">
               <span (click)="linkToParent(postIt)" data-dismiss="modal" class="btn btn-success fa fa-link"></span> {{postIt.comment}}
+              <ng-container *ngIf="postIt.linkedPostIts?.length > 0">
+                <ng-container *ngFor="let childPI of postIt.linkedPostIts">
+                  <br/> - {{childPI.comment}}
+                </ng-container>
+              </ng-container>
             </li>
           </ng-container>
 
         </ul>
+        <br/>
+        <button class="btn btn-info">Link</button>
       </div>
     </div>
   </div>

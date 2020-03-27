@@ -35,7 +35,7 @@ export class PostItHiddenComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient) {
     this.subscriptionModelChanged = this.modelChanged
       .pipe(
-        debounceTime(2000))
+        debounceTime(1000))
       .subscribe(() => {
         this.changeValueAction.emit();
       });

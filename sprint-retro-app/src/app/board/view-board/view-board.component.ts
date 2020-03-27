@@ -9,6 +9,8 @@ import { Board } from '../model/board.model';
 import { UserService } from '../../user/login/user.service';
 import { Theme } from '../../admin-view/model/theme.model';
 import { ThemeService } from '../theme.service';
+import { debounceTime } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'mle-view-board',
@@ -24,6 +26,10 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   voteRemaining: number[] = [];
   searchValue: string;
 
+  private modelChanged: Subject<string> = new Subject<string>();
+  private subscriptionModelChanged: Subscription;
+  private postItsSearch: PostIt[] = null;
+
   constructor(private http: HttpClient,
               private boardService: BoardService,
               private socketService: SocketService,
@@ -35,6 +41,31 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     this.socketService.initializeWebSocketConnection(response => this.handleResult(response));
     this.initData();
     this.loadPostIts();
+    this.subscriptionModelChanged = this.modelChanged
+      .pipe(
+        debounceTime(1000))
+      .subscribe(() => {
+        if(this.searchValue?.length > 0) {
+          const searchVal = this.searchValue.toUpperCase();
+          const result = [];
+          this.getPostItComments(this.getPostItLinkType()).forEach(postIt => {
+            if(postIt.comment?.toUpperCase().includes(searchVal)) {
+              result.push(postIt);
+            } else if(postIt.linkedPostIts?.length > 0){
+              for (let i = 0; i < postIt.linkedPostIts.length; i++) {
+                const postItChild = postIt.linkedPostIts[i];
+                if(postItChild.comment?.toUpperCase().includes(searchVal)) {
+                  result.push(postIt);
+                  break;
+                }
+              }
+            }
+          });
+          this.postItsSearch = result;
+        } else {
+          this.postItsSearch = null;
+        }
+      });
   }
 
   private initData() {
@@ -50,6 +81,9 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.socketService.cancelHandleMessage();
+    if(this.subscriptionModelChanged) {
+      this.subscriptionModelChanged.unsubscribe();
+    }
   }
 
   loadPostIts( postItType ?: PostItType) {
@@ -123,6 +157,8 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
 
   openModalToLink(postIt: PostIt) {
     this.selectedPostItWantedToLink = postIt;
+    this.searchValue = "";
+    this.postItsSearch = null;
   }
 
   getSelectedPostItWantedToLink() {
@@ -130,6 +166,10 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   }
 
   getPostItToLink(): PostIt[] {
+    if(this.postItsSearch?.length >= 0) {
+      return this.postItsSearch;
+    }
+
     return this.getPostItComments(this.getPostItLinkType());
   }
 
@@ -159,5 +199,9 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
 
   isNotViewer() {
     return this.userService.getUser().role !== 'VIEWER';
+  }
+
+  searchForLink() {
+    this.modelChanged.next();
   }
 }

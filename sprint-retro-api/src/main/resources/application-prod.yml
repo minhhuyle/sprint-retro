@@ -1,0 +1,10 @@
+server:
+  port : ${SPRINT_RETRO_PORT}
+
+spring:
+  jpa.hibernate.ddl-auto: update
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${SPRINT_RETRO_DB_PORT}/${SPRINT_RETRO_DB_NAME}
+    username: ${SPRINT_RETRO_DB_USERNAME}
+    password: ${SPRINT_RETRO_DB_PASSWORD}
+    driver-class-name: com.mysql.jdbc.Driver

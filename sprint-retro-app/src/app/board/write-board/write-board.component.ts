@@ -23,6 +23,7 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
    theme: Theme;
   private timeToDisplay;
   timerSub: Subscription;
+  postItsRemaining: number[] = [];
 
   constructor(private boardService: BoardService,
               private browserStorageService: BrowserStorageService,
@@ -30,15 +31,15 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
               private themeService: ThemeService) {
   }
 
+  ngOnInit() {
+    this.socketService.initializeWebSocketConnection(response => this.handleResult(response));
+    this.initData();
+  }
+
   ngOnDestroy(): void {
     if(this.timerSub) {
       this.timerSub.unsubscribe();
     }
-  }
-
-  ngOnInit() {
-    this.socketService.initializeWebSocketConnection(response => this.handleResult(response));
-    this.initData();
   }
 
   private initData() {
@@ -51,6 +52,7 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
   private initBoard() {
     this.boardService.getAllBoards().subscribe(boardsRes => {
       this.boards = boardsRes;
+      this.computeNumberOfRemainingPostIt();
       this.initLocalPostItData();
     });
   }
@@ -68,11 +70,13 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
       this.postItComments = {};
       this.boards.forEach(ele => this.postItComments[ele.type] = [])
     }
+    this.computeNumberOfRemainingPostIt();
   }
 
   addPostItComment(type) {
     this.postItComments[type].unshift(new PostIt(type));
     this.saveLocalPostIt();
+    this.computeNumberOfRemainingPostIt();
   }
 
   getPostItComments(type: string): PostIt[] {
@@ -85,6 +89,7 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
     if(findIndex != -1) {
       this.getPostItComments(type).splice(findIndex, 1);
       this.browserStorageService.setPostItsContainer(this.postItComments);
+      this.computeNumberOfRemainingPostIt();
     }
   }
 
@@ -111,6 +116,7 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
 
   handleInitTheme(theme: Theme) {
     this.theme = theme;
+    this.computeNumberOfRemainingPostIt();
     if(this.theme) {
       this.timeToDisplay = (this.theme.limitTimeToWrite * 60) - moment().diff(moment.utc(this.theme.writeTime), 'seconds');
       if(this.timeToDisplay > 0) {
@@ -145,6 +151,13 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
     }
 
     return " -- ";
+  }
+
+  computeNumberOfRemainingPostIt() {
+    if(this.theme && this.boards) {
+      const remaining = this.theme.maxPostIt - this.getNumberOfPostIts();
+      this.postItsRemaining = Array.from(Array(remaining).keys());
+    }
   }
 
   canAddNewPostIt(): boolean {
