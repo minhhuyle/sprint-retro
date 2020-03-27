@@ -19,7 +19,7 @@ import { Subject, Subscription } from 'rxjs';
 })
 export class ViewBoardComponent implements OnInit, OnDestroy {
   public postIts;
-  private export: boolean = false;
+  export: boolean = false;
   private selectedPostItWantedToLink: PostIt;
   boards: Board[];
   private theme: Theme;
@@ -29,6 +29,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   private modelChanged: Subject<string> = new Subject<string>();
   private subscriptionModelChanged: Subscription;
   private postItsSearch: PostIt[] = null;
+  private postItIdChildToLink: number[] = [];
 
   constructor(private http: HttpClient,
               private boardService: BoardService,
@@ -51,14 +52,6 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
           this.getPostItComments(this.getPostItLinkType()).forEach(postIt => {
             if(postIt.comment?.toUpperCase().includes(searchVal)) {
               result.push(postIt);
-            } else if(postIt.linkedPostIts?.length > 0){
-              for (let i = 0; i < postIt.linkedPostIts.length; i++) {
-                const postItChild = postIt.linkedPostIts[i];
-                if(postItChild.comment?.toUpperCase().includes(searchVal)) {
-                  result.push(postIt);
-                  break;
-                }
-              }
             }
           });
           this.postItsSearch = result;
@@ -159,6 +152,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     this.selectedPostItWantedToLink = postIt;
     this.searchValue = "";
     this.postItsSearch = null;
+    this.postItIdChildToLink = [];
   }
 
   getSelectedPostItWantedToLink() {
@@ -177,10 +171,10 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     return this.selectedPostItWantedToLink?.type;
   }
 
-  linkToParent(parentPostIt: PostIt) {
+  linkToParent() {
     this.http.post(environment.apiUrl + '/link-post', {
-      childId: this.selectedPostItWantedToLink.id,
-      parentId: parentPostIt.id
+      childIds: this.postItIdChildToLink,
+      parentId: this.selectedPostItWantedToLink.id
     }).subscribe(() => {
       //this.postIts = response;
     });
@@ -203,5 +197,14 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
 
   searchForLink() {
     this.modelChanged.next();
+  }
+
+  selectLinkToParent(postIt: PostIt) {
+    const indexToRemove = this.postItIdChildToLink.indexOf(postIt.id);
+    if(indexToRemove > -1) {
+      this.postItIdChildToLink.splice(indexToRemove, 1);
+    } else {
+      this.postItIdChildToLink.push(postIt.id);
+    }
   }
 }

@@ -98,10 +98,12 @@ public class PostItService {
 
     @Transactional
     public PostIt linkPost(final LinkPost linkPost) {
-        PostIt childPostIt = postItDao.findById(linkPost.getChildId()).orElseThrow(IllegalArgumentException::new);
         PostIt parentPostIt = postItDao.findById(linkPost.getParentId()).orElseThrow(IllegalArgumentException::new);
-        childPostIt.setParent(parentPostIt);
-        parentPostIt.addChildPostIt(childPostIt);
+        List<PostIt> children = (List<PostIt>) postItDao.findAllById(linkPost.getChildIds());
+        for (PostIt child : children) {
+            child.setParent(parentPostIt);
+            parentPostIt.addChildPostIt(child);
+        }
         return postItDao.save(parentPostIt);
     }
 }

@@ -1,15 +1,17 @@
 package com.minhhuyle.sprintretroapi.retro.dto;
 
+import java.util.List;
+
 public class LinkPost {
-    private Long childId;
+    private List<Long> childIds;
     private Long parentId;
 
-    public Long getChildId() {
-        return childId;
+    public List<Long> getChildIds() {
+        return childIds;
     }
 
-    public void setChildId(final Long childId) {
-        this.childId = childId;
+    public void setChildIds(final List<Long> childIds) {
+        this.childIds = childIds;
     }
 
     public Long getParentId() {

@@ -24,11 +24,11 @@
     <ul class="rack-board list-group list-group-flush">
       <mle-post-it-on-board *ngFor="let postIt of getPostItComments(board.type); index as i;"
                             [postIt]="postIt">
-          <ng-container *ngIf="board.likable">
+          <ng-container *ngIf="board.likable && !export">
              <span (click)="voteUpPostIt(board.type, postIt.id)"
                    class="btn badge badge-primary fa fa-thumbs-up"> {{postIt.vote}}</span>
           </ng-container>
-        <mle-link *ngIf="postIt.linkedPostIts.length === 0 && isAllowedToLinkPostIt()" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
+        <mle-link *ngIf="isAllowedToLinkPostIt() && !export" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
       </mle-post-it-on-board>
     </ul>
   </div>
@@ -51,19 +51,13 @@
 
         <ul class="rack-board list-group list-group-flush">
           <ng-container *ngFor="let postIt of getPostItToLink(); index as i;">
-            <li class="list-group-item" *ngIf="postIt != this.getSelectedPostItWantedToLink()">
-              <span (click)="linkToParent(postIt)" data-dismiss="modal" class="btn btn-success fa fa-link"></span> {{postIt.comment}}
-              <ng-container *ngIf="postIt.linkedPostIts?.length > 0">
-                <ng-container *ngFor="let childPI of postIt.linkedPostIts">
-                  <br/> - {{childPI.comment}}
-                </ng-container>
-              </ng-container>
+            <li class="list-group-item" *ngIf="postIt != this.getSelectedPostItWantedToLink() && (!postIt.linkedPostIts || postIt.linkedPostIts.length === 0)">
+              <input type="checkbox" class="form-check-input"  (click)="selectLinkToParent(postIt)" /> {{postIt.comment}}
             </li>
           </ng-container>
-
         </ul>
         <br/>
-        <button class="btn btn-info">Link</button>
+        <button class="btn btn-info" (click)="linkToParent()">Link</button>
       </div>
     </div>
   </div>
