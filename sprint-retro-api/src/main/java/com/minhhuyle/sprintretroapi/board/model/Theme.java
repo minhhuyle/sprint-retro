@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Theme {
@@ -13,8 +14,8 @@ public class Theme {
 
     private String name;
 
-    // @OneToMany(fetch = FetchType.EAGER, mappedBy = "theme")
-    // private List<Board> boards;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "theme")
+    private List<Board> boards;
 
     private int limitTimeToWrite;
 
@@ -82,5 +83,13 @@ public class Theme {
 
     public void setMaxVote(final int maxVote) {
         this.maxVote = maxVote;
+    }
+
+    public List<Board> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(final List<Board> boards) {
+        this.boards = boards;
     }
 }

@@ -18,6 +18,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LinkComponent } from './board/view-board/link/link.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { WriteBoardComponent } from './board/write-board/write-board.component';
+import { ThemeFormComponent } from './admin-view/theme-form/theme-form.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { WriteBoardComponent } from './board/write-board/write-board.component';
     ConfigComponent,
     LinkComponent,
     AdminViewComponent,
-    WriteBoardComponent
+    WriteBoardComponent,
+    ThemeFormComponent
   ],
   imports: [
     ReactiveFormsModule,

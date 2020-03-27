@@ -15,11 +15,10 @@ public class Board {
 
     private boolean likable;
 
-   /* @JsonIgnore
+    @JsonIgnore
     @ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name = "theme_id")
     private Theme theme;
-    */
 
     public Long getId() {
         return id;
@@ -43,6 +42,14 @@ public class Board {
 
     public void setLikable(final boolean likable) {
         this.likable = likable;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(final Theme theme) {
+        this.theme = theme;
     }
 
     @Override

@@ -5,33 +5,7 @@
 
   <ul class="rack-board list-group list-group-flush">
     <li class="list-group-item" *ngFor="let theme of themes; index as i">
-      <div class="row">
-        <div class="col-sm-3">
-          <input type="input" class="form-control" [(ngModel)]="theme.name" placeholder="Name"/>
-        </div>
-
-        <div class="col-sm-2">
-          <input type="number" class="form-control" [(ngModel)]="theme.limitTimeToWrite" placeholder="TimeLimit ToWrite (min)"/>
-        </div>
-
-        <div class="col-sm-2">
-          <input type="number" class="form-control" [(ngModel)]="theme.maxPostIt" placeholder="Max postIt/person"/>
-        </div>
-
-        <div class="col-sm-2">
-          <input type="number" class="form-control" [(ngModel)]="theme.maxVote" placeholder="Max vote/person"/>
-        </div>
-      </div>
-      <br/>
-      <div class="row">
-        <div class="col-sm-2">
-          <button (click)="startWriteBoard(theme.id)" class="btn btn-info">Start Write Board</button>
-        </div>
-
-        <div class="col-sm-3">
-          <button (click)="selectThemeForRetro(theme.id)" class="btn btn-info">Select RetroTheme</button>
-        </div>
-      </div>
+      <mle-theme-form [theme]="theme"></mle-theme-form>
     </li>
   </ul>
 

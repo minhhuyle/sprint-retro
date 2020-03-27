@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Theme } from '../board/model/theme.model';
 import { User } from '../user/login/user.model';
+import { UserService } from '../user/login/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { User } from '../user/login/user.model';
 export class AdminViewService {
   private serverUrl = environment.apiUrl + '/admin';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userService: UserService) { }
 
   authentication(authenticationForm) : Observable<any> {
     return this.http.post(this.serverUrl, authenticationForm);

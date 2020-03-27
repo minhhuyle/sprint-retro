@@ -85,20 +85,4 @@ export class AdminViewComponent implements OnInit {
       this.themes = themes;
     })
   }
-
-  startWriteBoard(themeId: number) {
-    this.adminViewService.startWriteBoardTheme({
-      user: this.getAdminAuth(),
-      themeId: themeId
-    }).subscribe( () => {
-    })
-  }
-
-  selectThemeForRetro(themeId: number) {
-    this.adminViewService.selectRetroTheme({
-      user: this.getAdminAuth(),
-      themeId: themeId
-    }).subscribe( () => {
-    })
-  }
 }
