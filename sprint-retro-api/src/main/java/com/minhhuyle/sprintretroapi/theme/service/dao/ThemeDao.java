@@ -1,6 +1,6 @@
-package com.minhhuyle.sprintretroapi.board.service.dao;
+package com.minhhuyle.sprintretroapi.theme.service.dao;
 
-import com.minhhuyle.sprintretroapi.board.model.Theme;
+import com.minhhuyle.sprintretroapi.theme.model.Theme;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

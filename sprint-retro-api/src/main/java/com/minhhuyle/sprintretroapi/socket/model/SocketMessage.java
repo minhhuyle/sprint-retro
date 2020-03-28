@@ -1,6 +1,6 @@
 package com.minhhuyle.sprintretroapi.socket.model;
 
-import com.minhhuyle.sprintretroapi.retro.model.PostIt;
+import com.minhhuyle.sprintretroapi.theme.model.PostIt;
 
 public class SocketMessage {
     private SocketMessageType type;

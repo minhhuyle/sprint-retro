@@ -3,7 +3,7 @@ package com.minhhuyle.sprintretroapi.admin;
 import com.minhhuyle.sprintretroapi.admin.dto.theme.AdminThemeDTO;
 import com.minhhuyle.sprintretroapi.admin.dto.theme.AdminThemeIdDTO;
 import com.minhhuyle.sprintretroapi.admin.service.AdminViewService;
-import com.minhhuyle.sprintretroapi.board.model.Theme;
+import com.minhhuyle.sprintretroapi.theme.model.Theme;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

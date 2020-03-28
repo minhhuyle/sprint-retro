@@ -1,7 +1,7 @@
-package com.minhhuyle.sprintretroapi.board.service;
+package com.minhhuyle.sprintretroapi.theme.service;
 
-import com.minhhuyle.sprintretroapi.board.model.Board;
-import com.minhhuyle.sprintretroapi.board.service.dao.BoardDao;
+import com.minhhuyle.sprintretroapi.theme.model.Board;
+import com.minhhuyle.sprintretroapi.theme.service.dao.BoardDao;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

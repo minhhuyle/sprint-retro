@@ -1,9 +1,10 @@
-package com.minhhuyle.sprintretroapi.board.service;
+package com.minhhuyle.sprintretroapi.theme.service;
 
-import com.minhhuyle.sprintretroapi.board.model.Theme;
-import com.minhhuyle.sprintretroapi.board.service.dao.ThemeDao;
+import com.minhhuyle.sprintretroapi.theme.model.Theme;
+import com.minhhuyle.sprintretroapi.theme.service.dao.ThemeDao;
 import com.minhhuyle.sprintretroapi.socket.service.SocketService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -32,10 +33,11 @@ public class ThemeService {
         return (List<Theme>) themeDao.findAll();
     }
 
-    public void selectThemeForRetro(final long themeId) {
+    public void selectThemeForRetroAndNotifyClient(final long themeId) {
         Theme theme = themeDao.findById(themeId).orElseThrow(() -> new IllegalStateException("Cannot Select Theme"));
         theme.setSelectedTheme(new Date());
-        themeDao.save(theme);
+        Theme savedTheme = themeDao.save(theme);
+        socketService.notifySocketWriteBoardEnabled(savedTheme);
     }
 
     public List<Theme> save(final List<Theme> themes) {

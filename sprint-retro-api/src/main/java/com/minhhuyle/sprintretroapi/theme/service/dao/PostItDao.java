@@ -1,6 +1,6 @@
-package com.minhhuyle.sprintretroapi.retro.service.dao;
+package com.minhhuyle.sprintretroapi.theme.service.dao;
 
-import com.minhhuyle.sprintretroapi.retro.model.PostIt;
+import com.minhhuyle.sprintretroapi.theme.model.PostIt;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

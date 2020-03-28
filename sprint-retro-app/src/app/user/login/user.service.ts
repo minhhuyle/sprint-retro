@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User, UserLocal } from './user.model';
+import { User, UserLocal } from '../model/user.model';
 import { CanActivate, Router } from '@angular/router';
 import { BrowserStorageService } from '../../storage/browser-storage.service';
 

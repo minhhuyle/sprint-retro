@@ -3,10 +3,10 @@ package com.minhhuyle.sprintretroapi.admin.service;
 import com.minhhuyle.sprintretroapi.admin.dto.AdminDTO;
 import com.minhhuyle.sprintretroapi.admin.model.AdminView;
 import com.minhhuyle.sprintretroapi.admin.service.dao.AdminViewDao;
-import com.minhhuyle.sprintretroapi.board.model.Board;
-import com.minhhuyle.sprintretroapi.board.model.Theme;
-import com.minhhuyle.sprintretroapi.board.service.ThemeService;
-import com.minhhuyle.sprintretroapi.board.service.dao.BoardDao;
+import com.minhhuyle.sprintretroapi.theme.model.Board;
+import com.minhhuyle.sprintretroapi.theme.model.Theme;
+import com.minhhuyle.sprintretroapi.theme.service.ThemeService;
+import com.minhhuyle.sprintretroapi.theme.service.dao.BoardDao;
 import com.minhhuyle.sprintretroapi.user.model.Role;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import com.minhhuyle.sprintretroapi.user.service.UserViewService;
@@ -85,7 +85,7 @@ public class AdminViewService {
     }
 
     public void selectThemeForRetro(final long themeId) {
-        themeService.selectThemeForRetro(themeId);
+        themeService.selectThemeForRetroAndNotifyClient(themeId);
     }
 
     public void startWriteBoard(final long themeId) {

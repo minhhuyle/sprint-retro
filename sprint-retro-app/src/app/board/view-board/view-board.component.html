@@ -16,9 +16,9 @@
 </div>
 
 
-<div class="row" *ngIf="boards">
+<div class="row" *ngIf="theme?.boards">
 
-  <div *ngFor="let board of boards" class="col-sm-6 alert alert-primary" [ngClass]="board.likable ? 'alert-danger' : 'alert-primary'">
+  <div *ngFor="let board of theme?.boards" class="col-sm-6 alert alert-primary" [ngClass]="board.likable ? 'alert-danger' : 'alert-primary'">
     <h5 class="card-title">{{board.type}}</h5>
 
     <ul class="rack-board list-group list-group-flush">

@@ -1,4 +1,4 @@
-package com.minhhuyle.sprintretroapi.retro.model;
+package com.minhhuyle.sprintretroapi.theme.model;
 
 public enum PostItType {
     GOOD("GOOD"),

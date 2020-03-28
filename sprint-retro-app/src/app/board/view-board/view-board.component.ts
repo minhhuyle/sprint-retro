@@ -3,9 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { SocketService } from '../../socket/socket.service';
 import { SocketMessageType } from '../../socket/socket.model';
 import { environment } from '../../../environments/environment';
-import { BoardService } from '../board.service';
 import { UserService } from '../../user/login/user.service';
-import { Board, PostIt, Theme } from '../model/theme.model';
+import { PostIt, Theme } from '../model/theme.model';
 import { ThemeService } from '../theme.service';
 import { debounceTime } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
@@ -19,8 +18,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   public postIts;
   export: boolean = false;
   private selectedPostItWantedToLink: PostIt;
-  boards: Board[];
-  private theme: Theme;
+  theme: Theme;
   voteRemaining: number[] = [];
   searchValue: string;
 
@@ -30,7 +28,6 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   private postItIdChildToLink: number[] = [];
 
   constructor(private http: HttpClient,
-              private boardService: BoardService,
               private socketService: SocketService,
               private userService: UserService,
               private themeService: ThemeService) {
@@ -63,9 +60,6 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     this.themeService.getActivatedTheme().subscribe(theme => {
       this.theme = theme;
       this.computeVoteRemaining();
-    });
-    this.boardService.getAllBoards().subscribe(boardsRes => {
-      this.boards = boardsRes;
       this.loadPostIts();
     });
   }

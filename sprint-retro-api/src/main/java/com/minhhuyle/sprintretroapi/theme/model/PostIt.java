@@ -1,4 +1,4 @@
-package com.minhhuyle.sprintretroapi.retro.model;
+package com.minhhuyle.sprintretroapi.theme.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,8 +1,7 @@
 package com.minhhuyle.sprintretroapi.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.minhhuyle.sprintretroapi.retro.model.PostIt;
-import com.minhhuyle.sprintretroapi.retro.model.VotedPostItUser;
+import com.minhhuyle.sprintretroapi.theme.model.VotedPostItUser;
 
 import javax.persistence.*;
 import java.util.HashSet;

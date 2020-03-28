@@ -1,4 +1,4 @@
-import { UserLocal } from '../user/login/user.model';
+import { UserLocal } from '../user/model/user.model';
 
 class BrowserStorage {
   user: UserLocal;

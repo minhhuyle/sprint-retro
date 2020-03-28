@@ -1,4 +1,4 @@
-package com.minhhuyle.sprintretroapi.retro.dto;
+package com.minhhuyle.sprintretroapi.theme.dto;
 
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 

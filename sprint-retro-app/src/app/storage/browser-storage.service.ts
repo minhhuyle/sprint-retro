@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { BrowserStorage } from './browser-storage.model';
-import { User, UserLocal } from '../user/login/user.model';
+import { User, UserLocal } from '../user/model/user.model';
 
 @Injectable({
   providedIn: 'root'

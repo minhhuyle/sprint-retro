@@ -1,8 +1,8 @@
-package com.minhhuyle.sprintretroapi.retro.service;
+package com.minhhuyle.sprintretroapi.theme.service;
 
-import com.minhhuyle.sprintretroapi.retro.model.PostIt;
-import com.minhhuyle.sprintretroapi.retro.model.VotedPostItUser;
-import com.minhhuyle.sprintretroapi.retro.service.dao.VotedPostItUserDao;
+import com.minhhuyle.sprintretroapi.theme.model.PostIt;
+import com.minhhuyle.sprintretroapi.theme.model.VotedPostItUser;
+import com.minhhuyle.sprintretroapi.theme.service.dao.VotedPostItUserDao;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import org.springframework.stereotype.Service;
 

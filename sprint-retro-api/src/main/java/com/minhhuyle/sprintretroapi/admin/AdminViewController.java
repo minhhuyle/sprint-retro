@@ -1,7 +1,7 @@
 package com.minhhuyle.sprintretroapi.admin;
 
 import com.minhhuyle.sprintretroapi.admin.service.AdminViewService;
-import com.minhhuyle.sprintretroapi.retro.service.PostItService;
+import com.minhhuyle.sprintretroapi.theme.service.PostItService;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ public class AdminViewController {
 
     private final AdminViewService adminViewService;
     private final PostItService postItService;
-    
+
     public AdminViewController(final AdminViewService adminViewService, final PostItService postItService) {
         this.adminViewService = adminViewService;
         this.postItService = postItService;

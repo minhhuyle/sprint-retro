@@ -1,12 +1,11 @@
-package com.minhhuyle.sprintretroapi.retro.service;
+package com.minhhuyle.sprintretroapi.theme.service;
 
 import com.minhhuyle.sprintretroapi.admin.service.AdminViewService;
-import com.minhhuyle.sprintretroapi.board.model.Board;
-import com.minhhuyle.sprintretroapi.board.model.Theme;
-import com.minhhuyle.sprintretroapi.board.service.ThemeService;
-import com.minhhuyle.sprintretroapi.retro.dto.LinkPost;
-import com.minhhuyle.sprintretroapi.retro.model.PostIt;
-import com.minhhuyle.sprintretroapi.retro.service.dao.PostItDao;
+import com.minhhuyle.sprintretroapi.theme.model.Board;
+import com.minhhuyle.sprintretroapi.theme.model.Theme;
+import com.minhhuyle.sprintretroapi.theme.dto.LinkPost;
+import com.minhhuyle.sprintretroapi.theme.model.PostIt;
+import com.minhhuyle.sprintretroapi.theme.service.dao.PostItDao;
 import com.minhhuyle.sprintretroapi.socket.service.SocketService;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import com.minhhuyle.sprintretroapi.user.service.UserViewService;

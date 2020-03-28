@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BrowserStorageService } from '../../storage/browser-storage.service';
-import { BoardService } from '../board.service';
 import { SocketService } from '../../socket/socket.service';
 import { SocketMessageType } from '../../socket/socket.model';
-import { Board, PostIt, Theme } from '../model/theme.model';
+import { PostIt, Theme } from '../model/theme.model';
 import { ThemeService } from '../theme.service';
 import * as moment from 'moment';
 import { Subscription, timer } from 'rxjs';
@@ -15,16 +14,14 @@ import { Subscription, timer } from 'rxjs';
 })
 export class WriteBoardComponent implements OnInit, OnDestroy {
 
-  private postItComments;
   lockBoard :boolean = true;
-  boards: Board[];
-   theme: Theme;
-  private timeToDisplay;
+  theme: Theme;
   timerSub: Subscription;
   postItsRemaining: number[] = [];
+  private postItComments;
+  private timeToDisplay;
 
-  constructor(private boardService: BoardService,
-              private browserStorageService: BrowserStorageService,
+  constructor(private browserStorageService: BrowserStorageService,
               private socketService: SocketService,
               private themeService: ThemeService) {
   }
@@ -43,32 +40,22 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
   private initData() {
     this.themeService.getActivatedTheme().subscribe(theme => {
       this.handleInitTheme(theme);
-      this.initBoard();
     })
-  }
-
-  private initBoard() {
-    this.boardService.getAllBoards().subscribe(boardsRes => {
-      this.boards = boardsRes;
-      this.computeNumberOfRemainingPostIt();
-      this.initLocalPostItData();
-    });
   }
 
   private initLocalPostItData() {
     const postItsContainer = this.browserStorageService.getPostItsContainer();
     if(postItsContainer) {
       this.postItComments = postItsContainer;
-      this.boards.forEach(ele => {
+      this.theme.boards.forEach(ele => {
         if(!this.postItComments[ele.type]) {
           this.postItComments[ele.type] = [];
         }
       })
     } else {
       this.postItComments = {};
-      this.boards.forEach(ele => this.postItComments[ele.type] = [])
+      this.theme.boards.forEach(ele => this.postItComments[ele.type] = [])
     }
-    this.computeNumberOfRemainingPostIt();
   }
 
   addPostItComment(type) {
@@ -106,7 +93,6 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
       switch (message.type as SocketMessageType) {
         case SocketMessageType.WRITE_BOARD:
           this.handleInitTheme(message.data);
-          this.initBoard();
           break;
       }
     }
@@ -114,7 +100,6 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
 
   handleInitTheme(theme: Theme) {
     this.theme = theme;
-    this.computeNumberOfRemainingPostIt();
     if(this.theme) {
       this.timeToDisplay = (this.theme.limitTimeToWrite * 60) - moment().diff(moment.utc(this.theme.writeTime), 'seconds');
       if(this.timeToDisplay > 0) {
@@ -131,6 +116,8 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
           }
         });
       }
+      this.computeNumberOfRemainingPostIt();
+      this.initLocalPostItData();
     }
   }
 
@@ -152,7 +139,7 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
   }
 
   computeNumberOfRemainingPostIt() {
-    if(this.theme && this.boards) {
+    if(this.theme?.boards) {
       const remaining = this.theme.maxPostIt - this.getNumberOfPostIts();
       this.postItsRemaining = Array.from(Array(remaining).keys());
     }
@@ -165,8 +152,8 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
 
   private getNumberOfPostIts() {
     let result = 0;
-    if(this.postItComments && this.boards) {
-      this.boards.forEach(board => result += this.postItComments[board.type].length);
+    if(this.postItComments && this.theme?.boards) {
+      this.theme.boards.forEach(board => result += this.postItComments[board.type].length);
     }
 
     return result;
