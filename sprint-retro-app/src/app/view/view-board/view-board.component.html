@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-sm-3">
+    <h3 *ngIf="isNotViewer()">
+      <ng-container *ngFor="let heart of voteRemaining">
+        <span class="fa fa-heart"></span>
+      </ng-container>
+    </h3>
+  </div>
+  <div class="col-sm-6">
+    <h1 align="center">
+      <span (click)="refresh()" class="btn btn-success fa fa-refresh"></span>
+      Retro
+      <span (click)="exportLowCost()" class="btn btn-secondary fa fa-file"></span>
+    </h1>
+  </div>
+</div>
+
+
+<div class="row" *ngIf="theme?.boards && !export">
+
+  <div *ngFor="let board of theme?.boards" class="col-sm-6 alert alert-primary" [ngClass]="board.likable ? 'alert-danger' : 'alert-primary'">
+    <h5 class="card-title">{{board.type}}</h5>
+
+    <ul class="rack-board list-group list-group-flush">
+      <mle-post-it-on-board *ngFor="let postIt of getPostItComments(board.type); index as i;"
+                            [postIt]="postIt">
+          <ng-container *ngIf="board.likable && !export">
+             <span (click)="voteUpPostIt(board.type, postIt.id)"
+                   class="btn badge badge-primary fa fa-thumbs-up"> {{postIt.vote}}</span>
+          </ng-container>
+        <mle-link *ngIf="isAllowedToLinkPostIt() && !export" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
+      </mle-post-it-on-board>
+    </ul>
+  </div>
+</div>
+
+<mle-export-boards *ngIf="postIts && export"></mle-export-boards>
+
+<!-- Modal -->
+<div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="linkModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="linkModalLabel">Choose post type {{getPostItLinkType()}} to link</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <input type="input" [(ngModel)]="searchValue" (ngModelChange)="searchForLink()" class="form-control" placeholder="Search"/>
+        </div>
+
+        <ul class="rack-board list-group list-group-flush">
+          <ng-container *ngFor="let postIt of getPostItToLink(); index as i;">
+            <li class="list-group-item" *ngIf="postIt != this.getSelectedPostItWantedToLink() && (!postIt.linkedPostIts || postIt.linkedPostIts.length === 0)">
+              <input type="checkbox" class="form-check-input"  (click)="selectLinkToParent(postIt)" /> {{postIt.comment}}
+            </li>
+          </ng-container>
+        </ul>
+        <br/>
+        <button class="btn btn-info" (click)="linkToParent()">Link</button>
+      </div>
+    </div>
+  </div>
+</div>

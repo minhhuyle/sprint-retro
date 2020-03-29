@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { ViewBoardComponent } from './board/view-board/view-board.component';
-import { ConfigComponent } from './config/config.component';
-import { AdminViewComponent } from './admin-view/admin-view.component';
-import { WriteBoardComponent } from './board/write-board/write-board.component';
-import { LoginComponent } from './user/login/login.component';
-import { UserService } from './user/login/user.service';
+import { ViewBoardComponent } from './view/view-board/view-board.component';
+import { ViewConfigComponent } from './view/view-config/view-config.component';
+import { ViewAdminComponent } from './view/view-admin/view-admin.component';
+import { WriteBoardComponent } from './view/write-board/write-board.component';
+import { LoginComponent } from './view/view-login/login.component';
+import { UserService } from './service/user/user.service';
 
 const routes: Routes = [
   {
@@ -21,12 +21,12 @@ const routes: Routes = [
   },
   {
     path: 'config',
-    component: ConfigComponent,
+    component: ViewConfigComponent,
     canActivate: [UserService]
   },
   {
     path: 'admin',
-    component: AdminViewComponent,
+    component: ViewAdminComponent,
     canActivate: [UserService]
   },
   { path: '', component: LoginComponent },

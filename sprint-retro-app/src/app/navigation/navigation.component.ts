@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { UserService } from '../user/login/user.service';
+import { UserService } from '../service/user/user.service';
 
 @Component({
   selector: 'mle-navigation',
