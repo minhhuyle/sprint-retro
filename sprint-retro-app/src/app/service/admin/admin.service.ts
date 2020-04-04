@@ -36,7 +36,7 @@ export class AdminService {
     return this.http.post(this.serverUrl + '/themes', this.getAdminAuth());
   }
 
-
+  //todo check endpoint
   authentication(authenticationForm) : Observable<any> {
     return this.http.post(this.serverUrl, authenticationForm);
   }

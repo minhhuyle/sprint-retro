@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewAdminComponent } from './view-admin.component';
+import { ConfigSceneComponent } from './config-scene.component';
 
-describe('AdminViewComponent', () => {
-  let component: ViewAdminComponent;
-  let fixture: ComponentFixture<ViewAdminComponent>;
+describe('ConfigComponent', () => {
+  let component: ConfigSceneComponent;
+  let fixture: ComponentFixture<ConfigSceneComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewAdminComponent ]
+      declarations: [ ConfigSceneComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewAdminComponent);
+    fixture = TestBed.createComponent(ConfigSceneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

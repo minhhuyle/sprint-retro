@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BrowserStorageService } from '../../service/storage/browser-storage.service';
 
 @Component({
-  selector: 'mle-view-config',
-  templateUrl: './view-config.component.html',
-  styleUrls: ['./view-config.component.scss']
+  selector: 'mle-config-scene',
+  templateUrl: './config-scene.component.html',
+  styleUrls: ['./config-scene.component.scss']
 })
-export class ViewConfigComponent implements OnInit {
+export class ConfigSceneComponent implements OnInit {
 
   constructor(private browserStorageServiceService: BrowserStorageService) {
 

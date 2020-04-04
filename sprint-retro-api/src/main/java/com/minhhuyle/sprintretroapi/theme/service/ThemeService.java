@@ -1,5 +1,6 @@
 package com.minhhuyle.sprintretroapi.theme.service;
 
+import com.minhhuyle.sprintretroapi.socket.model.SocketMessageType;
 import com.minhhuyle.sprintretroapi.theme.model.Theme;
 import com.minhhuyle.sprintretroapi.theme.service.dao.ThemeDao;
 import com.minhhuyle.sprintretroapi.socket.service.SocketService;
@@ -37,6 +38,7 @@ public class ThemeService {
         Theme theme = themeDao.findById(themeId).orElseThrow(() -> new IllegalStateException("Cannot Select Theme"));
         theme.setSelectedTheme(new Date());
         Theme savedTheme = themeDao.save(theme);
+        socketService.notifySockets(SocketMessageType.REFRESH_THEME, savedTheme);
         socketService.notifySocketWriteBoardEnabled(savedTheme);
     }
 

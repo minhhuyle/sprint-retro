@@ -18,7 +18,8 @@
 
 <div class="row" *ngIf="theme?.boards && !export">
 
-  <div *ngFor="let board of theme?.boards" class="col-sm-6 alert alert-primary" [ngClass]="board.likable ? 'alert-danger' : 'alert-primary'">
+  <div class="col-sm-6 alert" [ngClass]="[board.likable ? 'alert-danger' : 'alert-primary', i == theme.boards.length - 1 && i%2==0 ? 'col-sm-12': 'col-sm-6']"
+       role="alert" *ngFor="let board of theme.boards, index as i">
     <h5 class="card-title">{{board.type}}</h5>
 
     <ul class="rack-board list-group list-group-flush">

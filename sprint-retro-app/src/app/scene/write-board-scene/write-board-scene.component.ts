@@ -9,11 +9,11 @@ import { PostIt, Theme } from '../../service/theme/theme.model';
 
 
 @Component({
-  selector: 'mle-write-board',
-  templateUrl: './write-board.component.html',
-  styleUrls: ['./write-board.component.scss']
+  selector: 'mle-write-board-scene',
+  templateUrl: './write-board-scene.component.html',
+  styleUrls: ['./write-board-scene.component.scss']
 })
-export class WriteBoardComponent implements OnInit, OnDestroy {
+export class WriteBoardSceneComponent implements OnInit, OnDestroy {
 
   lockBoard :boolean = true;
   theme: Theme;
@@ -47,6 +47,7 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
   private initLocalPostItData() {
     const postItsContainer = this.browserStorageService.getPostItsContainer();
     if(postItsContainer) {
+
       this.postItComments = postItsContainer;
       this.theme.boards.forEach(ele => {
         if(!this.postItComments[ele.type]) {
@@ -92,6 +93,7 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
     if(!!rawMessage) {
       const message = JSON.parse(rawMessage);
       switch (message.type as SocketMessageType) {
+        case SocketMessageType.REFRESH_THEME:
         case SocketMessageType.WRITE_BOARD:
           this.handleInitTheme(message.data);
           break;
@@ -117,8 +119,8 @@ export class WriteBoardComponent implements OnInit, OnDestroy {
           }
         });
       }
-      this.computeNumberOfRemainingPostIt();
       this.initLocalPostItData();
+      this.computeNumberOfRemainingPostIt();
     }
   }
 

@@ -5,11 +5,11 @@ import { UserService } from '../../service/user/user.service';
 import { BrowserStorageService } from '../../service/storage/browser-storage.service';
 
 @Component({
-  selector: 'mle-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'mle-login-scene',
+  templateUrl: './login-scene.component.html',
+  styleUrls: ['./login-scene.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginSceneComponent implements OnInit {
   logInForm: FormGroup;
 
   constructor(private router: Router,

@@ -32,4 +32,13 @@ public class SocketService {
     public void notifySocketWriteBoardEnabled(Theme theme) {
         this.simpMessagingTemplate.convertAndSend(SOCKET_DESTINATION, SocketMessage.createSimpleMessage(SocketMessageType.WRITE_BOARD, theme));
     }
+
+    public void notifySockets(SocketMessageType socketMessageType) {
+        notifySockets(socketMessageType, null);
+    }
+
+    public void notifySockets(SocketMessageType socketMessageType, Object message) {
+        SocketMessage simpleMessage = SocketMessage.createSimpleMessage(socketMessageType, message);
+        this.simpMessagingTemplate.convertAndSend(SOCKET_DESTINATION, simpleMessage);
+    }
 }

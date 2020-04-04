@@ -1,6 +1,7 @@
 package com.minhhuyle.sprintretroapi.theme.service;
 
 import com.minhhuyle.sprintretroapi.admin.service.AdminViewService;
+import com.minhhuyle.sprintretroapi.socket.model.SocketMessageType;
 import com.minhhuyle.sprintretroapi.theme.model.Board;
 import com.minhhuyle.sprintretroapi.theme.model.Theme;
 import com.minhhuyle.sprintretroapi.theme.dto.LinkPost;
@@ -73,10 +74,11 @@ public class PostItService {
 
         if(postItOpt.isPresent() && activatedThemeOpt.isPresent()) {
             Theme theme = activatedThemeOpt.get();
-
-            PostIt postItLoaded = postItOpt.get();
-            votedPostItUserService.saveNewVotedPostItUser(postItLoaded, userLogged);
-            socketService.notifyAllSockets(postItLoaded);
+            if(userLogged.getVotedLink().size() < theme.getMaxVote()) {
+                PostIt postItLoaded = postItOpt.get();
+                votedPostItUserService.saveNewVotedPostItUser(postItLoaded, userLogged);
+                socketService.notifySockets(SocketMessageType.REFRESH_VOTE);
+            }
         }
 
         return userLogged;

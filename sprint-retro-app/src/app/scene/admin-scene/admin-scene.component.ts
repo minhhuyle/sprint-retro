@@ -4,11 +4,11 @@ import { Board, Theme } from '../../service/theme/theme.model';
 import { UserService } from '../../service/user/user.service';
 
 @Component({
-  selector: 'mle-view-admin',
-  templateUrl: './view-admin.component.html',
-  styleUrls: ['./view-admin.component.scss']
+  selector: 'mle-admin-scene',
+  templateUrl: './admin-scene.component.html',
+  styleUrls: ['./admin-scene.component.scss']
 })
-export class ViewAdminComponent implements OnInit {
+export class AdminSceneComponent implements OnInit {
   themes: Theme[] = [];
 
   constructor(private adminService: AdminService,

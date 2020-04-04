@@ -10,11 +10,11 @@ import { environment } from '../../../environments/environment';
 import { SocketMessageType } from '../../service/socket/socket.model';
 
 @Component({
-  selector: 'mle-view-board',
-  templateUrl: './view-board.component.html',
-  styleUrls: ['./view-board.component.scss']
+  selector: 'mle-view-board-scene',
+  templateUrl: './view-board-scene.component.html',
+  styleUrls: ['./view-board-scene.component.scss']
 })
-export class ViewBoardComponent implements OnInit, OnDestroy {
+export class ViewBoardSceneComponent implements OnInit, OnDestroy {
   public postIts;
   export: boolean = false;
   private selectedPostItWantedToLink: PostIt;
@@ -22,8 +22,10 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   voteRemaining: number[] = [];
   searchValue: string;
 
-  private modelChanged: Subject<string> = new Subject<string>();
-  private subscriptionModelChanged: Subscription;
+  private searchModelChanged: Subject<string> = new Subject<string>();
+  private refreshSub: Subject<string> = new Subject<string>();
+
+  private subs: Subscription[] = [];
   private postItsSearch: PostIt[] = null;
   private postItIdChildToLink: number[] = [];
 
@@ -37,7 +39,21 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     this.socketService.initializeWebSocketConnection(response => this.handleResult(response));
     this.initData();
     this.loadPostIts();
-    this.subscriptionModelChanged = this.modelChanged
+    this.subs.push(this.subscribeForSearchIssues());
+    this.subs.push(this.subscribeForRefreshDebounce());
+  }
+
+  private subscribeForRefreshDebounce() : Subscription {
+    return this.refreshSub
+      .pipe(
+        debounceTime(2000))
+      .subscribe(() => {
+        this.loadPostIts();
+      });
+  }
+
+  private subscribeForSearchIssues() : Subscription {
+    return this.searchModelChanged
       .pipe(
         debounceTime(1000))
       .subscribe(() => {
@@ -58,16 +74,20 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
 
   private initData() {
     this.themeService.getActivatedTheme().subscribe(theme => {
-      this.theme = theme;
-      this.computeVoteRemaining();
-      this.loadPostIts();
+      this.loadTheme(theme);
     });
+  }
+
+  private loadTheme(theme: Theme) {
+    this.theme = theme;
+    this.computeVoteRemaining();
+    this.loadPostIts();
   }
 
   ngOnDestroy(): void {
     this.socketService.cancelHandleMessage();
-    if(this.subscriptionModelChanged) {
-      this.subscriptionModelChanged.unsubscribe();
+    if(this.subs) {
+      this.subs.forEach(subscription => subscription.unsubscribe());
     }
   }
 
@@ -113,6 +133,12 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
     if(!!rawMessage) {
       const message = JSON.parse(rawMessage);
       switch (message.type as SocketMessageType) {
+        case SocketMessageType.REFRESH_VOTE:
+          this.refreshSub.next();
+          break;
+        case SocketMessageType.REFRESH_THEME:
+          this.loadTheme(message.data);
+          break;
         case SocketMessageType.REFRESH:
           this.refresh(message.data ? message.data : null);
           break;
@@ -188,7 +214,7 @@ export class ViewBoardComponent implements OnInit, OnDestroy {
   }
 
   searchForLink() {
-    this.modelChanged.next();
+    this.searchModelChanged.next();
   }
 
   selectLinkToParent(postIt: PostIt) {

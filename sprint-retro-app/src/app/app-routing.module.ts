@@ -1,36 +1,36 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { ViewBoardComponent } from './view/view-board/view-board.component';
-import { ViewConfigComponent } from './view/view-config/view-config.component';
-import { ViewAdminComponent } from './view/view-admin/view-admin.component';
-import { WriteBoardComponent } from './view/write-board/write-board.component';
-import { LoginComponent } from './view/view-login/login.component';
+import { ViewBoardSceneComponent } from './scene/view-board-scene/view-board-scene.component';
+import { ConfigSceneComponent } from './scene/config-scene/config-scene.component';
+import { AdminSceneComponent } from './scene/admin-scene/admin-scene.component';
+import { WriteBoardSceneComponent } from './scene/write-board-scene/write-board-scene.component';
+import { LoginSceneComponent } from './scene/login-scene/login-scene.component';
 import { UserService } from './service/user/user.service';
 
 const routes: Routes = [
   {
     path: 'write',
-    component: WriteBoardComponent,
+    component: WriteBoardSceneComponent,
     canActivate: [UserService],
   },
   {
     path: 'view',
-    component: ViewBoardComponent,
+    component: ViewBoardSceneComponent,
     canActivate: [UserService]
   },
   {
     path: 'config',
-    component: ViewConfigComponent,
+    component: ConfigSceneComponent,
     canActivate: [UserService]
   },
   {
     path: 'admin',
-    component: ViewAdminComponent,
+    component: AdminSceneComponent,
     canActivate: [UserService]
   },
-  { path: '', component: LoginComponent },
-  { path: '**', component: LoginComponent },
+  { path: '', component: LoginSceneComponent },
+  { path: '**', component: LoginSceneComponent },
 ];
 
 @NgModule({
