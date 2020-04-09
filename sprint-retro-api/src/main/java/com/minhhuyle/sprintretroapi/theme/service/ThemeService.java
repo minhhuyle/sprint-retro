@@ -35,7 +35,10 @@ public class ThemeService {
     }
 
     public void selectThemeForRetroAndNotifyClient(final long themeId) {
-        Theme theme = themeDao.findById(themeId).orElseThrow(() -> new IllegalStateException("Cannot Select Theme"));
+        Theme theme = themeDao.findOne(themeId);
+        if(theme == null) {
+            throw new IllegalStateException();
+        }
         theme.setSelectedTheme(new Date());
         Theme savedTheme = themeDao.save(theme);
         socketService.notifySockets(SocketMessageType.REFRESH_THEME, savedTheme);
@@ -43,17 +46,16 @@ public class ThemeService {
     }
 
     public List<Theme> save(final List<Theme> themes) {
-        return (List<Theme>) themeDao.saveAll(themes);
+        return (List<Theme>) themeDao.save(themes);
     }
 
     public void startWriteBoard(final long themeId) {
-        Optional<Theme> optionalTheme = this.themeDao.findById(themeId);
+        Theme theme = this.themeDao.findOne(themeId);
 
-        if(optionalTheme.isEmpty()) {
+        if(theme == null) {
             throw new IllegalStateException("Cannot start write board");
         }
 
-        Theme theme = optionalTheme.get();
         theme.setWriteTime(new Date());
         themeDao.save(theme);
 

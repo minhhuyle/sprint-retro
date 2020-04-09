@@ -55,21 +55,6 @@
               <goal>exec</goal>
             </goals>
           </execution>
-          <!--<execution>
-            <id>exec-npm-run-tsc</id>
-            <phase>generate-sources</phase>
-            <configuration>
-              <workingDirectory>${project.basedir}src\main\app</workingDirectory>
-              <executable>npm</executable>
-              <arguments>
-                <argument>run</argument>
-                <argument>tsc</argument>
-              </arguments>
-            </configuration>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-          </execution>-->
         </executions>
       </plugin>
     </plugins>

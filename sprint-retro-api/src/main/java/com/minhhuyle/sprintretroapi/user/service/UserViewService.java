@@ -33,7 +33,7 @@ public class UserViewService {
 
     public UserView logIn(final UserView userView) {
         Optional<UserView> userOpt = userViewDao.findByUserName(userView.getUserName().toLowerCase());
-        if(userOpt.isEmpty()) {
+        if(!userOpt.isPresent()) {
             throw new IllegalStateException("Cannot log in");
         }
 

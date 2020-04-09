@@ -1,10 +1,12 @@
 server:
-  port : 4000
+  port : ${SPRINT_RETRO_PORT:4000}
 
 spring:
-  jpa.hibernate.ddl-auto: update
+  jpa:
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate.ddl-auto: update
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/sprint-retro
-    username: user
-    password: password
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${SPRINT_RETRO_DB_PORT:3306}/${SPRINT_RETRO_DB_NAME:sprint-retro}
+    username: ${SPRINT_RETRO_DB_USERNAME:user}
+    password: ${SPRINT_RETRO_DB_PASSWORD:password}
     driver-class-name: com.mysql.jdbc.Driver

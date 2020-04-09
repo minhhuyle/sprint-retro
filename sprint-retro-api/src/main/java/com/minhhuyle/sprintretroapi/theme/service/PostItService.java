@@ -34,7 +34,7 @@ public class PostItService {
     }
 
     public void add(final PostIt postIt) {
-        if(postIt.getId() != null) {
+        if (postIt.getId() != null) {
             throw new IllegalStateException("Cannot save post-it");
         }
         postIt.setCreationDate(new Date());
@@ -69,13 +69,12 @@ public class PostItService {
     @Transactional
     public UserView vote(final UserView userView, final Long postItId) {
         UserView userLogged = userViewService.logIn(userView);
-        Optional<PostIt> postItOpt = postItDao.findById(postItId);
+        PostIt postItLoaded = postItDao.findOne(postItId);
         Optional<Theme> activatedThemeOpt = themeService.getActivatedTheme();
 
-        if(postItOpt.isPresent() && activatedThemeOpt.isPresent()) {
+        if (postItLoaded != null && activatedThemeOpt.isPresent()) {
             Theme theme = activatedThemeOpt.get();
-            if(userLogged.getVotedLink().size() < theme.getMaxVote()) {
-                PostIt postItLoaded = postItOpt.get();
+            if (userLogged.getVotedLink().size() < theme.getMaxVote()) {
                 votedPostItUserService.saveNewVotedPostItUser(postItLoaded, userLogged);
                 socketService.notifySockets(SocketMessageType.REFRESH_VOTE);
             }
@@ -92,8 +91,12 @@ public class PostItService {
 
     @Transactional
     public PostIt linkPost(final LinkPost linkPost) {
-        PostIt parentPostIt = postItDao.findById(linkPost.getParentId()).orElseThrow(IllegalArgumentException::new);
-        List<PostIt> children = (List<PostIt>) postItDao.findAllById(linkPost.getChildIds());
+        PostIt parentPostIt = postItDao.findOne(linkPost.getParentId());
+
+        if (parentPostIt == null) {
+            throw new IllegalArgumentException();
+        }
+        List<PostIt> children = (List<PostIt>) postItDao.findAll(linkPost.getChildIds());
         for (PostIt child : children) {
             child.setParent(parentPostIt);
             parentPostIt.addChildPostIt(child);
