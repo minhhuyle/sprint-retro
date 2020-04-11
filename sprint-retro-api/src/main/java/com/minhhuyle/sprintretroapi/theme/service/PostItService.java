@@ -69,13 +69,15 @@ public class PostItService {
     @Transactional
     public UserView vote(final UserView userView, final Long postItId) {
         UserView userLogged = userViewService.logIn(userView);
-        PostIt postItLoaded = postItDao.findOne(postItId);
+
+        Optional<PostIt> optionalPostIt = postItDao.findById(postItId);
+
         Optional<Theme> activatedThemeOpt = themeService.getActivatedTheme();
 
-        if (postItLoaded != null && activatedThemeOpt.isPresent()) {
+        if (optionalPostIt.isPresent() && activatedThemeOpt.isPresent()) {
             Theme theme = activatedThemeOpt.get();
             if (userLogged.getVotedLink().size() < theme.getMaxVote()) {
-                votedPostItUserService.saveNewVotedPostItUser(postItLoaded, userLogged);
+                votedPostItUserService.saveNewVotedPostItUser(optionalPostIt.get(), userLogged);
                 socketService.notifySockets(SocketMessageType.REFRESH_VOTE);
             }
         }
@@ -91,12 +93,8 @@ public class PostItService {
 
     @Transactional
     public PostIt linkPost(final LinkPost linkPost) {
-        PostIt parentPostIt = postItDao.findOne(linkPost.getParentId());
-
-        if (parentPostIt == null) {
-            throw new IllegalArgumentException();
-        }
-        List<PostIt> children = (List<PostIt>) postItDao.findAll(linkPost.getChildIds());
+        PostIt parentPostIt = postItDao.findById(linkPost.getParentId()).orElseThrow(IllegalArgumentException::new);
+        List<PostIt> children = (List<PostIt>) postItDao.findAllById(linkPost.getChildIds());
         for (PostIt child : children) {
             child.setParent(parentPostIt);
             parentPostIt.addChildPostIt(child);

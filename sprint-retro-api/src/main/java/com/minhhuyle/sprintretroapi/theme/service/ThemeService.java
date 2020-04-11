@@ -5,7 +5,6 @@ import com.minhhuyle.sprintretroapi.theme.model.Theme;
 import com.minhhuyle.sprintretroapi.theme.service.dao.ThemeDao;
 import com.minhhuyle.sprintretroapi.socket.service.SocketService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -35,10 +34,7 @@ public class ThemeService {
     }
 
     public void selectThemeForRetroAndNotifyClient(final long themeId) {
-        Theme theme = themeDao.findOne(themeId);
-        if(theme == null) {
-            throw new IllegalStateException();
-        }
+        Theme theme = themeDao.findById(themeId).orElseThrow(IllegalArgumentException::new);;
         theme.setSelectedTheme(new Date());
         Theme savedTheme = themeDao.save(theme);
         socketService.notifySockets(SocketMessageType.REFRESH_THEME, savedTheme);
@@ -46,16 +42,13 @@ public class ThemeService {
     }
 
     public List<Theme> save(final List<Theme> themes) {
-        return (List<Theme>) themeDao.save(themes);
+        return (List<Theme>) themeDao.saveAll(themes);
     }
 
     public void startWriteBoard(final long themeId) {
-        Theme theme = this.themeDao.findOne(themeId);
+        Theme theme = this.themeDao.findById(themeId).orElseThrow(IllegalArgumentException::new);
 
-        if(theme == null) {
-            throw new IllegalStateException("Cannot start write board");
-        }
-
+        //todo some rule have to specified
         theme.setWriteTime(new Date());
         themeDao.save(theme);
 
