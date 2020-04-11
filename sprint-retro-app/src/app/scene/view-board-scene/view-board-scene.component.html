@@ -25,17 +25,17 @@
     <ul class="rack-board list-group list-group-flush">
       <mle-post-it-on-board *ngFor="let postIt of getPostItComments(board.type); index as i;"
                             [postIt]="postIt">
-          <ng-container *ngIf="board.likable && !export">
+          <ng-container *ngIf="board.likable">
              <span (click)="voteUpPostIt(board.type, postIt.id)"
                    class="btn badge badge-primary fa fa-thumbs-up"> {{postIt.vote}}</span>
           </ng-container>
-        <mle-link *ngIf="isAllowedToLinkPostIt() && !export" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
+        <mle-link *ngIf="isAllowedToLinkPostIt()" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
       </mle-post-it-on-board>
     </ul>
   </div>
 </div>
 
-<mle-export-boards *ngIf="postIts && export"></mle-export-boards>
+<mle-export-boards *ngIf="theme?.boards && postIts && export" [theme]="theme" [postIts]="postIts"></mle-export-boards>
 
 <!-- Modal -->
 <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="linkModalLabel" aria-hidden="true">

@@ -1,1 +1,27 @@
-<p>export-boards works!</p>
+<div class="row" *ngIf="theme.boards">
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th *ngFor="let board of theme.boards">{{board.type}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <ng-container *ngFor="let board of theme.boards">
+          <td>
+            <ul *ngFor="let postIt of getPostItComments(board.type);">
+              <li>
+                {{postIt.comment}}
+                <ul *ngIf="postIt.linkedPostIts.length > 0">
+                  <li *ngFor="let linkPost of postIt.linkedPostIts">
+                    {{linkPost.comment}}
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>
