@@ -65,4 +65,15 @@ public class AdminThemeRestController {
 
         return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
+
+    @PostMapping(value = "/theme/stop-write-board")
+    public ResponseEntity stopWriteBoard(@RequestBody AdminThemeIdDTO adminTheme) {
+        boolean isOk = adminViewService.authentication(adminTheme);
+        if(isOk) {
+            adminViewService.stopWriteBoard(adminTheme.getThemeId());
+            return new ResponseEntity(HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.FORBIDDEN);
+    }
 }

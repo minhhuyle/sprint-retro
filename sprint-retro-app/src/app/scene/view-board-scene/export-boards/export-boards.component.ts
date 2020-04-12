@@ -20,7 +20,7 @@ export class ExportBoardsComponent implements OnInit {
   }
 
   getPostItComments(type: string) : PostIt[] {
-    let result = this.postIts && this.postIts[type] ? this.postIts[type] : [];
+    let result = this.postIts && this.postIts[type] ? [... this.postIts[type]] : [];
     return result.sort((postItA, postItB) => {
       return postItB.vote - postItA.vote;
     });

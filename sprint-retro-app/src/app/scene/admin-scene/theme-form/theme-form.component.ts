@@ -14,8 +14,7 @@ export class ThemeFormComponent implements OnInit {
   theme: Theme;
 
   constructor(private http: HttpClient,
-              private adminViewService: AdminService,
-              private userService: UserService) { }
+              private adminViewService: AdminService) { }
 
   ngOnInit(): void {
   }
@@ -35,10 +34,7 @@ export class ThemeFormComponent implements OnInit {
     })
   }
 
-  private getAdminAuth() {
-    const {userName, password} = this.userService.getUser();
-    return {userName, password};
+  stopWriteBoard(themeId: number) {
+    this.adminViewService.stopWriteBoardTheme(themeId).subscribe( () => {})
   }
-
-
 }

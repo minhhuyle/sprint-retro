@@ -95,4 +95,8 @@ public class AdminViewService {
     public Theme saveTheme(final Theme theme) {
         return this.themeService.save(theme);
     }
+
+    public void stopWriteBoard(final long themeId) {
+        themeService.stopWriteBoard(themeId);
+    }
 }

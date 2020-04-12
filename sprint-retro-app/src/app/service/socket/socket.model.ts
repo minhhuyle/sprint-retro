@@ -5,7 +5,9 @@ enum SocketMessageType {
   REFRESH = 'REFRESH',
   RESET = 'RESET',
   DATA = 'DATA',
-  WRITE_BOARD = 'WRITE_BOARD'
+
+  WRITE_BOARD_START = 'WRITE_BOARD_START',
+  WRITE_BOARD_STOP = 'WRITE_BOARD_STOP'
 }
 
 export {

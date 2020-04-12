@@ -32,6 +32,11 @@ export class AdminService {
       { themeId, user: this.getAdminAuth()});
   }
 
+  stopWriteBoardTheme(themeId: number) {
+    return this.http.post(this.serverUrl + '/theme/stop-write-board',
+      { themeId, user: this.getAdminAuth()});
+  }
+
   getThemes() : Observable<any> {
     return this.http.post(this.serverUrl + '/themes', this.getAdminAuth());
   }

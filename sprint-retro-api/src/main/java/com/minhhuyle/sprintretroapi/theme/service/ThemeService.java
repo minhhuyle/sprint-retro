@@ -6,6 +6,9 @@ import com.minhhuyle.sprintretroapi.theme.service.dao.ThemeDao;
 import com.minhhuyle.sprintretroapi.socket.service.SocketService;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -52,10 +55,21 @@ public class ThemeService {
         theme.setWriteTime(new Date());
         themeDao.save(theme);
 
-        socketService.notifySocketWriteBoardEnabled(theme);
+        socketService.notifySockets(SocketMessageType.WRITE_BOARD_START, theme);
     }
 
     public Optional<Theme> getActivatedTheme() {
         return themeDao.findTopBySelectedThemeIsNotNullOrderBySelectedThemeDesc();
+    }
+
+    public void stopWriteBoard(final long themeId) {
+        Theme theme = this.themeDao.findById(themeId).orElseThrow(IllegalArgumentException::new);
+
+        //todo some rule have to specified
+        Instant stopTime = new Date().toInstant().plus(-theme.getLimitTimeToWrite(), ChronoUnit.MINUTES);
+        theme.setWriteTime(Date.from(stopTime));
+        themeDao.save(theme);
+
+        socketService.notifySockets(SocketMessageType.WRITE_BOARD_STOP, theme);
     }
 }

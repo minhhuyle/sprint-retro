@@ -21,9 +21,9 @@ export class ViewBoardSceneComponent implements OnInit, OnDestroy {
   theme: Theme;
   voteRemaining: number[] = [];
   searchValue: string;
+  private togglePostItsSort: boolean = false;
 
   private searchModelChanged: Subject<string> = new Subject<string>();
-  private refreshSub: Subject<string> = new Subject<string>();
 
   private subs: Subscription[] = [];
   private postItsSearch: PostIt[] = null;
@@ -40,16 +40,6 @@ export class ViewBoardSceneComponent implements OnInit, OnDestroy {
     this.initData();
     this.loadPostIts();
     this.subs.push(this.subscribeForSearchIssues());
-    this.subs.push(this.subscribeForRefreshDebounce());
-  }
-
-  private subscribeForRefreshDebounce() : Subscription {
-    return this.refreshSub
-      .pipe(
-        debounceTime(2000))
-      .subscribe(() => {
-        this.loadPostIts();
-      });
   }
 
   private subscribeForSearchIssues() : Subscription {
@@ -102,9 +92,14 @@ export class ViewBoardSceneComponent implements OnInit, OnDestroy {
 
   getPostItComments(type: string) : PostIt[] {
     let result = this.postIts && this.postIts[type] ? this.postIts[type] : [];
-    return result.sort((postItA, postItB) => {
-      return postItB.vote - postItA.vote;
-    });
+
+    if(this.togglePostItsSort) {
+      return [...result].sort((postItA, postItB) => {
+        return postItB.vote - postItA.vote;
+      });
+    }
+
+    return result;
   }
 
   refresh(postItType?: string) {
@@ -134,7 +129,7 @@ export class ViewBoardSceneComponent implements OnInit, OnDestroy {
       const message = JSON.parse(rawMessage);
       switch (message.type as SocketMessageType) {
         case SocketMessageType.REFRESH_VOTE:
-          this.refreshSub.next();
+          this.loadPostIts();
           break;
         case SocketMessageType.REFRESH_THEME:
           this.loadTheme(message.data);
@@ -224,5 +219,9 @@ export class ViewBoardSceneComponent implements OnInit, OnDestroy {
     } else {
       this.postItIdChildToLink.push(postIt.id);
     }
+  }
+
+  togglePostItsSorted() {
+    this.togglePostItsSort = !this.togglePostItsSort;
   }
 }

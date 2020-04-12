@@ -8,4 +8,7 @@ public enum SocketMessageType {
 
     REFRESH_THEME,
     REFRESH_VOTE,
+
+    WRITE_BOARD_START,
+    WRITE_BOARD_STOP
 }

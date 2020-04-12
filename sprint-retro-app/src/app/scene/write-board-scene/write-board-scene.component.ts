@@ -94,7 +94,8 @@ export class WriteBoardSceneComponent implements OnInit, OnDestroy {
       const message = JSON.parse(rawMessage);
       switch (message.type as SocketMessageType) {
         case SocketMessageType.REFRESH_THEME:
-        case SocketMessageType.WRITE_BOARD:
+        case SocketMessageType.WRITE_BOARD_START:
+        case SocketMessageType.WRITE_BOARD_STOP:
           this.handleInitTheme(message.data);
           break;
       }
