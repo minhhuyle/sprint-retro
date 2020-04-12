@@ -7,6 +7,7 @@ import com.minhhuyle.sprintretroapi.theme.model.Board;
 import com.minhhuyle.sprintretroapi.theme.model.Theme;
 import com.minhhuyle.sprintretroapi.theme.service.ThemeService;
 import com.minhhuyle.sprintretroapi.theme.service.dao.BoardDao;
+import com.minhhuyle.sprintretroapi.user.dto.UserDTO;
 import com.minhhuyle.sprintretroapi.user.model.Role;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import com.minhhuyle.sprintretroapi.user.service.UserViewService;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+// TODO: 12/04/2020 refactor ?
 @Service
 public class AdminViewService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminViewService.class);
@@ -67,8 +69,18 @@ public class AdminViewService {
         return false;
     }
 
+    @Deprecated
     public boolean authentication(final UserView userView) {
         UserView user = userViewService.logIn(userView);
+        if (user != null) {
+            return Role.ADMIN.equals(user.getRole());
+        }
+
+        return false;
+    }
+
+    public boolean authentication(final UserDTO userDTO) {
+        UserView user = userViewService.logIn(userDTO);
         if (user != null) {
             return Role.ADMIN.equals(user.getRole());
         }

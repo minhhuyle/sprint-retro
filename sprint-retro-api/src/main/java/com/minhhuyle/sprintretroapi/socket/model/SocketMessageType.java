@@ -4,10 +4,10 @@ public enum SocketMessageType {
     REFRESH,
     RESET,
     DATA,
-    WRITE_BOARD,
 
     REFRESH_THEME,
     REFRESH_VOTE,
+    RESET_VOTES,
 
     WRITE_BOARD_START,
     WRITE_BOARD_STOP

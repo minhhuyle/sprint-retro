@@ -1,5 +1,6 @@
 package com.minhhuyle.sprintretroapi.user.service;
 
+import com.minhhuyle.sprintretroapi.user.dto.UserDTO;
 import com.minhhuyle.sprintretroapi.user.model.Role;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import com.minhhuyle.sprintretroapi.user.service.dao.UserViewDao;
@@ -33,7 +34,7 @@ public class UserViewService {
 
     public UserView logIn(final UserView userView) {
         Optional<UserView> userOpt = userViewDao.findByUserName(userView.getUserName().toLowerCase());
-        if(!userOpt.isPresent()) {
+        if(userOpt.isEmpty()) {
             throw new IllegalStateException("Cannot log in");
         }
 
@@ -43,6 +44,17 @@ public class UserViewService {
         }
 
         return user;
+    }
+
+    public UserView logIn(final UserDTO userDTO) {
+        UserView userLogged = userViewDao.findByUserName(userDTO.getUserName().toLowerCase())
+                .orElseThrow(() ->  new IllegalStateException("Cannot log in"));
+
+        if(!userLogged.getPassword().equals(userDTO.getPassword())) {
+            throw new IllegalStateException("Cannot log in");
+        }
+
+        return userLogged;
     }
 
 }

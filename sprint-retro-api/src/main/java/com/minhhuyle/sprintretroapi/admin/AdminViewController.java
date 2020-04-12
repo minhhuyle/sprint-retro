@@ -1,21 +1,19 @@
 package com.minhhuyle.sprintretroapi.admin;
 
 import com.minhhuyle.sprintretroapi.admin.service.AdminViewService;
-import com.minhhuyle.sprintretroapi.theme.service.PostItService;
-import com.minhhuyle.sprintretroapi.user.model.UserView;
+import com.minhhuyle.sprintretroapi.user.dto.UserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Deprecated(forRemoval = true)
 @RestController()
 public class AdminViewController {
 
     private final AdminViewService adminViewService;
-    private final PostItService postItService;
 
-    public AdminViewController(final AdminViewService adminViewService, final PostItService postItService) {
+    public AdminViewController(final AdminViewService adminViewService) {
         this.adminViewService = adminViewService;
-        this.postItService = postItService;
     }
 
     @GetMapping(value = "/admin")
@@ -25,19 +23,8 @@ public class AdminViewController {
     }
 
     @PostMapping(value = "/admin")
-    public ResponseEntity authentication(@RequestBody UserView userView) {
-        boolean isOk = adminViewService.authentication(userView);
-        if(isOk) {
-            return new ResponseEntity(HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.FORBIDDEN);
-    }
-
-    @PostMapping(value = "/admin/reset")
-    public ResponseEntity reset(@RequestBody UserView userView) {
-        boolean isOk = adminViewService.authentication(userView);
-        if(isOk) {
-            postItService.reset();
+    public ResponseEntity authentication(@RequestBody UserDTO userDTO) {
+        if(adminViewService.authentication(userDTO)) {
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.FORBIDDEN);

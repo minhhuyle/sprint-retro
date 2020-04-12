@@ -42,12 +42,8 @@ public class PostItService {
         socketService.notifyAllSockets(postItSaved);
     }
 
-    private List<PostIt> getAll() {
-        return (List<PostIt>) postItDao.findAll();
-    }
-
     private List<PostIt> getAllParent() {
-        return (List<PostIt>) postItDao.findAllByParentIsNullOrderByCreationDateDesc();
+        return postItDao.findAllByParentIsNullOrderByCreationDateDesc();
     }
 
     public Map<String, List<PostIt>> getAllByType() {
@@ -85,7 +81,7 @@ public class PostItService {
         return userLogged;
     }
 
-    public void reset() {
+    public void resetAll() {
         votedPostItUserService.deleteAll();
         postItDao.deleteAll();
         socketService.notifyAllSocketsToReset();

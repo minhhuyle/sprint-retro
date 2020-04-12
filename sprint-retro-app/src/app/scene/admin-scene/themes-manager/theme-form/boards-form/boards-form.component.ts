@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Board, Theme } from '../../../service/theme/theme.model';
+import { Board, Theme } from '../../../../../service/theme/theme.model';
 
 @Component({
   selector: 'mle-boards-form',

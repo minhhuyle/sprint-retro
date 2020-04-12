@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.UUID;
 
+// TODO: 12/04/2020 refactor ?
 @Entity
 public class AdminView {
     @Id

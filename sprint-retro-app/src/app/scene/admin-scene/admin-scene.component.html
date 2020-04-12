@@ -1,13 +1,16 @@
-<span (click)="reset()" class="btn btn-danger fa fa-trash"> RESET </span>
-<hr/>
-<div class="col-sm alert alert-primary" role="alert">
-  <h5 class="card-title">Theme Management
-    <button type="button" class="btn btn-light" (click)="addTheme()">+</button>
-  </h5>
-  
-  <div class="card" *ngFor="let theme of themes">
-    <div class="card-body">
-      <mle-theme-form [theme]="theme"></mle-theme-form>
-    </div>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-themes-manager-tab" data-toggle="tab" href="#nav-themes-manager" role="tab" aria-controls="nav-home" aria-selected="true">Themes Manager</a>
+    <a class="nav-item nav-link" id="nav-boards-manager-tab" data-toggle="tab" href="#nav-boards-manager" role="tab" aria-controls="nav-profile" aria-selected="false">Boards Manager</a>
+  </div>
+</nav>
+<br/>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-themes-manager" role="tabpanel" aria-labelledby="nav-themes-manager-tab">
+    <mle-themes-manager></mle-themes-manager>
+  </div>
+  <div class="tab-pane fade" id="nav-boards-manager" role="tabpanel" aria-labelledby="nav-boards-manager-tab">
+    <span (click)="resetAllPostIts()" class="btn btn-danger fa fa-trash"> Reset All Post Its </span><br/><br/>
+    <span (click)="resetAllVotes()" class="btn btn-danger fa fa-trash"> Reset All Votes</span>
   </div>
 </div>

@@ -1,14 +1,13 @@
 package com.minhhuyle.sprintretroapi.theme.service;
 
 import com.minhhuyle.sprintretroapi.socket.model.SocketMessageType;
+import com.minhhuyle.sprintretroapi.socket.service.SocketService;
 import com.minhhuyle.sprintretroapi.theme.model.Theme;
 import com.minhhuyle.sprintretroapi.theme.service.dao.ThemeDao;
-import com.minhhuyle.sprintretroapi.socket.service.SocketService;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +22,7 @@ public class ThemeService {
         this.socketService = socketService;
     }
 
+    // TODO: 13/04/2020 notify
     public Theme save(final Theme theme) {
         theme.getBoards().forEach(board -> {
             if(board.getId() == null || board.getTheme() == null) {
@@ -37,15 +37,10 @@ public class ThemeService {
     }
 
     public void selectThemeForRetroAndNotifyClient(final long themeId) {
-        Theme theme = themeDao.findById(themeId).orElseThrow(IllegalArgumentException::new);;
+        Theme theme = themeDao.findById(themeId).orElseThrow(IllegalArgumentException::new);
         theme.setSelectedTheme(new Date());
         Theme savedTheme = themeDao.save(theme);
         socketService.notifySockets(SocketMessageType.REFRESH_THEME, savedTheme);
-        socketService.notifySocketWriteBoardEnabled(savedTheme);
-    }
-
-    public List<Theme> save(final List<Theme> themes) {
-        return (List<Theme>) themeDao.saveAll(themes);
     }
 
     public void startWriteBoard(final long themeId) {

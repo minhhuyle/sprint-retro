@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-10 form-group row">
+        <label class="col-sm-2 col-form-label"><strong>Name</strong></label>
+        <div class="col-sm-6">
+          <input type="input" class="form-control" [(ngModel)]="theme.name"/>
+        </div>
+      </div>
+
+      <div class="col-sm-2">
+        <button type="button" class="btn btn-info" (click)="saveTheme()">
+          <span class="fa fa-save"></span> Save
+        </button>
+      </div>
+
+      <div class="col-sm-10 row">
+        <div class="col-sm-5 offset-sm-1 form-group row">
+          <label class="col-sm-5 col-form-label">Time Limit To Write (min)</label>
+          <div class="col-sm-7">
+            <input type="number" class="form-control" [(ngModel)]="theme.limitTimeToWrite" placeholder=""/>
+          </div>
+        </div>
+
+        <div class="col-sm-5 offset-sm-1 form-group row">
+          <label class="col-sm-4 col-form-label">Max postIt/person</label>
+          <div class="col-sm-8">
+            <input type="number" class="form-control" [(ngModel)]="theme.maxPostIt"/>
+          </div>
+
+          <label class="col-sm-4 col-form-label">Max vote/perso</label>
+          <div class="col-sm-8">
+            <input type="number" class="form-control" [(ngModel)]="theme.maxVote"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-2 row">
+        <div class="col-sm-12">
+          <h1>
+            <button (click)="startWriteBoard(theme.id)" class="btn btn-info">Start Write Board</button>
+          </h1>
+        </div>
+
+        <div class="col-sm-12">
+          <h1>
+            <button (click)="stopWriteBoard(theme.id)" class="btn btn-info">Stop Write Board</button>
+          </h1>
+        </div>
+
+        <div class="col-sm-12">
+          <h1>
+            <button (click)="selectThemeForRetro(theme.id)" class="btn btn-info">Select RetroTheme</button>
+          </h1>
+        </div>
+      </div>
+
+      <mle-boards-form class="col-sm-12" [theme]="theme"></mle-boards-form>
+
+    </div>
+  </div>
+</div>

@@ -58,4 +58,8 @@ export class UserService implements CanActivate {
     this.user = null;
     this.canActivate();
   }
+
+  reloadUser() {
+    return this.logIn(this.user)
+  }
 }

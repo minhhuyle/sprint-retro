@@ -128,6 +128,13 @@ export class ViewBoardSceneComponent implements OnInit, OnDestroy {
     if(!!rawMessage) {
       const message = JSON.parse(rawMessage);
       switch (message.type as SocketMessageType) {
+        case SocketMessageType.RESET_VOTES:
+          this.loadPostIts();
+          this.userService.reloadUser().subscribe(user => {
+            this.userService.setLoggedUser(user);
+            this.computeVoteRemaining();
+          });
+          break;
         case SocketMessageType.REFRESH_VOTE:
           this.loadPostIts();
           break;
@@ -200,7 +207,7 @@ export class ViewBoardSceneComponent implements OnInit, OnDestroy {
   computeVoteRemaining() {
     if(this.theme) {
       const remaining = this.theme.maxVote - this.userService.getUser().totalVotedPostIts;
-      this.voteRemaining = Array.from(Array(remaining).keys());
+      this.voteRemaining = remaining > 0 ? Array.from(Array(remaining).keys()) : [];
     }
   }
 

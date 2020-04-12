@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../service/admin/admin.service';
-import { Board, Theme } from '../../service/theme/theme.model';
-import { UserService } from '../../service/user/user.service';
 
 @Component({
   selector: 'mle-admin-scene',
@@ -9,32 +7,18 @@ import { UserService } from '../../service/user/user.service';
   styleUrls: ['./admin-scene.component.scss']
 })
 export class AdminSceneComponent implements OnInit {
-  themes: Theme[] = [];
 
-  constructor(private adminService: AdminService,
-              private userService: UserService) {
+  constructor(private adminService: AdminService) {
   }
 
   ngOnInit(): void {
-    this.getThemes();
   }
 
-  private getAdminAuth() {
-     const {userName, password} = this.userService.getUser();
-    return {userName, password};
+  resetAllPostIts() {
+    this.adminService.resetAllPostIts().subscribe(() => {})
   }
 
-  getThemes() {
-    this.adminService.getThemes().subscribe(themes => {
-      this.themes = themes;
-    })
-  }
-
-  reset() {
-    this.adminService.reset(this.getAdminAuth()).subscribe(() => {})
-  }
-
-  addTheme() {
-    this.themes.push(new Theme());
+  resetAllVotes() {
+    this.adminService.resetAllVotes().subscribe(() => {});
   }
 }

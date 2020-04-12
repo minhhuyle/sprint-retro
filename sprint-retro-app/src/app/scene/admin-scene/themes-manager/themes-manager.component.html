@@ -1,0 +1,24 @@
+<div class="col-sm alert alert-primary" role="alert">
+  <h5 class="card-title">Theme Management
+    <button type="button" class="btn btn-light" (click)="addTheme()">+</button>
+  </h5>
+
+  <div class="row">
+    <div class="col-sm-2" *ngFor="let theme of themes">
+      <div class="card">
+        <div class="card-header">
+          <h5>
+            {{theme.name}} <span (click)="editTheme(theme)" class="btn fa fa-pencil-square"></span>
+          </h5>
+        </div>
+        <div class="card-body">
+          <strong>Boards :</strong><br/>
+          <span class="badge badge-secondary" *ngFor="let board of theme.boards">{{board.type}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br/>
+  <mle-theme-form  *ngIf="selectedThemeToEdit" [theme]="selectedThemeToEdit"></mle-theme-form>
+</div>

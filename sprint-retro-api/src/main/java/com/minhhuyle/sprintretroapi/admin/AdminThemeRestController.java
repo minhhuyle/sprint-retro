@@ -35,7 +35,7 @@ public class AdminThemeRestController {
     }
 
     @PostMapping(value = "/themes")
-    public ResponseEntity<List<Theme>> getThemes(@RequestBody UserView userView) {
+    public ResponseEntity<List<Theme>> getAllThemes(@RequestBody UserView userView) {
         boolean isOk = adminViewService.authentication(userView);
         if(isOk) {
             return new ResponseEntity<>(adminViewService.getAllThemes(), HttpStatus.OK);

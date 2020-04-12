@@ -18,9 +18,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LinkComponent } from './scene/view-board-scene/link/link.component';
 import { AdminSceneComponent } from './scene/admin-scene/admin-scene.component';
 import { WriteBoardSceneComponent } from './scene/write-board-scene/write-board-scene.component';
-import { ThemeFormComponent } from './scene/admin-scene/theme-form/theme-form.component';
-import { BoardsFormComponent } from './scene/admin-scene/boards-form/boards-form.component';
 import { ExportBoardsComponent } from './scene/view-board-scene/export-boards/export-boards.component';
+import { ThemesManagerComponent } from './scene/admin-scene/themes-manager/themes-manager.component';
+import { ThemeFormComponent } from './scene/admin-scene/themes-manager/theme-form/theme-form.component';
+import { BoardsFormComponent } from './scene/admin-scene/themes-manager/theme-form/boards-form/boards-form.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +35,10 @@ import { ExportBoardsComponent } from './scene/view-board-scene/export-boards/ex
     LinkComponent,
     AdminSceneComponent,
     WriteBoardSceneComponent,
-    ThemeFormComponent,
     BoardsFormComponent,
-    ExportBoardsComponent
+    ExportBoardsComponent,
+    ThemesManagerComponent,
+    ThemeFormComponent
   ],
   imports: [
     ReactiveFormsModule,

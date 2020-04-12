@@ -29,10 +29,6 @@ public class SocketService {
         this.simpMessagingTemplate.convertAndSend(SOCKET_DESTINATION, SocketMessage.createResetMessage());
     }
 
-    public void notifySocketWriteBoardEnabled(Theme theme) {
-        this.simpMessagingTemplate.convertAndSend(SOCKET_DESTINATION, SocketMessage.createSimpleMessage(SocketMessageType.WRITE_BOARD, theme));
-    }
-
     public void notifySockets(SocketMessageType socketMessageType) {
         notifySockets(socketMessageType, null);
     }

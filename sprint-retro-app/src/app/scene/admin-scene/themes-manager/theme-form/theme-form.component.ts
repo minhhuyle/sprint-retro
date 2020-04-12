@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AdminService } from '../../../service/admin/admin.service';
-import { UserService } from '../../../service/user/user.service';
-import { Theme } from '../../../service/theme/theme.model';
+import { AdminService } from '../../../../service/admin/admin.service';
+import { Theme } from '../../../../service/theme/theme.model';
 
 @Component({
   selector: 'mle-theme-form',
