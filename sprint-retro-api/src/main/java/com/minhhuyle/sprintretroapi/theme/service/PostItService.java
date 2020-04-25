@@ -9,7 +9,7 @@ import com.minhhuyle.sprintretroapi.theme.model.PostIt;
 import com.minhhuyle.sprintretroapi.theme.service.dao.PostItDao;
 import com.minhhuyle.sprintretroapi.socket.service.SocketService;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
-import com.minhhuyle.sprintretroapi.user.service.UserViewService;
+import com.minhhuyle.sprintretroapi.user.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,15 +20,15 @@ public class PostItService {
     private final PostItDao postItDao;
     private final SocketService socketService;
     private final AdminViewService adminViewService;
-    private final UserViewService userViewService;
+    private final UserService userService;
     private final ThemeService themeService;
     private final VotedPostItUserService votedPostItUserService;
 
-    public PostItService(final PostItDao postItDao, final SocketService socketService, final AdminViewService adminViewService, final UserViewService userViewService, final ThemeService themeService, final VotedPostItUserService votedPostItUserService) {
+    public PostItService(final PostItDao postItDao, final SocketService socketService, final AdminViewService adminViewService, final UserService userService, final ThemeService themeService, final VotedPostItUserService votedPostItUserService) {
         this.postItDao = postItDao;
         this.socketService = socketService;
         this.adminViewService = adminViewService;
-        this.userViewService = userViewService;
+        this.userService = userService;
         this.themeService = themeService;
         this.votedPostItUserService = votedPostItUserService;
     }
@@ -64,7 +64,7 @@ public class PostItService {
 
     @Transactional
     public UserView vote(final UserView userView, final Long postItId) {
-        UserView userLogged = userViewService.logIn(userView);
+        UserView userLogged = userService.logIn(userView);
 
         Optional<PostIt> optionalPostIt = postItDao.findById(postItId);
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
 import { BrowserStorageService } from '../storage/browser-storage.service';
@@ -15,12 +15,20 @@ export class UserService implements CanActivate {
 
   constructor(private router: Router, private http: HttpClient, private browserStorageService: BrowserStorageService) { }
 
-  logIn(user: User) : Observable<any> {
-    return this.http.post(this.serverUrl+ '/log-in', user);
+  logIn(user: User): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(this.serverUrl+ '/log-in', user , {observe: 'response'});
+  }
+
+  loadUserInfo(user: User): Observable<any> {
+    return this.http.post<HttpResponse<any>>(this.serverUrl, user);
   }
 
   signUp(user: User) : Observable<any> {
     return this.http.post(this.serverUrl+ '/sign-up', user);
+  }
+
+  resetUserVotes() {
+    return this.http.post(this.serverUrl+ '/reset/vote', {id: this.getUser().id});
   }
 
   setLoggedUser(user) {
@@ -60,6 +68,14 @@ export class UserService implements CanActivate {
   }
 
   reloadUser() {
-    return this.logIn(this.user)
+    return this.loadUserInfo(this.user);
+  }
+
+  setToken(token: string) {
+    this.browserStorageService.setToken(token);
+  }
+
+  getToken(): string {
+    return this.browserStorageService.getToken();
   }
 }

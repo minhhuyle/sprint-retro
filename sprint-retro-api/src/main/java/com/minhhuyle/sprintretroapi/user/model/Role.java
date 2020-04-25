@@ -1,5 +1,17 @@
 package com.minhhuyle.sprintretroapi.user.model;
 
 public enum Role {
-    ADMIN, USER, VIEWER
+    ADMIN("ADMIN"),
+    USER("USER"),
+    VIEWER("USER");
+
+    private String name;
+
+    Role(final String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

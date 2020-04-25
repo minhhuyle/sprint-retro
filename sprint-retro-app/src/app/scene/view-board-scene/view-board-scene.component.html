@@ -1,15 +1,17 @@
 <div class="row">
   <div class="col-sm-3">
     <h3 *ngIf="isNotViewer()">
-      <ng-container *ngFor="let heart of voteRemaining">
+      Votes remaining: <ng-container *ngFor="let heart of voteRemaining">
         <span class="fa fa-heart"></span>
       </ng-container>
+
+      <span (click)="resetUserVote()" class="btn btn-primary fa fa-reply"></span>
     </h3>
   </div>
-  <div class="col-sm-6">
+  <div class="col-sm-6"  *ngIf="theme">
     <h1 align="center">
       <span (click)="refresh()" class="btn btn-success fa fa-refresh"></span>
-      Retro
+      Retro {{theme.name}}
       <span (click)="exportLowCost()" class="btn btn-secondary fa fa-file"></span>
       <span (click)="togglePostItsSorted()" class="btn btn-danger fa fa-sort-down"></span>
     </h1>

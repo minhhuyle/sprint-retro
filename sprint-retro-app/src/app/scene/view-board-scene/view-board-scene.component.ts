@@ -231,4 +231,8 @@ export class ViewBoardSceneComponent implements OnInit, OnDestroy {
   togglePostItsSorted() {
     this.togglePostItsSort = !this.togglePostItsSort;
   }
+
+  resetUserVote() {
+    this.userService.resetUserVotes().subscribe(() => {});
+  }
 }

@@ -8,6 +8,8 @@ import com.minhhuyle.sprintretroapi.theme.service.dao.VotedPostItUserDao;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VotedPostItUserService {
     private final VotedPostItUserDao votedPostItUserDao;
@@ -33,6 +35,11 @@ public class VotedPostItUserService {
 
     public void deleteAllAndNotifySockets() {
         votedPostItUserDao.deleteAll();
+        socketService.notifySockets(SocketMessageType.RESET_VOTES);
+    }
+
+    public void deleteAllAndNotifySockets(final List<VotedPostItUser> votedPostItUsers) {
+        votedPostItUserDao.deleteAll(votedPostItUsers);
         socketService.notifySockets(SocketMessageType.RESET_VOTES);
     }
 }

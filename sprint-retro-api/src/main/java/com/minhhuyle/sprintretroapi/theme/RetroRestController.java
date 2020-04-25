@@ -5,6 +5,7 @@ import com.minhhuyle.sprintretroapi.theme.dto.LinkPost;
 import com.minhhuyle.sprintretroapi.theme.dto.VoteForm;
 import com.minhhuyle.sprintretroapi.theme.model.PostIt;
 import com.minhhuyle.sprintretroapi.theme.service.PostItService;
+import com.minhhuyle.sprintretroapi.user.dto.UserDTO;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

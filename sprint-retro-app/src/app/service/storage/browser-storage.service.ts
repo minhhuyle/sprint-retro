@@ -12,7 +12,7 @@ export class BrowserStorageService {
 
   getSession(key: string): any {
     const data = window.sessionStorage.getItem(key);
-    if (data) {
+    if (data && data.length > 0) {
       return JSON.parse(data);
     } else {
       return null;
@@ -108,5 +108,13 @@ export class BrowserStorageService {
 
   removeLocal(): void {
     window.localStorage.removeItem("MLE_RETRO");
+  }
+
+  setToken(token: string) {
+    this.setSession('MLE_RETRO_TOKEN', token);
+  }
+
+  getToken(): string {
+    return this.getSession('MLE_RETRO_TOKEN');
   }
 }

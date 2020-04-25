@@ -1,9 +1,8 @@
 package com.minhhuyle.sprintretroapi.socket.service;
 
-import com.minhhuyle.sprintretroapi.theme.model.Theme;
-import com.minhhuyle.sprintretroapi.theme.model.PostIt;
 import com.minhhuyle.sprintretroapi.socket.model.SocketMessage;
 import com.minhhuyle.sprintretroapi.socket.model.SocketMessageType;
+import com.minhhuyle.sprintretroapi.theme.model.PostIt;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 

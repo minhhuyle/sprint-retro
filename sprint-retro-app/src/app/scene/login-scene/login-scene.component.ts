@@ -42,15 +42,20 @@ export class LoginSceneComponent implements OnInit {
 
   logIn() {
     this.userService.logIn(this.getUserForm()).subscribe(res => {
-      this.userService.setLoggedUser(res);
-      this.router.navigateByUrl('/view');
+      const headerAuthorization: string[] = res.headers.get('Authorization').split(' ');
+      if(headerAuthorization?.length === 2) {
+        this.userService.setToken(headerAuthorization[1]);
+      }
+      this.userService.loadUserInfo(this.getUserForm()).subscribe(res => {
+        this.userService.setLoggedUser(res);
+        this.router.navigateByUrl('/view');
+      });
     });
   }
 
   signUp() {
-    this.userService.signUp(this.getUserForm()).subscribe(res => {
-      this.userService.setLoggedUser(res);
-      this.router.navigateByUrl('/view');
+    this.userService.signUp(this.getUserForm()).subscribe(() => {
+      this.logIn();
     });
   }
 }

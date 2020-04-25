@@ -10,7 +10,7 @@ import com.minhhuyle.sprintretroapi.theme.service.dao.BoardDao;
 import com.minhhuyle.sprintretroapi.user.dto.UserDTO;
 import com.minhhuyle.sprintretroapi.user.model.Role;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
-import com.minhhuyle.sprintretroapi.user.service.UserViewService;
+import com.minhhuyle.sprintretroapi.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,13 +27,13 @@ public class AdminViewService {
 
     private final AdminViewDao adminViewDao;
     private final BoardDao boardDao;
-    private final UserViewService userViewService;
+    private final UserService userService;
     private final ThemeService themeService;
 
-    public AdminViewService(final AdminViewDao adminViewDao, final BoardDao boardDao, final UserViewService userViewService, final ThemeService themeService) {
+    public AdminViewService(final AdminViewDao adminViewDao, final BoardDao boardDao, final UserService userService, final ThemeService themeService) {
         this.adminViewDao = adminViewDao;
         this.boardDao = boardDao;
-        this.userViewService = userViewService;
+        this.userService = userService;
         this.themeService = themeService;
     }
 
@@ -61,7 +61,7 @@ public class AdminViewService {
     }
 
     public boolean authentication(final AdminDTO adminDTO) {
-        UserView user = userViewService.logIn(adminDTO.getUser());
+        UserView user = userService.logIn(adminDTO.getUser());
         if (user != null) {
             return Role.ADMIN.equals(user.getRole());
         }
@@ -71,7 +71,7 @@ public class AdminViewService {
 
     @Deprecated
     public boolean authentication(final UserView userView) {
-        UserView user = userViewService.logIn(userView);
+        UserView user = userService.logIn(userView);
         if (user != null) {
             return Role.ADMIN.equals(user.getRole());
         }
@@ -80,7 +80,7 @@ public class AdminViewService {
     }
 
     public boolean authentication(final UserDTO userDTO) {
-        UserView user = userViewService.logIn(userDTO);
+        UserView user = userService.logIn(userDTO);
         if (user != null) {
             return Role.ADMIN.equals(user.getRole());
         }
