@@ -5,7 +5,7 @@
 
   <div class="row">
     <div class="col-sm-2" *ngFor="let theme of themes">
-      <div class="card">
+      <div class="card" [ngClass]="theme === selectedTheme ? 'bg-dark text-white': ''">
         <div class="card-header">
           <h5>
             {{theme.name}} <span (click)="editTheme(theme)" class="btn fa fa-pencil-square"></span>
@@ -20,5 +20,5 @@
   </div>
 
   <br/>
-  <mle-theme-form  *ngIf="selectedThemeToEdit" [theme]="selectedThemeToEdit"></mle-theme-form>
+  <mle-theme-form *ngIf="selectedTheme" [theme]="selectedTheme"></mle-theme-form>
 </div>

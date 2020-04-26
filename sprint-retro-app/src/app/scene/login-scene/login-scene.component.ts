@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../service/user/user.service';
 import { BrowserStorageService } from '../../service/storage/browser-storage.service';
+import { ToastService } from '../../service/toast/toast.service';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'mle-login-scene',
@@ -15,7 +18,8 @@ export class LoginSceneComponent implements OnInit {
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private userService: UserService,
-              private browserStorageService: BrowserStorageService) {
+              private browserStorageService: BrowserStorageService,
+              private toastService: ToastService) {
     this.logInForm =  this.formBuilder.group({
       "userName": ['', Validators.required],
       "password": ['', Validators.required]
@@ -41,21 +45,31 @@ export class LoginSceneComponent implements OnInit {
   }
 
   logIn() {
-    this.userService.logIn(this.getUserForm()).subscribe(res => {
-      const headerAuthorization: string[] = res.headers.get('Authorization').split(' ');
-      if(headerAuthorization?.length === 2) {
-        this.userService.setToken(headerAuthorization[1]);
-      }
-      this.userService.loadUserInfo(this.getUserForm()).subscribe(res => {
-        this.userService.setLoggedUser(res);
-        this.router.navigateByUrl('/view');
-      });
-    });
+    this.userService.logIn(this.getUserForm())
+      .pipe(
+        switchMap(res => {
+          const headerAuthorization: string[] = res.headers.get('Authorization').split(' ');
+          if(headerAuthorization?.length === 2) {
+            this.userService.setToken(headerAuthorization[1]);
+          }
+          return this.userService.loadUserInfo(this.getUserForm());
+        }),
+        catchError(() => {
+          this.toastService.errorTitle('Cannot log in');
+          return of()
+        }),
+        switchMap(res => {
+          this.userService.setLoggedUser(res);
+          return this.router.navigateByUrl('/view');
+        })
+      ).subscribe();
   }
 
   signUp() {
     this.userService.signUp(this.getUserForm()).subscribe(() => {
       this.logIn();
+    }, () => {
+      this.toastService.errorTitle('Cannot sign up');
     });
   }
 }

@@ -28,10 +28,8 @@
     <ul class="rack-board list-group list-group-flush">
       <mle-post-it-on-board *ngFor="let postIt of getPostItComments(board.type); index as i;"
                             [postIt]="postIt">
-          <ng-container *ngIf="board.likable">
-             <span (click)="voteUpPostIt(board.type, postIt.id)"
-                   class="btn badge badge-primary fa fa-thumbs-up"> {{postIt.vote}}</span>
-          </ng-container>
+           <span (click)="voteUpPostIt(board.type, postIt.id)"
+                 class="btn badge badge-primary fa fa-thumbs-up"> {{postIt.vote}}</span>
         <mle-link *ngIf="isAllowedToLinkPostIt()" (click)="openModalToLink(postIt)" data-toggle="modal" data-target="#linkModal"></mle-link>
       </mle-post-it-on-board>
     </ul>

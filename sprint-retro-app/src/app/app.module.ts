@@ -44,11 +44,11 @@ import { AuthenticationHttpInterceptorService } from './interceptor/authenticati
   imports: [
     ReactiveFormsModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     DragDropModule,
     FormsModule,
     FontAwesomeModule,
-    BrowserAnimationsModule,
     NoopAnimationsModule,
     ToastrModule.forRoot({ timeOut: 3000 }),
     ReactiveFormsModule,

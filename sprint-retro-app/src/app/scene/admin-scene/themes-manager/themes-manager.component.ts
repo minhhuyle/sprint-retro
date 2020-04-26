@@ -11,7 +11,7 @@ export class ThemesManagerComponent implements OnInit {
 
   themes: Theme[];
 
-  selectedThemeToEdit: Theme;
+  selectedTheme: Theme;
 
   constructor(private adminService: AdminService) { }
 
@@ -26,7 +26,7 @@ export class ThemesManagerComponent implements OnInit {
   }
 
   editTheme(themeToEdit: Theme) {
-    this.selectedThemeToEdit = themeToEdit;
+    this.selectedTheme = themeToEdit;
   }
 
   addTheme() {
