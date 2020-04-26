@@ -51,3 +51,5 @@ testem.log
 Thumbs.db
 
 **/npm
+
+memo/**

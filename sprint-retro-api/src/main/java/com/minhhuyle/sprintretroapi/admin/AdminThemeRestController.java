@@ -45,6 +45,7 @@ public class AdminThemeRestController {
     }
 
     @PostMapping(value = "/theme/select")
+    // TODO: 27/04/2020 save and select
     public ResponseEntity selectTheme(@RequestBody AdminThemeIdDTO adminTheme) {
         boolean isOk = adminViewService.authentication(adminTheme);
         if(isOk) {

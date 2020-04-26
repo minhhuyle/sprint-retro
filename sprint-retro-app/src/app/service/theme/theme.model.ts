@@ -3,7 +3,7 @@ class Theme {
   name: string;
   limitTimeToWrite: number;
   writeTime: Date;
-  selectedTheme: Date;
+  selectedTheme: boolean;
   maxPostIt: number;
   maxVote: number;
   boards: Board[];

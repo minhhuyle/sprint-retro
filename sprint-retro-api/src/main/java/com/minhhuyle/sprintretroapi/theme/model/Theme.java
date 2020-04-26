@@ -23,8 +23,7 @@ public class Theme {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date writeTime;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date selectedTheme;
+    private boolean selectedTheme;
 
     private int maxPostIt;
 
@@ -62,11 +61,11 @@ public class Theme {
         this.writeTime = writeTime;
     }
 
-    public Date getSelectedTheme() {
+    public boolean isSelectedTheme() {
         return selectedTheme;
     }
 
-    public void setSelectedTheme(final Date selectedTheme) {
+    public void setSelectedTheme(final boolean selectedTheme) {
         this.selectedTheme = selectedTheme;
     }
 

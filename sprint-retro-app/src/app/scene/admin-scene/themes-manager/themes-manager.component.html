@@ -9,6 +9,7 @@
         <div class="card-header">
           <h5>
             {{theme.name}} <span (click)="editTheme(theme)" class="btn fa fa-pencil-square"></span>
+            <span *ngIf="theme.selectedTheme" class="badge badge-pill badge-success">Activated retro</span>
           </h5>
         </div>
         <div class="card-body">
@@ -20,5 +21,6 @@
   </div>
 
   <br/>
-  <mle-theme-form *ngIf="selectedTheme" [theme]="selectedTheme"></mle-theme-form>
+  <mle-theme-form *ngIf="selectedTheme" [theme]="selectedTheme" (selectThemePostCall)="loadThemes()">
+  </mle-theme-form>
 </div>

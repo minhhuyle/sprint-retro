@@ -68,7 +68,7 @@ public class PostItService {
 
         Optional<PostIt> optionalPostIt = postItDao.findById(postItId);
 
-        Optional<Theme> activatedThemeOpt = themeService.getActivatedTheme();
+        Optional<Theme> activatedThemeOpt = themeService.findSelectedTheme();
 
         if (optionalPostIt.isPresent() && activatedThemeOpt.isPresent()) {
             Theme theme = activatedThemeOpt.get();

@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ThemeDao extends CrudRepository<Theme, Long> {
-    Optional<Theme> findTopBySelectedThemeIsNotNullOrderBySelectedThemeDesc();
+    Optional<Theme> findTopBySelectedThemeIsTrue();
 }

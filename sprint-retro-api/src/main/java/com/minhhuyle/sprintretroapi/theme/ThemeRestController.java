@@ -17,6 +17,6 @@ public class ThemeRestController {
 
     @GetMapping(value = "/active")
     public Theme getActivatedTheme() {
-        return themeService.getActivatedTheme().orElse(null);
+        return themeService.findSelectedTheme().orElse(null);
     }
 }

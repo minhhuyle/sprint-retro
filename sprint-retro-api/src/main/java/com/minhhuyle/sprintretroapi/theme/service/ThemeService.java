@@ -38,7 +38,12 @@ public class ThemeService {
 
     public void selectThemeForRetroAndNotifyClient(final long themeId) {
         Theme theme = themeDao.findById(themeId).orElseThrow(IllegalArgumentException::new);
-        theme.setSelectedTheme(new Date());
+        findSelectedTheme().ifPresent(selectedTheme -> {
+            selectedTheme.setSelectedTheme(false);
+            themeDao.save(selectedTheme);
+        });
+
+        theme.setSelectedTheme(true);
         Theme savedTheme = themeDao.save(theme);
         socketService.notifySockets(SocketMessageType.REFRESH_THEME, savedTheme);
     }
@@ -53,8 +58,8 @@ public class ThemeService {
         socketService.notifySockets(SocketMessageType.WRITE_BOARD_START, theme);
     }
 
-    public Optional<Theme> getActivatedTheme() {
-        return themeDao.findTopBySelectedThemeIsNotNullOrderBySelectedThemeDesc();
+    public Optional<Theme> findSelectedTheme() {
+        return themeDao.findTopBySelectedThemeIsTrue();
     }
 
     public void stopWriteBoard(final long themeId) {

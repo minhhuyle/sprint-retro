@@ -16,12 +16,17 @@ export class ThemesManagerComponent implements OnInit {
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
-    this.getThemes();
+    this.loadThemes();
   }
 
-  getThemes() {
+  loadThemes() {
     this.adminService.getThemes().subscribe(themes => {
       this.themes = themes;
+      if(!this.selectedTheme) {
+        this.selectedTheme = this.themes.find(val => val.selectedTheme);
+      } else if(this.selectedTheme?.id) {
+        this.selectedTheme = this.themes.find(val => val.id === this.selectedTheme.id);
+      }
     })
   }
 
