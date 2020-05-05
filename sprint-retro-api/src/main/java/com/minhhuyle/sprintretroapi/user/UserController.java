@@ -3,10 +3,9 @@ package com.minhhuyle.sprintretroapi.user;
 import com.minhhuyle.sprintretroapi.user.dto.UserDTO;
 import com.minhhuyle.sprintretroapi.user.model.UserView;
 import com.minhhuyle.sprintretroapi.user.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -18,9 +17,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public UserView getUserInfo(@RequestBody UserDTO userDTO) {
-        return userService.getUser(userDTO);
+    @GetMapping
+    public UserView getUserInfo(@AuthenticationPrincipal UserDetails authenticatedUser) {
+        return userService.getUser(authenticatedUser.getUsername());
     }
 
     @PostMapping(value = "/log-in")
@@ -34,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/reset/vote")
-    public void resetUserVote(@RequestBody UserDTO userDTO) {
-        userService.resetUserVote(userDTO.getId());
+    public void resetUserVote(@AuthenticationPrincipal UserDetails authenticatedUser) {
+        userService.resetUserVote(authenticatedUser.getUsername());
     }
 }

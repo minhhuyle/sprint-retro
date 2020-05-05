@@ -24,6 +24,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         });
 
         // TODO: 22/04/2020 add encoder
-        return  User.withDefaultPasswordEncoder().username(userView.getUserName()).password(userView.getPassword()).roles().build();
+        return  User.withDefaultPasswordEncoder()
+                .username(userView.getUserName())
+                .password(userView.getPassword())
+                .roles().build();
     }
 }

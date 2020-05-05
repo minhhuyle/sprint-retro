@@ -19,8 +19,8 @@ export class UserService implements CanActivate {
     return this.http.post<HttpResponse<any>>(this.serverUrl+ '/log-in', user , {observe: 'response'});
   }
 
-  loadUserInfo(user: User): Observable<any> {
-    return this.http.post<HttpResponse<any>>(this.serverUrl, user);
+  loadUserInfo(): Observable<any> {
+    return this.http.get<HttpResponse<any>>(this.serverUrl);
   }
 
   signUp(user: User) : Observable<any> {
@@ -28,7 +28,7 @@ export class UserService implements CanActivate {
   }
 
   resetUserVotes() {
-    return this.http.post(this.serverUrl+ '/reset/vote', {id: this.getUser().id});
+    return this.http.post(this.serverUrl+ '/reset/vote', null);
   }
 
   setLoggedUser(user) {
@@ -68,7 +68,7 @@ export class UserService implements CanActivate {
   }
 
   reloadUser() {
-    return this.loadUserInfo(this.user);
+    return this.loadUserInfo();
   }
 
   setToken(token: string) {

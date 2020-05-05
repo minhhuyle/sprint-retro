@@ -52,7 +52,7 @@ export class LoginSceneComponent implements OnInit {
           if(headerAuthorization?.length === 2) {
             this.userService.setToken(headerAuthorization[1]);
           }
-          return this.userService.loadUserInfo(this.getUserForm());
+          return this.userService.loadUserInfo();
         }),
         catchError(() => {
           this.toastService.errorTitle('Cannot log in');

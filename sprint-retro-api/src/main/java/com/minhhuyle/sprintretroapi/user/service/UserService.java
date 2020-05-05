@@ -34,14 +34,8 @@ public class UserService {
         return userViewDao.save(userView);
     }
 
-    public UserView getUser(final UserDTO userDTO) {
-        UserView user = getByUserName(userDTO);
-
-        if(!user.getPassword().equals(userDTO.getPassword())) {
-            throw new IllegalStateException("Cannot log in");
-        }
-
-        return user;
+    public UserView getUser(final String userName) {
+        return userViewDao.findByUserName(userName).orElseThrow(() -> new IllegalStateException("State not allowed something is wrong"));
     }
 
     @Deprecated
@@ -68,8 +62,8 @@ public class UserService {
         return userLogged;
     }
 
-    public void resetUserVote(final Long id) {
-        UserView user = userViewDao.findById(id).orElseThrow(() -> new IllegalStateException("State not allowed something is wrong"));
+    public void resetUserVote(final String userName) {
+        UserView user = userViewDao.findByUserName(userName).orElseThrow(() -> new IllegalStateException("State not allowed something is wrong"));
         votedPostItUserService.deleteAllAndNotifySockets(new ArrayList<>(user.getVotedLink()));
     }
 

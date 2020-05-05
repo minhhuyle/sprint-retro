@@ -2,9 +2,12 @@ package com.minhhuyle.sprintretroapi.config.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -13,12 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static com.minhhuyle.sprintretroapi.config.security.SecurityConstant.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-    public JWTAuthorizationFilter(AuthenticationManager authManager) {
+    private UserDetailsService userDetailsService;
+
+    public JWTAuthorizationFilter(AuthenticationManager authManager, UserDetailsService userDetailsService) {
         super(authManager);
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -41,17 +48,29 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null && !TOKEN_PREFIX.equalsIgnoreCase(token)) {
-            // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
+            Optional<UserDetails> userOpt = findUserBy(token);
 
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-            }
-            return null;
+            return userOpt.map(userDetails -> new UsernamePasswordAuthenticationToken(userDetails, null, new ArrayList<>()))
+                    .orElse(null);
         }
         return null;
+    }
+
+    private Optional<UserDetails> findUserBy(final String token) {
+        // parse the token.
+        String username = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                .build()
+                .verify(token.replace(TOKEN_PREFIX, ""))
+                .getSubject();
+
+        if(username == null) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(userDetailsService.loadUserByUsername(username));
+        } catch (Exception ex) {
+            return Optional.empty();
+        }
     }
 }
