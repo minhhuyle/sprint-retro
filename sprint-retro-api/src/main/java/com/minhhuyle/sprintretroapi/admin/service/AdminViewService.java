@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 // TODO: 12/04/2020 refactor ?
 @Service
@@ -69,6 +70,15 @@ public class AdminViewService {
         return false;
     }
 
+    public boolean authentication(final String userName) {
+        UserView user = userService.getUser(userName);
+        if (user != null) {
+            return Role.ADMIN.equals(user.getRole());
+        }
+
+        return false;
+    }
+
     @Deprecated
     public boolean authentication(final UserView userView) {
         UserView user = userService.logIn(userView);
@@ -110,5 +120,26 @@ public class AdminViewService {
 
     public void stopWriteBoard(final long themeId) {
         themeService.stopWriteBoard(themeId);
+    }
+
+    public List<UserDTO> getUsers() {
+        List<UserView> users = userService.getUsers();
+
+        return users.stream().map(UserDTO::extractFrom).collect(Collectors.toList());
+    }
+
+    public UserView createSimpleUser(final UserDTO userDTO) {
+        if(userDTO.getUserName() == null || userDTO.getPassword() == null || userDTO.getId() != null) {
+            throw new IllegalStateException("Cannot create user");
+        }
+
+        userService.findUser(userDTO.getUserName().toLowerCase())
+                .ifPresent(userValue -> {throw new IllegalStateException("Cannot create user");});
+
+        UserView userView = new UserView();
+        userView.setUserName(userDTO.getUserName().toLowerCase());
+        userView.setRole(Role.USER);
+        userView.setPassword(userDTO.getPassword());
+        return userService.save(userView);
     }
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../user/user.service';
 import { environment } from '../../../environments/environment';
 import { Theme } from '../theme/theme.model';
+import { User } from '../user/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,14 @@ export class AdminService {
 
   resetAllVotes() : Observable<any> {
     return this.http.post(this.serverUrl + '/boards/post-its/reset-votes', this.getAdminAuth());
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.serverUrl + '/users');
+  }
+
+  createUser(user: User) : Observable<User> {
+    return this.http.post<User>(this.serverUrl+ '/user', user);
   }
 
   private getAdminAuth() {

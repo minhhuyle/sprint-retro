@@ -1,7 +1,8 @@
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-themes-manager-tab" data-toggle="tab" href="#nav-themes-manager" role="tab" aria-controls="nav-home" aria-selected="true">Themes Manager</a>
-    <a class="nav-item nav-link" id="nav-boards-manager-tab" data-toggle="tab" href="#nav-boards-manager" role="tab" aria-controls="nav-profile" aria-selected="false">Boards Manager</a>
+    <a class="nav-item nav-link" id="nav-boards-manager-tab" data-toggle="tab" href="#nav-boards-manager" role="tab" aria-controls="nav-profile">Boards Manager</a>
+    <a class="nav-item nav-link" id="users-boards-manager-tab" data-toggle="tab" href="#users-boards-manager" role="tab" aria-controls="nav-profile">Users Manager</a>
   </div>
 </nav>
 <br/>
@@ -12,5 +13,8 @@
   <div class="tab-pane fade" id="nav-boards-manager" role="tabpanel" aria-labelledby="nav-boards-manager-tab">
     <span (click)="resetAllPostIts()" class="btn btn-danger fa fa-trash"> Reset All Post Its </span><br/><br/>
     <span (click)="resetAllVotes()" class="btn btn-danger fa fa-trash"> Reset All Votes</span>
+  </div>
+  <div class="tab-pane fade" id="users-boards-manager" role="tabpanel" aria-labelledby="users-boards-manager-tab">
+    <mle-users-manager></mle-users-manager>
   </div>
 </div>

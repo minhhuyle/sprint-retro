@@ -1,0 +1,51 @@
+<div class="col-sm alert row" role="alert">
+
+  <div class="col-sm-4">
+    <div class="card">
+      <h5 class="card-header">Users <button type="button" class="btn btn-primary" (click)="addUser()">+</button></h5>
+
+      <ul class="list-group">
+        <li *ngFor="let user of users"
+            (click)="selectUserToEdit(user)"
+            [ngClass]="isSelected(user)"
+            class="list-group-item btn">
+           {{user.userName}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="col-sm-8 card" *ngIf="selectedUser">
+    <form class="card-body form-horizontal" [formGroup]="userForm" (submit)="saveUserForm()">
+      <div class="form-group row col-sm-10">
+        <label class="col-sm-2 col-form-label" for="inputUserName">UserName</label>
+
+        <div class="col-sm-10">
+          <input type="text" formControlName="userName"
+                 [readOnly]="isEditUserMode()"
+                 class="form-control" id="inputUserName" placeholder="UserName">
+        </div>
+      </div>
+
+      <div class="form-group row col-sm-10">
+        <label class="col-sm-2 col-form-label" for="inputPassword">Password</label>
+        <div class="col-sm-10">
+          <input type="password" formControlName="password" class="form-control" id="inputPassword" placeholder="Password">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-5">
+          <button type="submit" [disabled]="!userForm.valid"
+                  [ngClass]="userForm.valid ? 'btn-primary' : 'btn-secondary'"
+                  class="btn col-md-11">Create User/Save Update</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+

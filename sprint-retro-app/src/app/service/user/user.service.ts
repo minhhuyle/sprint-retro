@@ -23,10 +23,6 @@ export class UserService implements CanActivate {
     return this.http.get<HttpResponse<any>>(this.serverUrl);
   }
 
-  signUp(user: User) : Observable<any> {
-    return this.http.post(this.serverUrl+ '/sign-up', user);
-  }
-
   resetUserVotes() {
     return this.http.post(this.serverUrl+ '/reset/vote', null);
   }

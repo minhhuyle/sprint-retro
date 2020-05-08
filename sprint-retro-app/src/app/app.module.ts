@@ -23,6 +23,7 @@ import { ThemesManagerComponent } from './scene/admin-scene/themes-manager/theme
 import { ThemeFormComponent } from './scene/admin-scene/themes-manager/theme-form/theme-form.component';
 import { BoardsFormComponent } from './scene/admin-scene/themes-manager/theme-form/boards-form/boards-form.component';
 import { AuthenticationHttpInterceptorService } from './interceptor/authentication-http-interceptor.service';
+import { UsersManagerComponent } from './scene/admin-scene/users-manager/users-manager.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AuthenticationHttpInterceptorService } from './interceptor/authenticati
     BoardsFormComponent,
     ExportBoardsComponent,
     ThemesManagerComponent,
-    ThemeFormComponent
+    ThemeFormComponent,
+    UsersManagerComponent
   ],
   imports: [
     ReactiveFormsModule,

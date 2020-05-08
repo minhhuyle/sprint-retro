@@ -64,12 +64,4 @@ export class LoginSceneComponent implements OnInit {
         })
       ).subscribe();
   }
-
-  signUp() {
-    this.userService.signUp(this.getUserForm()).subscribe(() => {
-      this.logIn();
-    }, () => {
-      this.toastService.errorTitle('Cannot sign up');
-    });
-  }
 }

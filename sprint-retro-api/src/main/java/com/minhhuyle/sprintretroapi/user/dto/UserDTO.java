@@ -1,6 +1,7 @@
 package com.minhhuyle.sprintretroapi.user.dto;
 
 import com.minhhuyle.sprintretroapi.user.model.Role;
+import com.minhhuyle.sprintretroapi.user.model.UserView;
 
 public class UserDTO {
     private Long id;
@@ -48,5 +49,13 @@ public class UserDTO {
 
     public void setTotalVotedPostIts(final long totalVotedPostIts) {
         this.totalVotedPostIts = totalVotedPostIts;
+    }
+
+    public static UserDTO extractFrom(final UserView userView) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(userView.getId());
+        userDTO.setUserName(userView.getUserName());
+        userDTO.setRole(userView.getRole());
+        return userDTO;
     }
 }

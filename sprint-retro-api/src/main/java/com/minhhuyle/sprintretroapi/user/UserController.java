@@ -27,11 +27,6 @@ public class UserController {
         return userService.logIn(userDTO);
     }
 
-    @PostMapping(value = "/sign-up")
-    public UserView signUp(@RequestBody UserView userView) {
-        return userService.createSimpleUser(userView);
-    }
-
     @PostMapping(value = "/reset/vote")
     public void resetUserVote(@AuthenticationPrincipal UserDetails authenticatedUser) {
         userService.resetUserVote(authenticatedUser.getUsername());
