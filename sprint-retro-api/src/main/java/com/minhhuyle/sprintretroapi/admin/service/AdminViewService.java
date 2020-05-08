@@ -128,8 +128,12 @@ public class AdminViewService {
         return users.stream().map(UserDTO::extractFrom).collect(Collectors.toList());
     }
 
-    public UserView createSimpleUser(final UserDTO userDTO) {
-        if(userDTO.getUserName() == null || userDTO.getPassword() == null || userDTO.getId() != null) {
+    public UserView createUser(final UserDTO userDTO) {
+        // TODO: 08/05/2020 design pattern here
+        if(userDTO.getUserName() == null
+                || userDTO.getPassword() == null
+                || userDTO.getId() != null
+                || userDTO.getRole() == null) {
             throw new IllegalStateException("Cannot create user");
         }
 
@@ -138,7 +142,7 @@ public class AdminViewService {
 
         UserView userView = new UserView();
         userView.setUserName(userDTO.getUserName().toLowerCase());
-        userView.setRole(Role.USER);
+        userView.setRole(userDTO.getRole());
         userView.setPassword(userDTO.getPassword());
         return userService.save(userView);
     }

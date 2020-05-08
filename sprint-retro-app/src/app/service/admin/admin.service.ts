@@ -58,6 +58,11 @@ export class AdminService {
     return this.http.post<User>(this.serverUrl+ '/user', user);
   }
 
+  // todo enum
+  getRoles() : Observable<string[]> {
+    return this.http.get<string[]>(this.serverUrl+ '/user/roles');
+  }
+
   private getAdminAuth() {
     const {userName, password} = this.userService.getUser();
     return {userName, password};

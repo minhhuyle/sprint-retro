@@ -14,6 +14,9 @@ export class UsersManagerComponent implements OnInit {
   users: User[] = [];
   selectedUser : User;
   userForm: FormGroup;
+  // todo enum
+  roles: string[];
+
   private mode: UsersManagerMode;
 
   constructor(private adminService: AdminService,
@@ -22,12 +25,14 @@ export class UsersManagerComponent implements OnInit {
   ) {
     this.userForm =  this.formBuilder.group({
       "userName": ['', Validators.required],
-      "password": ['', Validators.required]
+      "password": ['', Validators.required],
+      "role": ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.adminService.getUsers().subscribe(result => this.users = result);
+    this.adminService.getRoles().subscribe(roles => this.roles = roles);
   }
 
   addUser() {
@@ -45,7 +50,8 @@ export class UsersManagerComponent implements OnInit {
   private resetUserForm() {
     this.userForm.patchValue({
       userName: '',
-      password: ''
+      password: '',
+      role: '',
     });
   }
 
@@ -81,8 +87,8 @@ export class UsersManagerComponent implements OnInit {
     }
   }
 
-  private getUserForm() {
-    const {userName, password } = this.userForm.value;
-    return {userName, password};
+  private getUserForm(): User {
+    const {userName, password, role } = this.userForm.value;
+    return {userName, password, role};
   }
 }

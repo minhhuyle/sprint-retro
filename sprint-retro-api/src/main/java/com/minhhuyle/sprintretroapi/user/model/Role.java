@@ -2,8 +2,7 @@ package com.minhhuyle.sprintretroapi.user.model;
 
 public enum Role {
     ADMIN("ADMIN"),
-    USER("USER"),
-    VIEWER("USER");
+    USER("USER");
 
     private String name;
 
