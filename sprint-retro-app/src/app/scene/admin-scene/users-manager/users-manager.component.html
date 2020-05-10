@@ -1,4 +1,4 @@
-<div class="col-sm alert row" role="alert">
+<div class="col-sm alert row user-container" role="alert">
 
   <div class="col-sm-4">
     <div class="card">
@@ -17,10 +17,11 @@
 
   <div class="col-sm-8 card" *ngIf="selectedUser">
     <form class="card-body form-horizontal" [formGroup]="userForm" (submit)="saveUserForm()">
+      <h3 class="card-title">{{getFormTitle()}}</h3>
       <div class="form-group row col-sm-10">
-        <label class="col-sm-2 col-form-label" for="inputUserName">UserName</label>
+        <label class="col-sm-3 col-form-label" for="inputUserName">UserName</label>
 
-        <div class="col-sm-10">
+        <div class="col-sm-9">
           <input type="text" formControlName="userName"
                  [readOnly]="isEditUserMode()"
                  class="form-control" id="inputUserName" placeholder="UserName">
@@ -28,17 +29,17 @@
       </div>
 
       <div class="form-group row col-sm-10">
-        <label class="col-sm-2 col-form-label" for="inputPassword">Password</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label" for="inputPassword">Password</label>
+        <div class="col-sm-9">
           <input type="password" formControlName="password" class="form-control" id="inputPassword" placeholder="Password">
         </div>
       </div>
 
       <div class="form-group row col-sm-10">
-        <label class="col-sm-2 col-form-label" for="inputRole">Role</label>
+        <label class="col-sm-3 col-form-label" for="inputRole">Role</label>
         <div class="col-sm-4">
           <select class="form-control" formControlName="role" id="inputRole">
-            <option *ngFor="let role of roles" [value]="role">
+            <option *ngFor="let role of roles" [value]="role"  [disabled]="isNotAllowToChangeRole()">
               {{role}}
             </option>
           </select>
@@ -46,8 +47,8 @@
 
       </div>
 
-      <div class="form-group row">
-        <div class="col-5">
+      <div class="form-group row col-sm-10">
+        <div class="offset-sm-5 col-sm-7">
           <button type="submit" [disabled]="!userForm.valid"
                   [ngClass]="userForm.valid ? 'btn-primary' : 'btn-secondary'"
                   class="btn col-md-11">Create User/Save Update</button>

@@ -31,14 +31,21 @@ export class UsersManagerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.adminService.getUsers().subscribe(result => this.users = result);
+    this.reloadUsers();
     this.adminService.getRoles().subscribe(roles => this.roles = roles);
+  }
+
+  private reloadUsers(){
+    this.adminService.getUsers().subscribe(result => this.users = result);
   }
 
   addUser() {
     this.selectedUser = new User();
     this.mode = UsersManagerMode.CreateUser;
     this.resetUserForm();
+    const passwordControl = this.userForm.get('password');
+    passwordControl.setValidators(Validators.required);
+    passwordControl.updateValueAndValidity();
   }
 
   private resetCompleteState() {
@@ -56,11 +63,15 @@ export class UsersManagerComponent implements OnInit {
   }
 
   selectUserToEdit(user: User) {
-    /*this.selectedUser = user;
+    this.selectedUser = user;
     this.mode = UsersManagerMode.EditUser;
     this.userForm.patchValue({
       userName: this.selectedUser.userName,
-    });*/
+      role: this.selectedUser.role,
+    });
+    const passwordControl = this.userForm.get('password');
+    passwordControl.clearValidators();
+    passwordControl.updateValueAndValidity();
   }
 
   isSelected(user: User): string{
@@ -83,12 +94,30 @@ export class UsersManagerComponent implements OnInit {
             this.toastService.errorTitle(`Cannot creat User:${this.userForm.get('userName').value} !`);
           });
         break;
-      case UsersManagerMode.EditUser: break;
+      case UsersManagerMode.EditUser:
+        this.adminService.updateUser(this.getUserForm()).subscribe(
+          userUpdated => {
+            this.toastService.successTitle(`You have successfully updated User:${userUpdated.userName} !`);
+            this.resetCompleteState();
+            this.reloadUsers();
+          }, () => {
+            this.toastService.errorTitle(`Cannot update User:${this.userForm.get('userName').value} !`);
+          });
+        break;
     }
   }
 
   private getUserForm(): User {
     const {userName, password, role } = this.userForm.value;
     return {userName, password, role};
+  }
+
+  getFormTitle(): string{
+    return this.isEditUserMode() ? `Update User ${this.selectedUser.userName}` : 'Create new User';
+  }
+
+  isNotAllowToChangeRole(): boolean {
+    // todo enum
+    return this.isEditUserMode() && this.selectedUser.role === 'ADMIN';
   }
 }

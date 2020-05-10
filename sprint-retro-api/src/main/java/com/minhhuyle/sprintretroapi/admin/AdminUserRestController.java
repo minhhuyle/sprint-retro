@@ -32,13 +32,24 @@ public class AdminUserRestController {
     }
 
     @PostMapping(value = "/user")
-    public UserView signUp(@AuthenticationPrincipal UserDetails authenticatedUser, @RequestBody UserDTO userDTO) {
+    public UserDTO createUser(@AuthenticationPrincipal UserDetails authenticatedUser, @RequestBody UserDTO userDTO) {
         boolean isOk = adminViewService.authentication(authenticatedUser.getUsername());
         if(!isOk) {
             throw new IllegalStateException("Not allowed");
         }
 
-        return adminViewService.createUser(userDTO);
+        return UserDTO.extractFrom(adminViewService.createUser(userDTO));
+    }
+
+    @PutMapping(value = "/user")
+    public UserDTO updateUser(@AuthenticationPrincipal UserDetails authenticatedUser, @RequestBody UserDTO userDTO) {
+        boolean isOk = adminViewService.authentication(authenticatedUser.getUsername());
+        if(!isOk) {
+            throw new IllegalStateException("Not allowed");
+        }
+
+        UserView userUpdated = adminViewService.updateUser(userDTO);
+        return UserDTO.extractFrom(userUpdated);
     }
 
     @GetMapping(value = "/user/roles")
@@ -50,6 +61,4 @@ public class AdminUserRestController {
 
         return Arrays.asList(Role.values());
     }
-
-
 }

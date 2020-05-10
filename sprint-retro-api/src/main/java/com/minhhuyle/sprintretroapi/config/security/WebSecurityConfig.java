@@ -15,7 +15,7 @@ import static com.minhhuyle.sprintretroapi.config.security.SecurityConstant.LOGI
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] STATIC_RESOURCES_PATHS = new String[]{"/", "/*.js", "/*.ico", "/*.css", "/*.txt", "/*.eot", "/*.svg", "/*.woff*", "/*.ttf"};
-    private static final String[] USER_LOG_PATHS = new String[]{LOGIN_IN_PATH, "/user/sign-up"};
+    private static final String[] USER_LOG_PATHS = new String[]{LOGIN_IN_PATH};
 
     private UserDetailsServiceImpl userDetailsService;
     //private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -27,7 +27,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
+        http.cors().configurationSource(request -> {
+            CorsConfiguration corsConfiguration = new CorsConfiguration();
+            corsConfiguration.applyPermitDefaultValues().addAllowedMethod("*");
+            return corsConfiguration;
+        }).and().csrf().disable().authorizeRequests()
                 .antMatchers(USER_LOG_PATHS).permitAll()
                 .antMatchers("/socket/**").permitAll()
                 .antMatchers(STATIC_RESOURCES_PATHS).permitAll()

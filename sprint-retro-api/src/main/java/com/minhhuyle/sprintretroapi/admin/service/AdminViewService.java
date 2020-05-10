@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -145,5 +146,23 @@ public class AdminViewService {
         userView.setRole(userDTO.getRole());
         userView.setPassword(userDTO.getPassword());
         return userService.save(userView);
+    }
+
+    public UserView updateUser(final UserDTO userDTO) {
+        if(userDTO.getUserName() == null) {
+            throw new IllegalStateException("Cannot update user");
+        }
+
+        UserView user = userService.getUser(userDTO.getUserName());
+        if(Role.ADMIN.equals(user.getRole()) && !user.getRole().equals(userDTO.getRole())) {
+            throw new IllegalStateException("Not allowed to change role of admin user");
+        }
+
+        user.setRole(userDTO.getRole());
+        if(StringUtils.isEmpty(userDTO.getPassword())) {
+            user.setPassword(userDTO.getPassword());
+        }
+
+        return userService.save(user);
     }
 }

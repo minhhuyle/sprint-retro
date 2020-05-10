@@ -58,6 +58,10 @@ export class AdminService {
     return this.http.post<User>(this.serverUrl+ '/user', user);
   }
 
+  updateUser(user: User) : Observable<User> {
+    return this.http.put<User>(this.serverUrl+ '/user', user);
+  }
+
   // todo enum
   getRoles() : Observable<string[]> {
     return this.http.get<string[]>(this.serverUrl+ '/user/roles');
